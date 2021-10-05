@@ -1,0 +1,63 @@
+---
+title: " Adding species to stdpopsim "
+author:
+  - name:
+    affiliation:
+  - name:
+    affiliation:
+  - name:
+    affiliation:
+output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+    number_sections: yes
+bibliography: references.bib
+keywords: ""
+#date: "`r format(Sys.time(), '%B %d, %Y')`"
+geometry: margin=1in
+fontsize: 11pt
+layout: review
+preamble: |
+  \usepackage[nomarkers]{endfloat}
+  \linenumbers
+  \usepackage{setspace}
+  \doublespacing
+---
+
+# Outline
+* recap goals and structure of stdpopsim
+  + two sets of goals:
+    - methods development/testing
+    - inference (this is perhaps the major goal this paper is addressing?)
+    - arguably adding species opens stdpopsim to the community whose primary concern is inference rather than methods development
+* discussion of resources necessary to simulate/add species
+  + recombination map
+  + annotation
+  + assembly
+    - not just contigs
+  + demographic model?
+    - at least reasonable Ne
+* discussion of types of species in terms of:
+  + available resources
+  + what goal adding the species would address
+* description of how to add a species to the catalog and/or write a yaml for a new species
+  + this will depend on how we're ultimately moving forward - using the current python-based method, or switching to a yaml-based method
+
+
+# Abstract
+
+
+# Introduction
+
+
+# Methods
+
+
+# Results
+
+
+# Discussion
+
+
+# References
