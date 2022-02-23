@@ -1,0 +1,255 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  11pt,
+]{article}
+\title{Adding species to stdpopsim}
+\author{true \and true \and true}
+\date{}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Adding species to stdpopsim},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{outline}{%
+\section{Outline}\label{outline}}
+
+\begin{itemize}
+\tightlist
+\item
+  recap goals and structure of stdpopsim
+
+  \begin{itemize}
+  \tightlist
+  \item
+    two sets of goals:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      methods development/testing
+    \item
+      inference (this is perhaps the major goal this paper is
+      addressing?)
+    \item
+      arguably adding species opens stdpopsim to the community whose
+      primary concern is inference rather than methods development
+    \end{itemize}
+  \end{itemize}
+\item
+  discussion of resources necessary to simulate/add species
+
+  \begin{itemize}
+  \tightlist
+  \item
+    recombination map
+  \item
+    annotation
+  \item
+    assembly
+
+    \begin{itemize}
+    \tightlist
+    \item
+      not just contigs
+    \end{itemize}
+  \item
+    demographic model?
+
+    \begin{itemize}
+    \tightlist
+    \item
+      at least reasonable Ne
+    \end{itemize}
+  \end{itemize}
+\item
+  discussion of types of species in terms of:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    available resources
+  \item
+    what goal adding the species would address
+  \end{itemize}
+\item
+  description of how to add a species to the catalog and/or write a yaml
+  for a new species
+
+  \begin{itemize}
+  \tightlist
+  \item
+    this will depend on how we're ultimately moving forward - using the
+    current python-based method, or switching to a yaml-based method
+  \end{itemize}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Overall goals and structure of stdpopsim A. stdpopsim is a
+  community-maintained resource intended to provide easy access to
+  simulation frameworks
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \tightlist
+  \item
+    coding population genetic simulation models can be arduous and
+    error-prone, so stdpopsim provides a way to:
+  \end{enumerate}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    avoid re-making common models
+  \item
+    provide standard benchmarks for methods development and testing
+  \end{itemize}
+
+  \begin{enumerate}
+  \def\labelenumii{\roman{enumii}.}
+  \setcounter{enumii}{1}
+  \tightlist
+  \item
+    and a resource for empirical researchers, eg. power analyses or
+    sanity checks (Adrion et al.~2020) B. feedback from 2020/2021
+    workshops made it clear that the prospective community included
+    empiricists who are especially concerned with using stdpopsim for
+    inference for individual species that mostly not already in
+    stdpopsim catalog
+  \end{enumerate}
+\item
+  Community-based expansion of the number and variety of species and
+  their demographic scenarios included in the stdpopsim catalog is
+  useful for both of these major goals shared by the population genetics
+  community, methods development and inference A. when first published,
+  the stdpopsim catalog included 6 species: \emph{Homo sapiens},
+  \emph{Pongo abelii}, \emph{Canis familiaris}, \emph{Drosophila
+  melanogaster}, \emph{Arabidopsis thaliana}, and \emph{Escherichia
+  coli.}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    when did additional demographic scenarios start getting added? B. in
+    April 2021 we held a ``Growing the Zoo'' hackathon to involve the
+    community in adding additional species and demographic scenarios of
+    interest
+  \item
+    the catalog now includes an additional \textbf{X} species (how many?
+    the catalog doc still only includes the original 6?), as well as
+    multiple demographic scenarios for \emph{Homo sapiens}, \emph{Pongo
+    abelii}, \emph{Drosophila melanogaster}, and \emph{Arabidopsis
+    thaliana.} (others?)
+  \item
+    however there were some species that were not ideal for inclusion in
+    the catalog, because they don't yet have the necessary genomic
+    resources C. stdpopsim has become a popular resource and there is
+    clearly a desire/need for adding additional species for both goals
+    of methods development and empirical inference
+  \item
+    choosing species/demographic scenarios to add is potentially
+    challenging
+  \item
+    for methods development, they have to be appropriate for the goals
+    of the method
+  \item
+    for empirical studies, the species is obvious, but whether it is
+    appopriate for inclusion in the catalog or even to use stdpopsim may
+    be less clear
+  \end{itemize}
+\item
+  Therefore this paper is intended as a resource for both methods
+  developers and empirical researchers to choose and add appropriate
+  species (and demographic scenarios) to the stdpopsim catalog A. builds
+  off the ``Growing the Zoo'' hackathon, held along side probgen in
+  April 2021
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    what we learned from the hackathon (and workshops)?
+  \end{enumerate}
+\end{enumerate}
+
+\hypertarget{abstract}{%
+\section{Abstract}\label{abstract}}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\end{document}
