@@ -40,7 +40,7 @@ preamble: |
 
     -   feedback from 2020/2021 workshops made it clear that the prospective community included empiricists who are especially concerned with using stdpopsim for inference for individual species that mostly not already in stdpopsim catalog
 
-2.  Community-based expansion of the number and variety of species and their demographic scenarios included in the stdpopsim catalog is useful for both of these major goals shared by the population genetics community, methods development and inference **ELISE**
+2.  **ELISE** Community-based expansion of the number and variety of species and their demographic scenarios included in the stdpopsim catalog is useful for both of these major goals shared by the population genetics community, methods development and inference 
 
     -   when first published, the stdpopsim catalog included 6 species: *Homo sapiens*, *Pongo abelii*, *Canis familiaris*, *Drosophila melanogaster*, *Arabidopsis thaliana*, and *Escherichia coli.*
 
@@ -57,7 +57,7 @@ preamble: |
         -   for methods development, they have to be appropriate for the goals of the method
         -   for empirical studies, the species is obvious, but whether it is appropriate for inclusion in the catalog or even to use stdpopsim may be less clear
 
-3.  Therefore this paper is intended as a resource for both methods developers and empirical researchers to choose and add appropriate species (and demographic scenarios) to the stdpopsim catalog **ELISE**
+3.   **ELISE** Therefore this paper is intended as a resource for both methods developers and empirical researchers to choose and add appropriate species (and demographic scenarios) to the stdpopsim catalog
 
     -   builds off the "Growing the Zoo" hackathon, held along side probgen in April 2021
 
