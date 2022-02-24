@@ -25,6 +25,33 @@ preamble: |
   \doublespacing
 ---
 
+# Abstract
+Simulation is one of the key tools in population genetics, and
+is useful for [all sorts of things].
+As more and more information about many species becomes available
+and more detailed models estimated,
+the need for more and more detailed simulations of a wide range
+of species becomes more acute.
+The recently developed stdpopsim tool makes it easy to simulate
+complex models using up to date information for a number of
+well characterised and model organisms such as humans, etc,
+but provides little help in enabling simulations for less
+well characterised organisms.
+Many users wish to simulate their study organism, but do not
+know what information is required in order to do this and
+where this information might be found.
+In this paper we discuss the elements of a population genetic
+simulation model, and the input data required in order to make
+them a realistic characterisation of a particular species.
+We discuss how such information is integrated into the
+stdpopsim catalog, and some of the lessons learned from a
+recent effort to expand the range of supported species.
+Thus, this paper serves as a tutorial in both how to
+assemble the data that is required in order to simulate
+a species, and how this information can be incorporated
+into the stdpopsim catalog in order to make it available
+to everyone.
+
 # Outline
 
 1.  Overall goals and structure of stdpopsim
@@ -40,7 +67,7 @@ preamble: |
 
     -   feedback from 2020/2021 workshops made it clear that the prospective community included empiricists who are especially concerned with using stdpopsim for inference for individual species that mostly not already in stdpopsim catalog
 
-2.  **ELISE** Community-based expansion of the number and variety of species and their demographic scenarios included in the stdpopsim catalog is useful for both of these major goals shared by the population genetics community, methods development and inference 
+2.  **ELISE** Community-based expansion of the number and variety of species and their demographic scenarios included in the stdpopsim catalog is useful for both of these major goals shared by the population genetics community, methods development and inference
 
     -   when first published, the stdpopsim catalog included 6 species: *Homo sapiens*, *Pongo abelii*, *Canis familiaris*, *Drosophila melanogaster*, *Arabidopsis thaliana*, and *Escherichia coli.*
 
