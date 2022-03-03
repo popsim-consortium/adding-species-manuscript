@@ -69,7 +69,7 @@ preamble: |
 
     -   therefore in this paper we present the current method for adding species and demographic scenarios to the catalog and clarify the required genomic resources
 
-4.  Adding species/demographic scenarios to the catalog
+4.  **Izabel**  Adding species/demographic scenarios to the catalog
 
     -   necessary resources:
 
