@@ -70,7 +70,20 @@ preamble: |
     -   therefore in this paper we present the current method for adding species and demographic scenarios to the catalog and clarify the required genomic resources
 
 4.  **Izabel**  Adding species/demographic scenarios to the catalog
+ 
 
+To include a species into the stdpopsim catalog it is required that the species has at least: 
+- (1) a **genome assembly**, with contigs being assembled at the chromosome level or nearly so. By using chromosome level information to simulate genomes,  stdpopsim indirectly simulates the effect of linked selection. [maybe discussion next text -> ] In the near future this won't be a problem for multiple species, since with (i) the advent of long-read sequencing technologies [ref] and because of (ii) initiatives such as B10K, XXXX, and G10K near XXX error-free reference genome assemblies [Rhie et al, 2021, REF, REF] spanning more than XXX vertebrate species are expected to be generated.  
+- (2) It also requires that the species has a plausible and citeable **mutation rate** estimate. Both phylogenetic mutation rate [ref], germline *de novo* mutations, or mutation rates estimates based on mutation accumulation studies [ref] are welcomed. [commment: using the mutation rate of a closely related species is not a big deal, either??? I know you guys use the drosophila one for the anopheles].
+- (4) Since both mutation and recombination shape the genetic diversity of genomes, stdpopsim also requests a **recombination rate** estimate for the species. Ideally, a chromosome level recombination map--e.g., allowing to more precisely infer the effect of selective interference--or at least a citeable single recombination rate estimate.
+- (3) A generation time estimate (in years).
+- (5) Population-size history also shapes the levels of diversity in a given population/genome. For this reason, to accurately simulate genomes, stdpopsim also expects that the species has a citeable **demographic model**, or at least a plausible and citeable **effective population size** (Ne).
+
+Users can also add other attributes of a species to the catalog that are not strictly required but are useful when simulating genomes, such as:
+- (6) **Genome annotation**, such as a GFF3/GFF format [ref] containing information about the coordinates of coding and noncoding regions; and the position of specific genes. 
+- (7) A citeable **distribution of fitness effects** (DFE, REF) for the species. This feature is particularly useful when simulating genomes under non-neutral models. 
+
+Extra: annotation and DFE
     -   necessary resources:
 
         -   genome assembly
