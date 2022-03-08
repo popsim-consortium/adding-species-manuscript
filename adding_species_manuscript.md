@@ -56,8 +56,7 @@ preamble: |
             - this needs to be chromosome level, or nearly so
             - contigs are not sufficient because:
                 - lack of linkage information limits their use for inference
-                - current limitations to the Python API/command line (eg. it complicates displaying and choosing what chromosome (contig) to use)
-                - current limitations on how the catalog is deployed (eg. all species go with stdpopsim when installed, adding a million contigs would make that more difficult for people who don't need them)
+                - (see below for further discussion of species with contig-level assemblies)
         - a plausible, citeable mutation rate
         - recombination map - or at least a plausible, citeable, recombination rate
         - a citeable demographic model, or at least a plausible, citeable, effective population size
@@ -66,6 +65,7 @@ preamble: |
     - what about species that don't have some of those resources?
         - if everything is available except the genome is contig-level (and no recombination map):
             -   would want to choose just a few of the most important or longest contigs to simulate
+            -   https://github.com/popsim-consortium/adding-species-manuscript/issues/1#issuecomment-1050081855
             -   might be more appropriate to just simulate a locus of appropriate length
             
 4. **ELISE** Lessons from "Growing the Zoo" hackathon, held along side probgen in April 2021
