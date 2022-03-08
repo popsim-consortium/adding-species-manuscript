@@ -50,47 +50,25 @@ preamble: |
         -   we present the current method for adding species and demographic scenarios to the catalog 
         -   and clarify the required genomic resources and QC process
 
-
 3.   Making a popgen simulation
-
-    -   necessary resources:
-
-        -   genome assembly
-
-            -   this needs to be chromosome level, or nearly so
-
-            -   contigs are not sufficient because:
-
-                -   lack of linkage information limits their use for inference
-                -   current limitations to the Python API/command line (eg. it complicates displaying and choosing what chromosome (contig) to use)
-                -   current limitations on how the catalog is deployed (eg. all species go with stdpopsim when installed, adding a million contigs would make that more difficult for people who don't need them)
-
-        -   a plausible, citeable mutation rate
-
-        -   recombination map - or at least a plausible, citeable, recombination rate
-
-        -   a citeable demographic model, or at least a plausible, citeable, effective population size
-
-        -   annotations (required if the use case involves coding/noncoding regions, specific genes, etc.)
-
-        -   an actual human being(s) willing to put in the time and effort to
-
-            -   find and evaluate the necessary information and citations
-            -   code it (see description of the process below and "Adding Species" worshop materials on github)
-            -   shepherd it through the QC process (see below)
+    - necessary resources:
+        - genome assembly
+            - this needs to be chromosome level, or nearly so
+            - contigs are not sufficient because:
+                - lack of linkage information limits their use for inference
+                - current limitations to the Python API/command line (eg. it complicates displaying and choosing what chromosome (contig) to use)
+                - current limitations on how the catalog is deployed (eg. all species go with stdpopsim when installed, adding a million contigs would make that more difficult for people who don't need them)
+        - a plausible, citeable mutation rate
+        - recombination map - or at least a plausible, citeable, recombination rate
+        - a citeable demographic model, or at least a plausible, citeable, effective population size
+        - annotations (required if the use case involves coding/noncoding regions, specific genes, etc.)
     - draw from https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb without specifics for stdpopsim 
-    -   what about species that don't have some of those resources?
-
-        -   if everything is available except the genome is contig-level:
-
-            -   could potentially add the species locally for personal use, but it won't become part of the catalog or go through the QC process (note: this is something we had discussed in meetings, I don't know if we reached a final consensus - MEL)
-
-                -   would want to choose just a few of the most important or longest contigs to simulate
-                -   reviewers would need to understand that while the stdpopsim architecture is used, the species model itself has not passed the community review process
-
-            -   might be more appropriate to just simulate a locus of appropriate length using one of the available simulation programs (msprime, SLiM) instead of using stdpopsim
+    - what about species that don't have some of those resources?
+        - if everything is available except the genome is contig-level (and no recombination map):
+            -   would want to choose just a few of the most important or longest contigs to simulate
+            -   might be more appropriate to just simulate a locus of appropriate length
             
-4. ** ELISE ** Lessons from "Growing the Zoo" hackathon, held along side probgen in April 2021
+4. **ELISE** Lessons from "Growing the Zoo" hackathon, held along side probgen in April 2021
     - Community-based expansion of the number and variety of species and their demographic scenarios included in the stdpopsim catalog
       -   when first published, the stdpopsim catalog included 6 species: *Homo sapiens*, *Pongo abelii*, *Canis familiaris*, *Drosophila melanogaster*, *Arabidopsis thaliana*, and *Escherichia coli.*
         -   when did additional demographic scenarios start getting added?
@@ -102,22 +80,21 @@ preamble: |
             -   choosing species/demographic scenarios to add is potentially challenging
             -   for methods development, they have to be appropriate for the goals of the method
             -   for empirical studies, the species is obvious, but whether it is appropriate for inclusion in the catalog or even to use stdpopsim may be less clear
+        - Current gaps in types of species in catalog
+            -   7 chordates, 2 plants (1 vascular, 1 algae), 2 bacteria, 6 arthropods, 1 nematode
+            -   lots of potential for supporting methods development for other types of organisms (that aren't vertebrates and insects)
+                -   eg. yeast
+                -   eg. more plants because plants have goofy genomes
 
 5.  Examples from "Zoo" hackathon
-
     -   A species that was fully added (Bos taurus?)
-
         -   resources available
         -   reasons for adding
         -   can be used for methods development and inference
-
     -   A demographic model that was fully added (note: not sure there were any? we worked on Canis familiaris but it hasn't finished QC - MEL)
-
         -   resources available (already had species in catalog, but not a demographic model, just Ne)
         -   reasons for adding
-
     -   A species that was purposefully not added (Myotis lucifugus)
-
         -   resources available (everything except chromosome-level genome)
         -   why wasn't it added? (see above re: contigs and just using msprime directly)
 
@@ -132,33 +109,14 @@ Table of species/demographic scenarios added/worked on by community since origin
 +----------------+----------------+------------------------------+----------------------------------------------------------+
 
 6.  Steps to add a species to stdpopsim catalog
-
     -   find required resources and citations (chromosome-level assembly, mutation rate, recombination rate or map, Ne or demog. model, annotations)
-    -   add code - detailed steps, reference workshop materials on github as well
-    -   QC - details steps
+            -   including an actual human being(s) willing to put in the time and effort
+            -   find and evaluate the necessary information and citations
+            -   add code - detailed steps, reference workshop materials on github https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb
+    -   QC - detailed steps
     -   update catalog documentation?
-
-7.  Current gaps in types of species in catalog
-
-    -   7 chordates, 2 plants (1 vascular, 1 algae), 2 bacteria, 6 arthropods, 1 nematode
-
-    -   lots of potential for supporting methods development for other types of organisms (that aren't vertebrates and insects)
-
-        -   eg. yeast
-        -   eg. more plants because plants have goofy genomes
-
-8.  Interest for inference for a wide variety of species
-
-    -   there are lots of good assemblies out there these days and efforts to generate more (eg. Genome10K - this is just vertebrates)
-
-    -   if this continues to be a major goal of the community/use case, could there be enough support to develop methods for individual users to add species locally?
-
-        -   eg. proposed YAML process to make it easier to add species and choose contigs if necessary
-        -   would need to emphasize that species that haven't gone through the QC process haven't been reviewed by the stdpopsim community and should be evaluated as such during peer review for publication
-
-    -   but developing species models for inclusion needs to be community-driven and maintained
-
-9.  Take-aways
+    
+7.  Take-aways
     - we present the basics for 
         - 1) determining if a species-specific population genomic simulation is appropriate for the species/question
         - 2) getting the required data
