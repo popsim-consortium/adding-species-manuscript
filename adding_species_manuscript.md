@@ -27,49 +27,31 @@ preamble: |
 
 # Outline
 
-1.  Overall goals and structure of stdpopsim
-
-    -   stdpopsim is a community-maintained resource intended to provide easy access to simulation frameworks
-
-        -   coding population genetic simulation models can be arduous and error-prone, so stdpopsim provides a way to:
-
+1.  Simulation is important for population genomics, both methods development and inference
+    - there is a building avalanche of genomic data for a variety of species, and a complementary flourishing of methods for population genomic inference
+        - so the number and variety of species requiring detailed and accurate simulation models is increasing quickly
+    -   coding population genetic simulation models can be arduous and error-prone
+        - stdpopsim is a tool recently developed to provide easy access to simulation frameworks
             -   avoid re-making common models
             -   provide standard benchmarks for methods development and testing
+            -   for both methods development and empirical research
+        - but so far stdpopsim has been mainly restricted to well-characterised model organisms, limiting utility for non-model organisms or model organisms in the early stages of development
+    - many potential users want to simulate their study organism, or develop inference methods for non-model organisms
+        -   feedback from 2020/2021 stdpopsim workshops emphasized the need for simulations of a wide variety of model and non-model species
 
-        -   and a resource for empirical researchers, eg. power analyses or sanity checks (Adrion et al. 2020)
+2.  **ELISE** Therefore this paper is intended as a resource for both methods developers and empirical researchers to develop simulations of their own species of interest, with the potential to submit the simulation framework for inclusion in the stdpopsim catalog
+    - we discuss the elements of a population genomic simulation model that realistically characterizes a species, including:
+        - input data
+        - reasonable data quality
+        - simulation frameworks (coalescent and forward?)
+    - in addition, we discuss 
+        - limitations of available data and when a species-specific simulation may be impractical or unnecessary for the intended task
+    - lastly, we discuss how these models may be integrated into the stdpopsim catalog
+        -   we present the current method for adding species and demographic scenarios to the catalog 
+        -   and clarify the required genomic resources and QC process
 
-    -   feedback from 2020/2021 workshops made it clear that the prospective community included empiricists who are especially concerned with using stdpopsim for inference for individual species that mostly not already in stdpopsim catalog
 
-2.  **ELISE** Community-based expansion of the number and variety of species and their demographic scenarios included in the stdpopsim catalog is useful for both of these major goals shared by the population genetics community, methods development and inference 
-
-    -   when first published, the stdpopsim catalog included 6 species: *Homo sapiens*, *Pongo abelii*, *Canis familiaris*, *Drosophila melanogaster*, *Arabidopsis thaliana*, and *Escherichia coli.*
-
-        -   when did additional demographic scenarios start getting added?
-
-    -   in April 2021 we held a "Growing the Zoo" hackathon to involve the community in adding additional species and demographic scenarios of interest
-
-        -   the catalog now includes an additional **12** species (note: is this correct, number is from those on main branch)? the catalog doc still only includes the original 6? - MEL), as well as multiple demographic scenarios for *Homo sapiens*, *Pongo abelii*, *Drosophila melanogaster*, and *Arabidopsis thaliana.* (others?)
-        -   however there were some species that were not ideal for inclusion in the catalog, because they don't yet have the necessary genomic resources
-
-    -   stdpopsim has become a popular resource and there is clearly a desire/need for adding additional species for both goals of methods development and empirical inference
-
-        -   choosing species/demographic scenarios to add is potentially challenging
-        -   for methods development, they have to be appropriate for the goals of the method
-        -   for empirical studies, the species is obvious, but whether it is appropriate for inclusion in the catalog or even to use stdpopsim may be less clear
-
-3.   **ELISE** Therefore this paper is intended as a resource for both methods developers and empirical researchers to choose and add appropriate species (and demographic scenarios) to the stdpopsim catalog
-
-    -   builds off the "Growing the Zoo" hackathon, held along side probgen in April 2021
-
-        -   what we learned from the hackathon (and workshops)?
-
-            -   people want a lot of different species, yay! and a variety! but often for specific use cases, especially inference
-            -   people are willing to put in the time and effort to add species, when given clear guidance for how to do it
-            -   not all species that people want to add have appropriate genomic resources yet, and more clarity in what resources are necessary is needed for the community
-
-    -   therefore in this paper we present the current method for adding species and demographic scenarios to the catalog and clarify the required genomic resources
-
-4.  Adding species/demographic scenarios to the catalog
+3.   Making a popgen simulation
 
     -   necessary resources:
 
@@ -96,7 +78,7 @@ preamble: |
             -   find and evaluate the necessary information and citations
             -   code it (see description of the process below and "Adding Species" worshop materials on github)
             -   shepherd it through the QC process (see below)
-
+    - draw from https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb without specifics for stdpopsim 
     -   what about species that don't have some of those resources?
 
         -   if everything is available except the genome is contig-level:
@@ -107,6 +89,19 @@ preamble: |
                 -   reviewers would need to understand that while the stdpopsim architecture is used, the species model itself has not passed the community review process
 
             -   might be more appropriate to just simulate a locus of appropriate length using one of the available simulation programs (msprime, SLiM) instead of using stdpopsim
+            
+4. ** ELISE ** Lessons from "Growing the Zoo" hackathon, held along side probgen in April 2021
+    - Community-based expansion of the number and variety of species and their demographic scenarios included in the stdpopsim catalog
+      -   when first published, the stdpopsim catalog included 6 species: *Homo sapiens*, *Pongo abelii*, *Canis familiaris*, *Drosophila melanogaster*, *Arabidopsis thaliana*, and *Escherichia coli.*
+        -   when did additional demographic scenarios start getting added?
+        -   the catalog now includes an additional **12** species (note: is this correct, number is from those on main branch)? the catalog doc still only includes the original 6? - MEL), as well as multiple demographic scenarios for *Homo sapiens*, *Pongo abelii*, *Drosophila melanogaster*, and *Arabidopsis thaliana.* (others?)
+    -   We had *X* participants in the introduction to stdpopsim workshops, many of whom expressed a wish to add their own species for empirical work
+        - further *Y* participants in the hackathon
+        - stdpopsim has become a popular resource and there is clearly a desire/need for adding additional species for both goals of methods development and empirical inference
+        - Only *Z* species ultimately got added, why?
+            -   choosing species/demographic scenarios to add is potentially challenging
+            -   for methods development, they have to be appropriate for the goals of the method
+            -   for empirical studies, the species is obvious, but whether it is appropriate for inclusion in the catalog or even to use stdpopsim may be less clear
 
 5.  Examples from "Zoo" hackathon
 
@@ -136,7 +131,7 @@ Table of species/demographic scenarios added/worked on by community since origin
 | ...            | ...            | ...                          | ...                                                      |
 +----------------+----------------+------------------------------+----------------------------------------------------------+
 
-6.  Steps to add a species
+6.  Steps to add a species to stdpopsim catalog
 
     -   find required resources and citations (chromosome-level assembly, mutation rate, recombination rate or map, Ne or demog. model, annotations)
     -   add code - detailed steps, reference workshop materials on github as well
@@ -164,10 +159,19 @@ Table of species/demographic scenarios added/worked on by community since origin
     -   but developing species models for inclusion needs to be community-driven and maintained
 
 9.  Take-aways
-
-    -   stdpopsim is a community-maintained resource intended to provide easy access to simulation frameworks, adding species expands the types of methods development and inference it is useful for
-    -   potential to make stdpopsim more accessible for the part of the population genetics community that is more concerned with inference
-
+    - we present the basics for 
+        - 1) determining if a species-specific population genomic simulation is appropriate for the species/question
+        - 2) getting the required data
+        - 3) creating a population genomic simulation of that species in your simulator of choice
+        - 4) adding that species to the stdpopsim catalog
+        - we *do not* present tutorials for implementation in any particular simulator (there are lots of those)
+    - there is a definite need for more and more species-specific population genomic simulations
+        - but gaps in practitioners' understandings of when and how to implement them for a given species
+        - stdpopsim is a community-maintained resource intended to provide easy access to simulation frameworks, adding species expands the types of methods development and inference it is useful for
+            -   we learned from the hackathon that people are willing to put in the time and effort to add species, when given clear guidance for how to do it
+            -   not all species that people want to add have appropriate genomic resources yet, but many will soon!
+            -   so this paper provides the population genomics community with more clarity in what resources are necessary and how to use them to simulate your favorite species
+            
 # Meeting notes:
 
 -   recap goals and structure of stdpopsim
