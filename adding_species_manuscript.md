@@ -146,6 +146,7 @@ Table of species/demographic scenarios added/worked on by community since origin
         - 3) creating a population genomic simulation of that species in your simulator of choice
         - 4) adding that species to the stdpopsim catalog
         - we *do not* present tutorials for implementation in any particular simulator (there are lots of those)
+    - For many species we need better genomic resources: assemblies and annotations would be community resources
     - there is a definite need for more and more species-specific population genomic simulations
         - but gaps in practitioners' understandings of when and how to implement them for a given species
         - stdpopsim is a community-maintained resource intended to provide easy access to simulation frameworks, adding species expands the types of methods development and inference it is useful for
