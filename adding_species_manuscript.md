@@ -34,6 +34,7 @@ Outline
     -   coding population genetic simulation models can be arduous and error-prone, but important
         -   provide training data for machine learning, ABC
         -   for both methods development and empirical research
+        - "accurate" includes realistic demographic models and genetic maps as both can strongly impact the patterns of variation and haplotype/linkage
     - stdpopsim is a tool recently developed to provide easy access to simulation frameworks
         -   avoid re-making common models
         -   provide standard benchmarks for methods development and testing (see Adrion et al.)
