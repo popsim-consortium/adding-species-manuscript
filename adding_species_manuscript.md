@@ -103,9 +103,12 @@ Table of "what if one of the features above required are missing"
             -   for empirical studies, the species is obvious, but whether it is appropriate for inclusion in the catalog or even to use stdpopsim may be less clear
 
 5.  Examples from "Zoo" hackathon
-    -   A species that was fully added (Bos taurus?)
+    -   A species that was fully added (Bos taurus?) ** GREGOR ***
         -   resources available
         -   reasons for adding
+            - ag species, hence important for breeding and genetic simulations of applied problems
+            - Ne inferred to very recent times using a specific haplotype method (cite https://academic.oup.com/mbe/article/30/9/2209/1002512?login=true)
+            - decreasing Ne due to domestication and recent intense selection, this scenario is quite different to many other cases (stuff like GWAS is very limited due to long-range LD, but genomic prediction works really well withing populations, ... cite https://pubmed.ncbi.nlm.nih.gov/11290733/, https://academic.oup.com/genetics/article-abstract/198/4/1671/5935952, https://royalsocietypublishing.org/doi/abs/10.1098/rspb.2016.0569)
         -   can be used for methods development and inference
     -   A demographic model that was fully added (note: not sure there were any? we worked on Canis familiaris but it hasn't finished QC - MEL)
         -   resources available (already had species in catalog, but not a demographic model, just Ne)
