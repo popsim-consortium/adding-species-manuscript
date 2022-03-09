@@ -58,15 +58,17 @@ Outline
 
 # Introduction
 1.  Simulation is important for population genomics, both methods development and inference
-    - there is a building avalanche of genomic data for a variety of species, and a complementary flourishing of methods for population genomic inference
+    - there is a building avalanche of genomic data for a variety of species @Ellegren2014, and a complementary flourishing of methods for population genomic inference @Loog2021
         - so the number and variety of species requiring detailed and accurate simulation models is increasing quickly
-    -   coding population genetic simulation models can be arduous and error-prone, but important
-        -   provide training data for machine learning, ABC
+    -   coding population genetic simulation models can be arduous and error-prone @Ragsdale2020, but important
+        -   provide training data for machine learning @Schrider2018, ABC @Csillery2010
         -   for both methods development and empirical research
-        - "accurate" includes realistic demographic models and genetic maps as both can strongly impact the patterns of variation and haplotype/linkage
-    - stdpopsim is a tool recently developed to provide easy access to simulation frameworks
+        - "accurate" includes realistic demographic models @Teshima2006 (maybe not the best citation) and genetic maps @Nachman2002 as both can strongly impact the patterns of variation and haplotype/linkage
+        -   baseline for further analyses, demography as null model in selection analyses @Hsieh2016a. (This self-cite might not be the best reference here...)
+        -   Predictive modeling for conservation @Teixeira2021
+    - stdpopsim is a tool recently developed to provide easy access to simulation frameworks @Adrion2020
         -   avoid re-making common models
-        -   provide standard benchmarks for methods development and testing (see Adrion et al.)
+        -   provide standard benchmarks for methods development and testing @Adrion2021
         -   improves reproducibility
         - lower the barrier to technical coding skills
         - but so far stdpopsim has been mainly restricted to well-characterised model organisms, limiting utility for non-model organisms or model organisms in the early stages of development
@@ -201,6 +203,7 @@ Meeting notes:
     * this is important as it's a place where info gets peer reviewed
     * and other benefits of adding species
     * and future YAML idea
+    * Also discuss addition of selection to models
 - question: where do the "typical use cases" go in? Maybe in the introduction?
   * refer to original paper
   * testing/benchmarking software
