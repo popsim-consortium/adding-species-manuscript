@@ -39,6 +39,7 @@ Outline
         -   avoid re-making common models
         -   provide standard benchmarks for methods development and testing (see Adrion et al.)
         -   improves reproducibility
+        - lower the barrier to technical coding skills
         - but so far stdpopsim has been mainly restricted to well-characterised model organisms, limiting utility for non-model organisms or model organisms in the early stages of development
     - many potential users want to simulate their study organism, or develop inference methods for non-model organisms
         -   feedback from 2020/2021 stdpopsim workshops emphasized the need for simulations of a wide variety of model and non-model species
