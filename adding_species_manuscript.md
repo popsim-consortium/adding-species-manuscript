@@ -57,16 +57,18 @@ Outline
 
 # Tutorial
 3.   Making a popgen simulation
-        -   necessary resources:
-            - genome assembly
-                - this needs to be chromosome level, or nearly so
-                - contigs are not sufficient because:
-                    - lack of linkage information limits their use for inference
-                    - (see below for further discussion of species with contig-level assemblies)
-            - a plausible, citeable mutation rate
-            - recombination map - or at least a plausible, citeable, recombination rate
-            - a citeable demographic model, or at least a plausible, citeable, effective population size
-            - annotations (required if the use case involves coding/noncoding regions, specific genes, etc.)
+
+To include a species into the stdpopsim catalog it is required that the species has at least: 
+- (1) a **genome assembly**, with contigs being assembled at the chromosome level or nearly so. By using chromosome level information to simulate genomes, stdpopsim indirectly simulates the effect of linked selection. [maybe discussion next text -> ] In the near future this won't be a problem for multiple species, since with (i) the advent of long-read sequencing technologies [ref] and because of (ii) initiatives such as B10K, XXXX, and G10K near XXX error-free reference genome assemblies [Rhie et al, 2021, REF, REF] spanning more than XXX vertebrate species are expected to be generated.  
+- (2) It is also required that the species has a plausible and citeable **mutation rate** estimate. Both phylogenetic mutation rate [ref], germline *de novo* mutations, or mutation rates estimates based on mutation accumulation studies [ref] are welcomed. [commment: using the mutation rate of a closely related species is not a big deal, either??? I know you guys use the drosophila one for the anopheles].
+- (3) Since both mutation and recombination shape the genetic diversity of genomes, stdpopsim also requires a **recombination rate** estimate for the species. Ideally, this should be a chromosome level recombination map, which allows more precise inference of the effect of selective interference. At minimum, a citeable single recombination rate estimate for the whole genome.
+- (4) A generation time estimate (in years).
+- (5) Population-size history also shapes the levels of diversity in a given population/genome. For this reason, to accurately simulate genomes, stdpopsim also expects that the species has a citeable **demographic model**, or at least a plausible and citeable **effective population size** (Ne).
+
+Users can also add other attributes of a species to the simulation that are not strictly required but can be useful, such as:
+- (6) **Genome annotation**, such as a GFF3/GFF format [ref] containing information about the coordinates of coding and noncoding regions; and the position of specific genes. 
+- (7) A citeable **distribution of fitness effects** (DFE, REF) for the species. This feature is particularly useful when simulating genomes under non-neutral models. 
+
         - draw from https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb without specifics for stdpopsim 
         - emphasize throughout that these features should be citeable and chosen with deliberation
             - eg. "often reported parameter values are tied to a model and its other parameters, so mixing values from different sources has its own caveats" (https://github.com/popsim-consortium/adding-species-manuscript/issues/7)
@@ -91,6 +93,7 @@ Table of "what if one of the features above required are missing"
       -   when first published, the stdpopsim catalog included 6 species: *Homo sapiens*, *Pongo abelii*, *Canis familiaris*, *Drosophila melanogaster*, *Arabidopsis thaliana*, and *Escherichia coli.*
         -   when did additional demographic scenarios start getting added?
         -   the catalog now includes an additional **12** species (note: is this correct, number is from those on main branch)? the catalog doc still only includes the original 6? - MEL), as well as multiple demographic scenarios for *Homo sapiens*, *Pongo abelii*, *Drosophila melanogaster*, and *Arabidopsis thaliana.* (others?)
+        -   however there were some species that were not ideal for inclusion in the catalog, because they don't yet have the necessary genomic resources
     -   We had *X* participants in the introduction to stdpopsim workshops, many of whom expressed a wish to add their own species for empirical work
         - further *Y* participants in the hackathon
         - stdpopsim has become a popular resource and there is clearly a desire/need for adding additional species for both goals of methods development and empirical inference
