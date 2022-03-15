@@ -25,7 +25,7 @@ preamble: |
   \doublespacing
 ---
 
-Abstract
+# Abstract
 
 Simulation is one of the key tools in population genetics, and
 is useful for [all sorts of things].
@@ -88,16 +88,23 @@ Outline
 3.   Making a popgen simulation
     - what's important about whole genome sims, and when they're not important **PETER**
         - https://github.com/popsim-consortium/adding-species-manuscript/pull/6#discussion_r822738958
-To include a species into the stdpopsim catalog it is required that the species has at least: 
-- (1) a **genome assembly**, with contigs being assembled at the chromosome level or nearly so. By using chromosome level information to simulate genomes, stdpopsim indirectly simulates the effect of linked selection. [maybe discussion next text -> ] In the near future this won't be a problem for multiple species, since with (i) the advent of long-read sequencing technologies [ref] and because of (ii) initiatives such as B10K, XXXX, and G10K near XXX error-free reference genome assemblies [Rhie et al, 2021, REF, REF] spanning more than XXX vertebrate species are expected to be generated.  
-- (2) It is also required that the species has a plausible and citeable **mutation rate** estimate. Both phylogenetic mutation rate [ref], germline *de novo* mutations, or mutation rates estimates based on mutation accumulation studies [ref] are welcomed. [commment: using the mutation rate of a closely related species is not a big deal, either??? I know you guys use the drosophila one for the anopheles].
+To include a species into the stdpopsim catalog it is required that the species has at least:
+
+- (1) a **genome assembly**, with contigs being assembled at the chromosome level or nearly so. By using chromosome level information to simulate genomes, stdpopsim indirectly simulates the effect of linked selection. 
+
+- (2) It is also required that the species has a plausible and citeable **mutation rate** estimate. Both phylogenetic mutation rate [ref], germline *de novo* mutations, or mutation rates estimates based on mutation accumulation studies [ref] are welcomed.
+
 - (3) Since both mutation and recombination shape the genetic diversity of genomes, stdpopsim also requires a **recombination rate** estimate for the species. Ideally, this should be a chromosome level recombination map, which allows more precise inference of the effect of selective interference. At minimum, a citeable single recombination rate estimate for the whole genome.
+
 - (4) A generation time estimate (in years).
+
 - (5) Population-size history also shapes the levels of diversity in a given population/genome. For this reason, to accurately simulate genomes, stdpopsim also expects that the species has a citeable **demographic model**, or at least a plausible and citeable **effective population size** (Ne).
 
 Users can also add other attributes of a species to the simulation that are not strictly required but can be useful, such as:
-- (6) **Genome annotation**, such as a GFF3/GFF format [ref] containing information about the coordinates of coding and noncoding regions; and the position of specific genes. 
-- (7) A citeable **distribution of fitness effects** (DFE, REF) for the species. This feature is particularly useful when simulating genomes under non-neutral models. 
+
+- (6) **Genome annotation** containing information about the coordinates of coding and noncoding regions; and the position of specific genes (specified in such a GFF3/GFF format [ref]). 
+
+- (7) A citeable **distribution of fitness effects** (DFE, [REF]) for the species. This feature is particularly useful when simulating genomes under non-neutral models. 
     - draw from https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb without specifics for stdpopsim 
     - emphasize throughout that these features should be citeable and chosen with deliberation **PETER**
         - eg. "often reported parameter values are tied to a model and its other parameters, so mixing values from different sources has its own caveats" (https://github.com/popsim-consortium/adding-species-manuscript/issues/7)
@@ -106,15 +113,20 @@ Users can also add other attributes of a species to the simulation that are not 
             -   would want to choose just a few of the most important or longest contigs to simulate
             -   https://github.com/popsim-consortium/adding-species-manuscript/issues/1#issuecomment-1050081855
             -   might be more appropriate to just simulate a locus of appropriate length
-Table of "what if one of the features above required are missing" **IZABEL**
 
-| missing parameter 	| options 	| considations 	|
+It is probable that some of the genetic parameters listed above may be missing for many non-model species. We provide solutions and considerations to take into account in case of missing genetic parameters (Table 1). For example, if all the parameters above are available, except for a chromosome level assembly, then one might choose to include only the larger contigs. Alternatively, the species does not need to be added to the catalog, [....]  might be more appropriate to just simulate a locus of appropriate length [Peter, can you add here?].
+
+Table 1. Possible solutions for unavailable genetic parameters. 
+
+| missing parameter 	| options 	| considerations 	|
 |---	|---	|---	|
-| mutation rate 	| borrow from closest relative with citeable rate? 	| will affect estimates of (timing in years, ...) 	|
-| recombination rate 	| borrow from closest relative with citeable rate? 	| will affect patterns of (selection/linkage, ...) 	|
-| a good assembly 	| select the largest/most contiguous contigs, and/or those with genes/regions of interest if known 	| consider just simulating a locus of appropriate length if you don't somehow have a recombination map or a gene(s) or other loci of interest with known contig location 	|
-| demographic model 	| need at least N<sub>e</sub> 	| bottlenecks/expansions/admixture can affect a lot of patterns of variation, etc. 	|
-| N<sub>e</sub> 	| population genomic simulation not practical? 	| (I'm not sure there's much you can do here except pick something vaguely reasonable and pray, not exactly what we want to promote - MEL) 	|
+| A good assembly 	| select the most contiguous contigs	| consider just simulating a locus of appropriate length	|
+| Mutation rate 	| borrow from closest relative<sup>*</sup>: with a citeable mutation rate 	| will affect levels of polymorphism 	|
+| Recombination rate 	| borrow from closest relative with citeable rate	| will affect patterns of selection, linkage, and background selection 	|
+| Demographic model 	| At least N<sub>e</sub> is required	| the demographic history (e.g. bottlenecks, expansions, admixture) affects patterns of variation substantially [ref], a constant Ne is not ideal |
+| N<sub>e</sub> 	| population genomic simulation is not feasible | not feasible 	|
+
+<sup>*</sup> closest relative may vary across vertebrate clades. 
 
 # Application/Discussion   
 4. **ELISE** Lessons from "Growing the Zoo" hackathon, held along side probgen in April 2021
