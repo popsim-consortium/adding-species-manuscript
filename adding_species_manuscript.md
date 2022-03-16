@@ -95,6 +95,8 @@ Outline
 
 # Tutorial
 
+TODO: general introduction to this section
+
 ##  Whole-genome simulations: when do we need them?
 
 The stdpopsim framework aims to make it easy to simulate *whole chromosomes*,
@@ -162,28 +164,113 @@ with stdpopsim.
 
 ## Making a popgen simulation
 
-To include a species into the stdpopsim catalog it is required that the species has at least: 
+The purpose of including a species into the stdpopsim catalogue
+is to make it easy for others to implement and use
+complex, quality-controlled simulations
+incorporating a variety of aspects of realism.
+So, it only makes sense to insert into the catalogue
+species for which a good deal of the realism is known.
+Concretely, all species would ideally have:
 
-- (1) a **genome assembly**, with contigs being assembled at the chromosome level or nearly so. By using chromosome level information to simulate genomes, stdpopsim indirectly simulates the effect of linked selection. [maybe discussion next text -> ] In the near future this won't be a problem for multiple species, since with (i) the advent of long-read sequencing technologies [ref] and because of (ii) initiatives such as B10K, XXXX, and G10K near XXX error-free reference genome assemblies [Rhie et al, 2021, REF, REF] spanning more than XXX vertebrate species are expected to be generated.  
+1. a chromosome-level **genome assembly**,
+2. an estimate of **mutation rate**,
+3. an estimate of **recombination rate** (ideally, a genetic map),
+4. a **generation time** estimate,
+5. at least one fitted **demographic model** (at least, the effective population size of a single-population model),
+6. a **genome annotation** showing at least coding/noncoding regions, and
+7. **distributions of fitness effects** for mutations occurring in various annotated regions.
 
-- (2) It is also required that the species has a plausible and citeable **mutation rate** estimate. Both phylogenetic mutation rate [ref], germline *de novo* mutations, or mutation rates estimates based on mutation accumulation studies [ref] are welcomed. [commment: using the mutation rate of a closely related species is not a big deal, either??? I know you guys use the drosophila one for the anopheles].
+Any simulation requires *some* choice for 1-5,
+although values may come from another speicies;
+clearly, a neutral simulation does not require the last two.
+Furthermore, we require all ingredients added to stdpopsim
+to be documented, and citeable.
+Processes for quality control are discussed in more detail in (CITE first paper),
+but in brief (TODO: summarise).
+Here we discuss all these in more detail:
 
-- (3) Since both mutation and recombination shape the genetic diversity of genomes, stdpopsim also requires a **recombination rate** estimate for the species. Ideally, this should be a chromosome level recombination map, which allows more precise inference of the effect of selective interference. At minimum, a citeable single recombination rate estimate for the whole genome.
+A **genome assembly**,
+with contigs being assembled at the chromosome level or nearly so.
+By using chromosome level information to simulate genomes, stdpopsim indirectly simulates the effect of linked selection,
+as discussed above.
+*(move that discussion here?)*
+Although few species currently have truly chromosome-level assemblies,
+we hope that many more will be available in the near future,
+thanks to the advent of long-read sequencing technologies [ref]
+and initiatives such as B10K, XXXX, and G10K near XXX [Rhie et al, 2021, REF, REF],
+that plan to generate assemblies for XXX vertebrate species.
 
-- (4) A generation time estimate (in years).
+It is also required that the species has a plausible and citeable **mutation rate** estimate.
+Both phylogenetic mutation rate [ref], germline *de novo* mutations,
+or mutation rate estimates based on mutation accumulation studies [ref] are welcomed.
+Lacking one of these,
+it is common to use an estimate from another (hopefully closely related) species.
 
-- (5) Population-size history also shapes the levels of diversity in a given population/genome. For this reason, to accurately simulate genomes, stdpopsim also expects that the species has a citeable **demographic model**, or at least a plausible and citeable **effective population size** (Ne).
 
-Users can also add other attributes of a species to the simulation that are not strictly required but can be useful, such as:
+Since both mutation and recombination shape the genetic diversity of genomes,
+stdpopsim also requires a **recombination rate** estimate.
+Ideally, this should be a chromosome level recombination map,
+which allows more precise inference of the effect of selective interference.
+At minimum, a citeable single recombination rate estimate for the whole genome is needed.
 
-- (6) **Genome annotation**, such as a GFF3/GFF format [ref] containing information about the coordinates of coding and noncoding regions; and the position of specific genes. 
+A generation time estimate, (in years), is also required.
+This is not in fact required for the simulations themselves (that usually work with units of generations),
+but is an important part of natural history
+that is required to translate results (particularly, of historical demographic models)
+into real time units.
 
-- (7) A citeable **distribution of fitness effects** (DFE, REF) for the species. This feature is particularly useful when simulating genomes under non-neutral models. 
 
-    - draw from https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb without specifics for stdpopsim 
-    - emphasize throughout that these features should be citeable and chosen with deliberation **PETER**
+A simulation of a population requires a specification of that population,
+which is a primary determinant of the levels of diversity in a given population.
+Misspecification of a demographic model
+can generate highly unrealistic patterns of genetic variation,
+and so making published, quality-controlled demographic models easily available
+is one of the most important roles of stdpopsim.
+Ideally, each species will have at least one citeable **demographic model**
+(more than one because the appropriate demographic model to compare to a given dataset
+usually depends on the sampling location(s) of the data),
+although at minimum, stdpopsim requires a
+a plausible and citeable effective population size estimate,
+as a single-population simulation with a reasonable (effective) size
+should at least give comparable levels of overall genetic diversity.
 
-        - eg. "often reported parameter values are tied to a model and its other parameters, so mixing values from different sources has its own caveats" (https://github.com/popsim-consortium/adding-species-manuscript/issues/7)
+The goal of much population genetics work 
+is to understand the action or consequences of natural selection.
+Although analytical models, and indeed many simulations,
+tend to study the effect of single loci under selection, in isolation,
+it has been demonstrated that the effects of linked selection
+can vary substantially along the genome in many species,
+although even the general strength and nature of this natural selection is still unknown.
+To generate realistic amounts of natural selection
+at many locations on the genome, stdpopsim needs to know
+where the selected sites occur,
+and what is the nature of selection on them.
+The location of these sites is conveyed by
+a **genome annotation**, such as a GFF3/GFF format [ref] containing information about the coordinates of coding and noncoding regions;
+and the position of specific genes. 
+At present, stdpopsim allows only multiplicative fitness effects,
+as specified by a **distribution of fitness effects** (DFE, REF) for the species,
+which should be citeable.
+
+## Considerations
+
+A commonly-encountered thorny issue
+is when estimates of some of these quantities are interrelated with others.
+For instance,
+a published demographic model may have been estimated assuming a generation time and mutation rate
+that differ from today's understanding of the best guess at those values.
+In such cases, what should be done?
+Naively using the demographic model with a more recent estimate of mutation rate
+may lead to unrealistic levels of genetic diversity.
+In some situations the difference may come down to only a time scaling,
+so that in principle a fitted demographic model
+may be translated to an equivalent one that uses a different generation time or mutation rate.
+However, that process would be opaque and fraught with potential for error.
+So, we XXX
+(AARON, GREGOR, want to have a go at this?)
+
+    - eg. "often reported parameter values are tied to a model and its other parameters, so mixing values from different sources has its own caveats"
+    (https://github.com/popsim-consortium/adding-species-manuscript/issues/7)
 
 
 ## What if we don't know everything?
