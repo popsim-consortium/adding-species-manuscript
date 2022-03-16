@@ -95,11 +95,69 @@ Outline
 
 # Tutorial
 
-3.   Making a popgen simulation
+##  Whole-genome simulations: when do we need them?
 
-    - what's important about whole genome sims, and when they're not important **PETER**
+The stdpopsim framework aims to make it easy to simulate *whole chromosomes*,
+with realistic chromosome structure (i.e., with recombination maps and annotations).
+However, it is much faster to simulate many small chunks of genome,
+in part because it effectively parallelizes the simulation.
+Indeed, such simulations have been used for many applications,
+e.g., to train machine learning methods to identify regions of the genome under selection (CITE).
+It certainly seems "more realistic" to simulate a chromosome that matches the real one,
+but strict agreement is not always desirable.
+For instance, we should not ask that a simulation have polymorphic sites
+at precisely the same genomic positions observed in a real dataset,
+since it is these patterns of polymorphism themselves that we want to compare to the real data.
+Similarly, most simulations today do not use a reference sequence,
+since most population-level summaries of genetic variation do not take into account nucleotide identity.
+(However, this may change in the future.)
+The differences between one whole-chromosome simulation and many independent simulations of smaller pieces of genome
+are due to linkage, i.e., correlations in transmission and inheritance between adjacent parts of the genome.
+In any simulation, even neutral ones,
+linkage induces correlations between nearby parts of the genome,
+and so treating, say, a 100Mb chromosome as 100 independent 1Mb chunks of genome
+artificially increases the amount of independence in the data.
+This may be misleading if the scale of LD is long:
+for instance, in our own work, results on simulated human chromosome 22 are often very noisy
+due to a long stretch of near-zero recombination.
+We would not have seen these effects if we'd broken the chromosome into many independent pieces.
+Of course, any study using the incidence of long, shared haplotypes
+must simulate regions of genome substantially longer than that.
 
-        * https://github.com/popsim-consortium/adding-species-manuscript/pull/6#discussion_r822738958
+A more serious motivation for providing the ability to do whole-genome simulations
+is to model the effects of linked selection.
+"Linked selection" refers to the effect that natural selection has
+on patterns of inheritance, and hence genetic diversity,
+at nearby locations on the genome.
+For instance, since many types of selection reduce diversity nearby,
+one might expect chromosome ends to have increased diversity as they have less flanking sequence
+on which selection might act.
+(In practice, other factors are at play as well.)
+The scale over which linked selection has an effect in practice
+can differ greatly depending on the species and the context,
+and the actual extent is unknown.
+Even in large-population-size species,
+recent selective sweeps (e.g., insecticide resistance XXX)
+can cause large haplotypes to reach high frequency.
+Another practical consideration is demographic realism:
+the genetic load in a simulation of a small segment of genome with deleterious mutations
+will necessarily be less than that in whole chromosome;
+this makes it easy to simulate with unrealistically high levels of load
+without realizing it if small segments are used.
+It's probably safe to say that independently simulating small segments
+will not introduce serious problems in some situations, but could cause serious biases in others.
+The degree to which it is important to include linked selection in whole-chromosome simulations
+is, we think, still a major open question in the field.
+
+Finally, what about whole *genome* simulations?
+Chromosomes segregate independently,
+so between-chromosome correlations are possible but can only be induced by fairly extreme situations.
+For this reason, we tend to simulate chromosomes independently,
+and do not have an easy mechanism to simulate multiple chromosomes simultaneously
+with stdpopsim.
+
+
+## Making a popgen simulation
 
 To include a species into the stdpopsim catalog it is required that the species has at least: 
 
@@ -226,6 +284,7 @@ Table of species/demographic scenarios added/worked on by community since origin
     -   emphasize that anything that ends up in the catalog has the potential to be updated (because science)
     
 # Conclusion
+
 7.  Take-aways
 
     - we present the basics for 
@@ -245,3 +304,4 @@ Table of species/demographic scenarios added/worked on by community since origin
             -   we learned from the hackathon that people are willing to put in the time and effort to add species, when given clear guidance for how to do it
             -   not all species that people want to add have appropriate genomic resources yet, but many will soon!
             -   so this paper provides the population genomics community with more clarity in what resources are necessary and how to use them to simulate your favorite species
+
