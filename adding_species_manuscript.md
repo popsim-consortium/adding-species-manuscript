@@ -133,6 +133,9 @@ For instance, since many types of selection reduce diversity nearby,
 one might expect chromosome ends to have increased diversity as they have less flanking sequence
 on which selection might act.
 (In practice, other factors are at play as well.)
+Without using a genetic map,
+we can't look at the effect of linked selection on the correlation between recombination rate
+and genetic diversity, that is commonly observed in practice (CITE).
 The scale over which linked selection has an effect in practice
 can differ greatly depending on the species and the context,
 and the actual extent is unknown.
@@ -182,13 +185,36 @@ Users can also add other attributes of a species to the simulation that are not 
 
         - eg. "often reported parameter values are tied to a model and its other parameters, so mixing values from different sources has its own caveats" (https://github.com/popsim-consortium/adding-species-manuscript/issues/7)
 
-    - what about species that don't have some of those resources? **PETER**
 
-        - if everything is available except the genome is contig-level (and no recombination map):
+## What if we don't know everything?
 
-            -   would want to choose just a few of the most important or longest contigs to simulate
-            -   https://github.com/popsim-consortium/adding-species-manuscript/issues/1#issuecomment-1050081855
-            -   might be more appropriate to just simulate a locus of appropriate length
+When we set out to cast a wide net and add a wide variety of species to the catalogue,
+we quickly ran into species that people were enthusiastic to add,
+but lacked many (or most) of the ingredients above.
+When is this important?
+The utility of stdpopsim is to make tricky data easily available for simulation;
+such data might be genetic maps, annotations, and/or demographic models.
+We have not yet encountered a species with widely-used demographic models but no chromosome-level assembly,
+so the main issue in practice seems to be around chromosome-level assemblies.
+To consider this, it helps to consider the use cases for stdpopsim.
+If there is not a chromosome-level assembly,
+then we need to either just simulate many, small chunks of genome,
+or simulate an anonymous chromosome, not specific to the species.
+We could treat each of the many contigs of an assembly as a "chromosome" in stdpopsim.
+However,
+this is not right because it's missing the effects of linked selection (although it may be useful),
+but more crucially, it would be a significant amount of effort for stdpopsim developers
+that wouldn't lower barriers for downstream users much at all.
+With a great many contigs,
+there wouldn't be much difference between a stdpopsim script
+and a python script that does many msprime simulations with contig lengths drawn from some list.
+What about annotations with many contigs, but that are annotated?
+stdpopsim might make it relatively easy to simulate selection on the genic regions of such contigs,
+but it is our opinion that using the precise location of genes on many, unlinked contigs is false precision:
+users would be better off comparing results to simulations of anonymous genomes
+chosen to be comparable in some way.
+However, there is no clear line for what level of assembly quality is required to be "useful" -
+most telling indication is whether there is a community of users eager to use it.
 
 Table of "what if one of the features above required are missing" **IZABEL**
 
