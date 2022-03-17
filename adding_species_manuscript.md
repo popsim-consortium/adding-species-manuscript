@@ -164,13 +164,18 @@ with stdpopsim.
 
 ## Making a popgen simulation
 
-The purpose of including a species into the stdpopsim catalogue
-is to make it easy for others to implement and use
-complex, quality-controlled simulations
-incorporating a variety of aspects of realism.
-So, it only makes sense to insert into the catalogue
-species for which a good deal of the realism is known.
-Concretely, all species would ideally have:
+Purposes of generating population genetic simulations include
+testing and benchmarking inference methods,
+creating data for Approximate Bayesian Computation and for training machine learning methods,
+and (TODO: should complement the introduction).
+These applications are more reliable and robust
+the more aspects of realism can be incorporated into the simulations,
+including linkage, recombination rate variation, demographic changes, and natural selection.
+So when choosing to generate realistic population genetic simulations for a species of interest, certain elements should be known.
+Regardless of the simulation program used,
+to run a population genetics simulation
+with the current standard of realism,
+we would ideally have for the species:
 
 1. a chromosome-level **genome assembly**,
 2. an estimate of **mutation rate**,
@@ -234,7 +239,11 @@ a plausible and citeable effective population size estimate,
 as a single-population simulation with a reasonable (effective) size
 should at least give comparable levels of overall genetic diversity.
 
-The goal of much population genetics work 
+
+The above factors are sufficient for modeling neutral variation in populations,
+for example to infer past migration events or population size changes
+under an assumption of neutrality.
+However, the goal of much population genetics work 
 is to understand the action or consequences of natural selection.
 Although analytical models, and indeed many simulations,
 tend to study the effect of single loci under selection, in isolation,
@@ -323,7 +332,7 @@ Table of "what if one of the features above required are missing" **IZABEL**
 
 # Application/Discussion   
 
-4. **ELISE** Lessons from "Growing the Zoo" hackathon, held along side probgen in April 2021
+## 4. **ELISE** Lessons from "Growing the Zoo" hackathon, held along side probgen in April 2021
 
     - Community-based expansion of the number and variety of species and their demographic scenarios included in the stdpopsim catalog
     
@@ -343,7 +352,7 @@ Table of "what if one of the features above required are missing" **IZABEL**
             -   for methods development, they have to be appropriate for the goals of the method
             -   for empirical studies, the species is obvious, but whether it is appropriate for inclusion in the catalog or even to use stdpopsim may be less clear
 
-5.  Examples from "Zoo" hackathon
+## 5.  Examples from "Zoo" hackathon
 
     -   A species that was fully added (Bos taurus?) **GREGOR**
 
@@ -376,7 +385,8 @@ Table of species/demographic scenarios added/worked on by community since origin
 | ...            | ...            | ...                          | ...                                                      |
 +----------------+----------------+------------------------------+----------------------------------------------------------+
 
-6.  Steps to add a species to stdpopsim catalog
+## 6.  Steps to add a species to stdpopsim catalog
+
 
     -   catalog is the place where simulation frameworks get peer-reviewed through the QC system (see below)
     -   adding to the catalog is important
