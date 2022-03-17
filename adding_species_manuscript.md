@@ -303,15 +303,22 @@ chosen to be comparable in some way.
 However, there is no clear line for what level of assembly quality is required to be "useful" -
 most telling indication is whether there is a community of users eager to use it.
 
+Nonetheless,
+it some of these ingredients will likely be missing for many non-model species
+that we want in the catalogue.
+Table 1 displays some considerations and solutions
+For example, if all the parameters above are available,
+except for a chromosome level assembly, then one might choose to include only the larger contigs. 
+
 Table of "what if one of the features above required are missing" **IZABEL**
 
-| missing parameter 	| options 	| considations 	|
+| missing parameter 	| options 	| considerations 	|
 |---	|---	|---	|
-| mutation rate 	| borrow from closest relative with citeable rate? 	| will affect estimates of (timing in years, ...) 	|
-| recombination rate 	| borrow from closest relative with citeable rate? 	| will affect patterns of (selection/linkage, ...) 	|
-| a good assembly 	| select the largest/most contiguous contigs, and/or those with genes/regions of interest if known 	| consider just simulating a locus of appropriate length if you don't somehow have a recombination map or a gene(s) or other loci of interest with known contig location 	|
-| demographic model 	| need at least N<sub>e</sub> 	| bottlenecks/expansions/admixture can affect a lot of patterns of variation, etc. 	|
-| N<sub>e</sub> 	| population genomic simulation not practical? 	| (I'm not sure there's much you can do here except pick something vaguely reasonable and pray, not exactly what we want to promote - MEL) 	|
+| A good assembly 	| select the most contiguous contigs	| consider just simulating a locus of appropriate length	|
+| Mutation rate 	| borrow from closest relative<sup>*</sup>: with a citeable mutation rate 	| will affect levels of polymorphism 	|
+| Recombination rate 	| borrow from closest relative with citeable rate	| will affect patterns of selection, linkage, and background selection 	|
+| Demographic model 	| At least N<sub>e</sub> is required	| the demographic history (e.g. bottlenecks, expansions, admixture) affects patterns of variation substantially [ref], a constant Ne is not ideal |
+| N<sub>e</sub> 	| always estimable from mutation rate and genetic data | may vary along the chromosome |
 
 
 # Application/Discussion   
