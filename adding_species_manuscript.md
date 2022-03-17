@@ -57,8 +57,6 @@ to everyone.
 Outline
 
 # Introduction
-
-<!--
 1.  Simulation is important for population genomics, both methods development and inference
     - there is a building avalanche of genomic data for a variety of species @Ellegren2014, and a complementary flourishing of methods for population genomic inference @Loog2021
         - so the number and variety of species requiring detailed and accurate simulation models is increasing quickly
@@ -76,7 +74,6 @@ Outline
         - but so far stdpopsim has been mainly restricted to well-characterised model organisms, limiting utility for non-model organisms or model organisms in the early stages of development
     - many potential users want to simulate their study organism, or develop inference methods for non-model organisms
         -   feedback from 2020/2021 stdpopsim workshops emphasized the need for simulations of a wide variety of model and non-model species
-        -->
 
 Dramatic reductions in sequencing costs are enabling unprecedented genomic data  to be collected for a huge variety of species @Ellegren2014.
 Correspondingly, methods for inferring demographic history and natural selection from such data are flourishing @Beichman2018.
@@ -114,7 +111,8 @@ Feedback from workshops for users of the stdpopsim emphasized the need to expand
 
 # Tutorial
 3.   Making a popgen simulation
-
+    - what's important about whole genome sims, and when they're not important **PETER**
+        - https://github.com/popsim-consortium/adding-species-manuscript/pull/6#discussion_r822738958
 To include a species into the stdpopsim catalog it is required that the species has at least: 
 - (1) a **genome assembly**, with contigs being assembled at the chromosome level or nearly so. By using chromosome level information to simulate genomes, stdpopsim indirectly simulates the effect of linked selection. [maybe discussion next text -> ] In the near future this won't be a problem for multiple species, since with (i) the advent of long-read sequencing technologies [ref] and because of (ii) initiatives such as B10K, XXXX, and G10K near XXX error-free reference genome assemblies [Rhie et al, 2021, REF, REF] spanning more than XXX vertebrate species are expected to be generated.  
 - (2) It is also required that the species has a plausible and citeable **mutation rate** estimate. Both phylogenetic mutation rate [ref], germline *de novo* mutations, or mutation rates estimates based on mutation accumulation studies [ref] are welcomed. [commment: using the mutation rate of a closely related species is not a big deal, either??? I know you guys use the drosophila one for the anopheles].
@@ -125,16 +123,15 @@ To include a species into the stdpopsim catalog it is required that the species 
 Users can also add other attributes of a species to the simulation that are not strictly required but can be useful, such as:
 - (6) **Genome annotation**, such as a GFF3/GFF format [ref] containing information about the coordinates of coding and noncoding regions; and the position of specific genes. 
 - (7) A citeable **distribution of fitness effects** (DFE, REF) for the species. This feature is particularly useful when simulating genomes under non-neutral models. 
-
-        - draw from https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb without specifics for stdpopsim 
-        - emphasize throughout that these features should be citeable and chosen with deliberation
-            - eg. "often reported parameter values are tied to a model and its other parameters, so mixing values from different sources has its own caveats" (https://github.com/popsim-consortium/adding-species-manuscript/issues/7)
-        - what about species that don't have some of those resources?
-            - if everything is available except the genome is contig-level (and no recombination map):
-                -   would want to choose just a few of the most important or longest contigs to simulate
-                -   https://github.com/popsim-consortium/adding-species-manuscript/issues/1#issuecomment-1050081855
-                -   might be more appropriate to just simulate a locus of appropriate length
-Table of "what if one of the features above required are missing"
+    - draw from https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb without specifics for stdpopsim 
+    - emphasize throughout that these features should be citeable and chosen with deliberation **PETER**
+        - eg. "often reported parameter values are tied to a model and its other parameters, so mixing values from different sources has its own caveats" (https://github.com/popsim-consortium/adding-species-manuscript/issues/7)
+    - what about species that don't have some of those resources? **PETER**
+        - if everything is available except the genome is contig-level (and no recombination map):
+            -   would want to choose just a few of the most important or longest contigs to simulate
+            -   https://github.com/popsim-consortium/adding-species-manuscript/issues/1#issuecomment-1050081855
+            -   might be more appropriate to just simulate a locus of appropriate length
+Table of "what if one of the features above required are missing" **IZABEL**
 
 | missing parameter 	| options 	| considations 	|
 |---	|---	|---	|
