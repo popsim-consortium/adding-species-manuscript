@@ -57,37 +57,17 @@ to everyone.
 Outline
 
 # Introduction
-1.  Simulation is important for population genomics, both methods development and inference
-    - there is a building avalanche of genomic data for a variety of species @Ellegren2014, and a complementary flourishing of methods for population genomic inference @Loog2021
-        - so the number and variety of species requiring detailed and accurate simulation models is increasing quickly
-    -   coding population genetic simulation models can be arduous and error-prone @Ragsdale2020, but important
-        -   provide training data for machine learning @Schrider2018, ABC @Csillery2010
-        -   for both methods development and empirical research
-        - "accurate" includes realistic demographic models @Teshima2006 (maybe not the best citation) and genetic maps @Nachman2002 as both can strongly impact the patterns of variation and haplotype/linkage
-        -   baseline for further analyses, demography as null model in selection analyses @Hsieh2016a. (This self-cite might not be the best reference here...)
-        -   Predictive modeling for conservation @Teixeira2021
-    - stdpopsim is a tool recently developed to provide easy access to simulation frameworks @Adrion2020
 
-        -   avoid re-making common models
-        -   provide standard benchmarks for methods development and testing @Adrion2021
-        -   improves reproducibility
-        - lower the barrier to technical coding skills
-        - but so far stdpopsim has been mainly restricted to well-characterised model organisms, limiting utility for non-model organisms or model organisms in the early stages of development
-
-    - many potential users want to simulate their study organism, or develop inference methods for non-model organisms
-
-        -   feedback from 2020/2021 stdpopsim workshops emphasized the need for simulations of a wide variety of model and non-model species
-
-Dramatic reductions in sequencing costs are enabling unprecedented genomic data  to be collected for a huge variety of species @Ellegren2014.
+Dramatic reductions in sequencing costs are enabling unprecedented genomic data to be collected for a huge variety of species @Ellegren2014, with ongoing efforts to systematically sequence a wide variety of species (eg. Vertebrate Genomes Project @Rhie2021, 10KP (10,000 Plants) Genome Project @Cheng2018). These efforts are in turn facilitating enormous increases in population-level genomic data.
 Correspondingly, methods for inferring demographic history and natural selection from such data are flourishing @Beichman2018.
 Past methods development has often focused on model organisms such as *Drosophila* or, piggybacking on medical genomics, humans.
-But new methods are being developed, or old methods enhanced, to model population characteristics that are key to many organisms but less important in these traditional models, such as inbreeding @Blischak2020 or skewed offspring distributions @Montano2016.
-(RNG: Any models include these features in the catalog?)
+But new methods are being developed, and old methods enhanced, to model population characteristics that are key to many organisms but less important in these traditional models, such as inbreeding @Blischak2020 or skewed offspring distributions @Montano2016.
+(RNG: Any models include these features in the catalog? MEL: C. reinhardtii? popsim-consortium/stdpopsim#863; Demes can do selfing: popsim-consortium/stdpopsim#857)
 Models inferred from these tools are an important community resource, but reuse of such models can be arduous and error-prone @Ragsdale 2020.
 
 Simulations from population genomic models have many uses, both for methods development and empirical research.
 They provide training data for inference methods based on machine learning @Schrider2018 or Approximate Bayesian Computation @Csillery2010.
-They can also serve as baselines for further analyses; for example, models incorporating demographic history servce as null models in selection analyses @Hsieh2016a.
+They can also serve as baselines for further analyses; for example, models incorporating demographic history serve as null models in selection analyses @Hsieh2016a.
 (RNG: This self-cite might not be the best reference.)
 Population genomic simulations can also help guide conservation decisions for threatened species @Teixeira2021.
 
@@ -97,9 +77,11 @@ The demographic history of a species, encompassing population sizes, divergences
 Recombination rate variation across the genome also strongly affects genetic variation and haplotype structure @Nachman2002, particularly when linked selection is important.
 
 Stdpopsim is a community resource recently developed to provide easy access to detailed population genomic simulations @Adrion2020.
-This resource lowers the technical barriers to performing such simulations and reduces the possiblity of erroneous implementation of established models.
+This resource lowers the technical barriers to performing such simulations and reduces the possibility of erroneous implementation of established models.
 But so far stdpopsim has been primarily restricted to well-characterized model organisms.
-Feedback from workshops for users of the stdpopsim emphasized the need to expand the variety of organims incorporated into stdpopsim.
+Feedback from workshops for users of the stdpopsim emphasized the need for better understanding among the empirical population genomic community of when it is practical to create a realistic simulation of a species of interest, and the community desire to expand the variety of organisms incorporated into stdpopsim.
+
+Thus, the choice of whether and how to develop population genomic simulations for a species of interest is affected by the genomic resources and knowledge available for the species; and the choice of genomic resources and knowledge to implement is a major factor in the resultant patterns of genomic variation generated by the simulation. The  fundamental importance of these components of realistic population genomic simulations is not always well understood, and the necessary choices can be challenging. Stdpopsim provides a framework for standardizing simulations of some species, but the broader population genetics community would benefit from additional guidance in putting together such simulations.
 
 2.  **ELISE** Therefore this paper is intended as a resource for both methods developers and empirical researchers to develop simulations of their own species of interest, with the potential to submit the simulation framework for inclusion in the stdpopsim catalog
 
@@ -135,7 +117,7 @@ since most population-level summaries of genetic variation do not take into acco
 (However, this may change in the future.)
 The differences between one whole-chromosome simulation and many independent simulations of smaller pieces of genome
 are due to linkage, i.e., correlations in transmission and inheritance between adjacent parts of the genome.
-In any simulation, even neutral ones,
+In any simulation, even neutral ones,c
 linkage induces correlations between nearby parts of the genome,
 and so treating, say, a 100Mb chromosome as 100 independent 1Mb chunks of genome
 artificially increases the amount of independence in the data.
