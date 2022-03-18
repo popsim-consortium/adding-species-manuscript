@@ -318,25 +318,11 @@ Table of "what if one of the features above required are missing" **IZABEL**
 
 # Application/Discussion   
 
-## 4. **ELISE** Lessons from "Growing the Zoo" hackathon, held along side probgen in April 2021
+In April 2021, the popsim consortium held a "Growing the Zoo" hackathon alongside the 2021 ProbGen conference. This hackathon was intended to facilitate community-based expansion of the number and variety of species included in the stdpopsim catalog. When first published, the stdpopsim catalog included 6 species: *Homo sapiens*, *Pongo abelii*, *Canis familiaris*, *Drosophila melanogaster*, *Arabidopsis thaliana*, and *Escherichia coli.* Since then, an additional 12 (TODO: check this) species have been added, as well as multiple demographic scenarios for *Homo sapiens*, *Pongo abelii*, *Drosophila melanogaster*, and *Arabidopsis thaliana.* (TODO: find out if there are other species with more than one demographic scenario) 
 
-    - Community-based expansion of the number and variety of species and their demographic scenarios included in the stdpopsim catalog
-    
-      -   when first published, the stdpopsim catalog included 6 species: *Homo sapiens*, *Pongo abelii*, *Canis familiaris*, *Drosophila melanogaster*, *Arabidopsis thaliana*, and *Escherichia coli.*
-      
-        -   when did additional demographic scenarios start getting added?
-        -   the catalog now includes an additional **12** species (note: is this correct, number is from those on main branch)? the catalog doc still only includes the original 6? - MEL), as well as multiple demographic scenarios for *Homo sapiens*, *Pongo abelii*, *Drosophila melanogaster*, and *Arabidopsis thaliana.* (others?)
-        -   however there were some species that were not ideal for inclusion in the catalog, because they don't yet have the necessary genomic resources
+The hackathon was developed as a response to participants in a series of Introduction to stdpopsim workshops held in December 2020 and February 2021. These workshops had a total of X (TODO: count) participants, many of whom expressed a wish to add their own species of interest to stdpopsim. These workshops were followed by a "Growing the Zoo" workshop in March, 2021, to prepare interested participants for the hackathon. Any member of the population genetic community who was familiar with the procedure for adding species to stdpopsim, either from attending the "Growing the Zoo" workshop or their own previous work, was invited to the hackathon. The hackathon ultimately had Y (TODO: count) participants, and Z (TODO: figure out which started during hackathon were ultimately added) species models added to the stdpopsim catalog as a result. However not all species models that were started at the hackathon were ultimately added, as we learned that there is a disconnect between what species community members wish to simulate, and those species that have sufficient resources for a realistic simulation. 
 
-    -   We had *X* participants in the introduction to stdpopsim workshops, many of whom expressed a wish to add their own species for empirical work
-
-        - further *Y* participants in the hackathon
-        - stdpopsim has become a popular resource and there is clearly a desire/need for adding additional species for both goals of methods development and empirical inference
-        - Only *Z* species ultimately got added, why?
-
-            -   choosing species/demographic scenarios to add is potentially challenging
-            -   for methods development, they have to be appropriate for the goals of the method
-            -   for empirical studies, the species is obvious, but whether it is appropriate for inclusion in the catalog or even to use stdpopsim may be less clear
+We, we use species worked on during the hackathon to illustrate the process of choosing a species to simulate, and finding and deciding among the required resources. We also use the lessons from the hackathon about which species are impractical to simulate to further discuss the limitations of population genomic simulations to realistically model species of interest when these species have inadequate genomic resources, and what it means for genomic resources to be inadequate in this context.may be less clear
 
 ## 5.  Examples from "Zoo" hackathon
 
