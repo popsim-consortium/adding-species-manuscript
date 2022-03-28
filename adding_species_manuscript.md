@@ -396,7 +396,7 @@ The feedback on "adding species to the zoo" workshops (2020-2021) made it clear 
 The steps to successfully add a species to the catalog are as follow:
 
 -   Find citeable required resources describing the species (chromosome-level assembly, mutation rate, recombination rate or map, Ne or demog. model, annotations)
--   Open a Github [ref] account, fork the stdpopsim Github repository and start a pull request (PR) by following the stepes provided in https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding%20species%20catalog#adding-a-new-species or https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb
+-   Open a Github [ref] account, fork the stdpopsim Github repository and start a pull request (PR) by following the steps provided in https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding%20species%20catalog#adding-a-new-species or https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb
 - Open an QC issue on Github referring to the added species. 
 - Find another stdpopsim contributor (reviewer) to conduct the QC process
 - The QC process is fully described here (https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding%20species%20catalog#demographic-model-review-process). In summary: 
@@ -404,7 +404,7 @@ The steps to successfully add a species to the catalog are as follow:
     - The reviewer runs the units tests to verify the equivalence of the catalog and QC model implementations.
     - The reviewer then creates a PR, and all being good, this PR is merged and the QC issue is closed.
   
-It is important to note that the catalog is mutable, if new and better estimates for a given are published, then chances are that the catalog will be updated upon a new QC review process.
+It is important to note that the catalog is mutable, if more accurate estimates for a given are published, then chances are that the catalog will be updated--upon a new QC review process.
     
 # Conclusion
 
