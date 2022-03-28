@@ -389,31 +389,22 @@ Table of species/demographic scenarios added/worked on by community since origin
 
 ## 6.  Steps to add a species to stdpopsim catalog
 
+In stdpopsim, once all the necessary data (Table 1) for a given species is collected, then its inclusion is dependent upon a peer-reviewed quality control (QC) process. If all QC conditions are met, then the species and its simulation framework are added to the catalog. Adding a species to the stdpopsim catalog is beneficial in many ways: (1) it increases the visibility of the species model, (2) it drastically improves the reproducibility of the given model framework, and (3) it allows other researchers to test different model simulations with the particular species. 
 
-    -   catalog is the place where simulation frameworks get peer-reviewed through the QC system (see below)
-    -   adding to the catalog is important
+The feedback on "adding species to the zoo" workshops (2020-2021) made it clear that many prospective users of stdpopsim would want to use the stdpopsim for simulating species that are not already in the stdpopsim catalog. Currently there are multiple gaps in the species catalog (Figure XXX, phylogenetic tree or something, 7 chordates, 2 plants (1 vascular, 1 algae), 2 bacteria, 6 arthropods, 1 nematode), and having a greater representation of the tree of life (e.g., by adding plants, yeast, ....) would of course benefit the stdpopsim community as a whole. 
 
-        - feedback from 2020/2021 workshops made it clear that the prospective community included empiricists who are especially concerned with using stdpopsim for inference for individual species that mostly not already in stdpopsim catalog
-        - Current gaps in types of species in catalog
+The steps to successfully add a species to the catalog are as follow:
 
-            -   7 chordates, 2 plants (1 vascular, 1 algae), 2 bacteria, 6 arthropods, 1 nematode
-            -   lots of potential for supporting methods development for other types of organisms (that aren't vertebrates and insects)
-
-                -   eg. yeast
-                -   eg. more plants because plants have goofy genomes
-
-    -   steps to add:
-
-        -   find required resources and citations (chromosome-level assembly, mutation rate, recombination rate or map, Ne or demog. model, annotations)
-
-            -   including an actual human being(s) willing to put in the time and effort
-            -   find and evaluate the necessary information and citations
-            -   add code - detailed steps, reference workshop materials on github https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb
-
-        -   QC - detailed steps
-        -   update catalog documentation?
-
-    -   emphasize that anything that ends up in the catalog has the potential to be updated (because science)
+-   Find citeable required resources describing the species (chromosome-level assembly, mutation rate, recombination rate or map, Ne or demog. model, annotations)
+-   Open a Github [ref] account, fork the stdpopsim Github repository and start a pull request (PR) by following the stepes provided in https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding%20species%20catalog#adding-a-new-species or https://github.com/popsim-consortium/workshops/blob/main/adding_species/contributing.ipynb
+- Open an QC issue on Github referring to the added species. 
+- Find another stdpopsim contributor (reviewer) to conduct the QC process
+- The QC process is fully described here (https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding%20species%20catalog#demographic-model-review-process). In summary: 
+    - The reviewer creates a creates a blind implementation of the model and species to be added. 
+    - The reviewer runs the units tests to verify the equivalence of the catalog and QC model implementations.
+    - The reviewer then creates a PR, and all being good, this PR is merged and the QC issue is closed.
+  
+It is important to note that the catalog is mutable, if new and better estimates for a given are published, then chances are that the catalog will be updated upon a new QC review process.
     
 # Conclusion
 
