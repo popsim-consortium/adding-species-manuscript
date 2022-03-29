@@ -615,7 +615,7 @@ git push --set-upstream origin mosquito
 
 If successful this will return some output including an URL address to a github page that will allow you to immediately open a new Pull Request, asking the maintainers of stdpopsim to look over your code.
 
-- Finally, start a new issue using the Species QC template [here](https://github.com/popsim-consortium/stdpopsim/issues/new/choose)
+- Finally, start a new issue using the Species QC template found [here](https://github.com/popsim-consortium/stdpopsim/issues/new/choose)
 - Find another stdpopsim contributor (reviewer) to conduct the QC process
 - The QC process is fully described [here](https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding%20species%20catalog#demographic-model-review-process). In summary: 
     - The reviewer creates a creates a blind implementation of the model and species to be added. 
