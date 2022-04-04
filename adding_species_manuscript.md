@@ -393,19 +393,19 @@ Table of species/demographic scenarios added/worked on by community since origin
 
 In stdpopsim, once all the necessary data (Table 1) for a given species is collected, then its inclusion is dependent upon a peer-reviewed quality control (QC) process. If all QC conditions are met, the species and its simulation framework are added to the catalog. Adding a species to the stdpopsim catalog is beneficial in many ways: (1) it increases the visibility of the species model, (2) it drastically improves the reproducibility of the given model framework, and (3) it allows other researchers to test different model simulations with that particular species. 
 
-The feedback on “Growing the Zoo” hackathon workshops (2020-2021) made it clear that many prospective users of stdpopsim would want to use the stdpopsim for simulating species that are not already in the stdpopsim catalog. Currently there are multiple gaps in the species catalog (Figure XXX, phylogenetic tree or something, 7 chordates, 2 plants (1 vascular, 1 algae), 2 bacteria, 6 arthropods, 1 nematode), and having a greater representation of the tree of life (e.g., by adding plants, yeast, ....) would of course benefit the stdpopsim community as a whole. 
+The feedback on “Growing the Zoo” hackathon workshops (2020-2021) made it clear that many prospective users of stdpopsim would want to use the stdpopsim for simulating species that are not already in the stdpopsim catalog. Currently there are multiple gaps in the species catalog (Figure XXX, phylogenetic tree or something, 7 chordates, 2 plants (1 vascular, 1 algae), 2 bacteria, 6 arthropods, 1 nematode), and having a greater representation of the tree of life (e.g., by adding plants, yeast, ....) would benefit the stdpopsim community as a whole. 
 
 The steps to successfully add a species to the catalog are as follow:
 
--   Find citeable required resources describing the species (chromosome-level assembly, mutation rate, recombination rate or map, Ne or demog. model, annotations)
--   Open a Github [ref] account, fork the stdpopsim Github repository and start a pull request (PR) by following the steps provided in https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding%20species%20catalog#adding-a-new-species
+-   Find citeable resources describing the required population and species genetic parameters as detailed in Section XXXX: Making a population genomic simulation."
+-   Open a github [ref] account, fork the stdpopsim github repository and start a pull request (PR)  by following the steps provided in the "Adding a new species" section of the Development chapter in the stdpopsim docs, currently at https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding%20species%20catalog#adding-a-new-species"
 - Clone your fork locally. This can be done at the commandline using git as:
 ```
 git clone https://github.com/<your_username>/stdpopsim.git
 ```
 using your actual github username in place of ```<your_username>```.
 
-Next, set up a new conda virtual environment [see ref, for details on how to install]. And install the stdpopsim development requirements onto this environment using pip.
+Next, set up a new conda virtual environment [see ref, for details on how to install], and install the stdpopsim development requirements onto this environment using pip.
 
 ```
 cd stdpopsim
@@ -414,7 +414,7 @@ conda activate stdpopsim
 pip install -r requirements/development.txt
 ```
 
-Further documentation on installation of stdposim can be found [here](https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html#installation).
+Further documentation on installation can be found in the "Installation" section of the Development chapter of the stdpopsim docs at https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html#installation.
 
 -   Setup the automated code checking/error correction by typing:
 
@@ -508,7 +508,7 @@ python -m pytest tests/test_AnoGam.py
 ```
 ### 2) Mutation rates
 
-Editing the species.py file concerning the mutation rate is very similar to the recombination rate. It turns out that there is no great estimates for mutation rate in Anopheles but in a recent population genomics effort by the Ag1000G consortium it has relied on Drosophila estimates from Schrider et al. (2013) that set u=5.49e-9. We'll go with that:
+Editing the species.py file concerning the mutation rate is very similar to the recombination rate. It turns out that there are no great estimates for mutation rate in *Anopheles*, but a recent population genomics effort by the AG1000G consortium (cite) relied on *Drosophila* estimates from Schrider et al. (2013) that set u=5.49e-9. We'll go with that:
 
 ```
 _overall_rate = 5.49e-9
@@ -521,7 +521,7 @@ _mutation_rate = {
     "Mt": _overall_rate
 }
 ```
-We should again add a citation for the mutation rate and then edit the _mutation_rate dict that was templated for us:
+We should also add a citation for the mutation rate:
 
 ```
 _Ag1000G = stdpopsim.Citation(
@@ -534,7 +534,7 @@ _Ag1000G = stdpopsim.Citation(
 
 ### 3) Assembly
 We need to add a citation for the assembly:
-Ensembl points me to this publication for their current assembly by Sharakhova et al. (2006):
+Ensembl points us to this publication for their current assembly by Sharakhova et al. (2006):
 ```
 _SharakhovaEtAl = stdpopsim.Citation(
     doi="https://doi.org/10.1186/gb-2007-8-1-r5",
@@ -592,9 +592,9 @@ python -m pytest tests/test_AnoGam.py
 If all pass, then it is possible to start a pull request for this species
 
 ### Initiating a Pull Request for your species
-Once all the information for the species is included and all unit tests passes, then next step is to commit all changes the online repository branch and start a pull request (PR) on Github. 
+Once all the information for the species is included and all unit tests pass, the next step is to commit all changes to the online repository branch and start a pull request (PR) on github. 
 
-First we double check we are on our new branch and things are as they should be:
+First we double check we are on our ```mosquito``` branch and things are as they should be:
 
 ```
 git status
