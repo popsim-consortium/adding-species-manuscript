@@ -429,15 +429,15 @@ Our workflow starts with considerations of git and version control. Our first st
 ```
 git remote add upstream https://github.com/popsim-consortium/stdpopsim.git
 git fetch upstream
-git checkout upstream/main
-git checkout -b mosquito
+git checkout upstream/main # navigate to the main stdpopsim branch
+git checkout -b mosquito # create a new branch for your work, called "mosquito," and navigate to it
 ```
 
 now any changes that I commit, will only be committed to the branch called ```mosquito```.
 
-stdpopsim has a few utilities that play well with Ensembl, including one that we will use to create some code templates for us to buildout a new species. This utility lives on the "maintenance" side of stdpopsim which houses utilities that are not user facing.
+stdpopsim has a few utilities that play well with Ensembl (@ensembl2021), including one that we will use to create some code templates for us to buildout a new species. This utility lives on the "maintenance" side of stdpopsim which houses utilities that are not user facing.
 
-To add our species we will hand the maintenance command line interface an Ensembl species ID and it will go and pull down some essential information about the genome:
+To add our species we will hand the maintenance command line interface an Ensembl species ID and it will retrieve some essential information about the genome:
 
 ```
 python -m maintenance add-species Anopheles_gambiae
@@ -445,9 +445,9 @@ python -m maintenance add-species Anopheles_gambiae
 
 A partial list of the genomes housed on Ensembl [can be found here](https://metazoa.ensembl.org/species.html).
 
-The next steps are going to be to flesh out the code templates that the maintenance code just wrote for us in our branch. 
+The next steps will flesh out the templates that the maintenance code just wrote for us in our ```mosquito``` branch.
 
-The function call above has created a few new files in the directory structure of stdpopsim, in particular at the level of ```stdpopsim/catalog``` this utility has created a new directory called AnoGam, which contains three files. The 3 + 3 naming scheme for this directory (and all following references in stdpopsim) is automatically parsed by the maintenance script:
+The function call above has created a few new files in the directory structure of stdpopsim, in particular at the level of ```stdpopsim/catalog```, including a new directory. This utility has created a new directory called AnoGam, which contains three files. The naming scheme for this directory (and all following references in stdpopsim) is automatically parsed by the maintenance script:
 
 ```
 ├── catalog
@@ -456,9 +456,9 @@ The function call above has created a few new files in the directory structure o
 │   │   ├── genome_data.py
 │   │   └── species.py
 ```
-* The ```__init__.py``` contains information about XXXXXXXXXX 
-* The ```genome_data.py``` contains a data dictionary which has slots for the assembly accession number, the assembly name, and a dict representing the chromosome names and their associated lengths.
-* The ```species.py``` is the file that we will need to edit with our species specific information. The basics that we will need here include:
+* The script ```__init__.py``` contains information to call the species description (below)
+* The script ```genome_data.py``` contains a data dictionary which has slots for the assembly accession number, the assembly name, and a dict representing the chromosome names and their associated lengths.
+* The script ```species.py``` file is what we need to edit with our species specific information. The basics that we will need here include:
   * 1) *chromosome-specific* recombination rates (could also be single rate)
   * 2) a genome-wide average *mutation rate*
   * 3) a *generation time* estimate (in years)  
@@ -469,16 +469,16 @@ The function call above has created a few new files in the directory structure o
 
 ```stdpopsim``` in part guarantees code quality through the use of unit testing. Basic sanity tests for this new species will be completed through QC over in the ```tests/test_AnoGam.py``` file created by the command ```python -m maintenance add-species Anopheles_gambiae``` above.
 
-To run the tests in stdpopsim uses the pytest module. We will quickly run the tests that our maintenance function has stubbed out and expect it to error out:
+These tests use the pytest module. We will quickly run the tests that our maintenance function has set up and expect it to give us an error because we have not yet filled out species.py with the necessary species information:
 
 ```
 python -m pytest tests/test_AnoGam.py
 ```
-The test will tell that the required information entered into this species definition is missing.
+The test will tell us that the required information entered into this species definition is missing.
 Let's add it.
 
 ### 1) Recombination rates
-As a reference for recombination rates in *Anopheles gambiae* we use a recombination map based on a study from Pombi et al. (2006). In that manuscript the authors cite rates around 1cM/Mb, with a bit of variation among arms. In particular let's edit the following block of code in species.py that defines the recombination_rate dict:
+As a reference for recombination rates in *Anopheles gambiae* we use a recombination map based on a study from Pombi et al. (2006). In that manuscript the authors cite rates around 1cM/Mb, with a bit of variation among arms. In particular let's edit the following block of code in species.py that defines the recombination rate in the simulation:
 
 ```
 _recombination_rate = {
@@ -490,7 +490,7 @@ _recombination_rate = {
     "Mt": 0
 }
 ```
-Every information in regards to the population genetics parameters requires a citeable reference. To do that we can create a stdpopsim.Citation object to the same species.py file. that Citation object looks like this:
+Every piece of information requires a citable reference. To do that we can create a stdpopsim.Citation object to the same species.py file. that Citation object looks like this:
 
 ```
 _PombiEtAl = stdpopsim.Citation(
