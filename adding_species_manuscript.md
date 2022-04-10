@@ -1,10 +1,10 @@
 ---
-title: ' Adding species to stdpopsim '
+title: 'Adding species to the standard population genetics simulator - stdpopsim'
 author:
 - name: null
   affiliation: null
-- name: null
-  affiliation: null
+- name: Gregor Gorjanc
+  affiliation: The Roslin Institute and Royal (Dick) School of Veterinary Studies, University of Edinburgh, Edinburgh EH25 9RG, UK
 - name: null
   affiliation: null
 output:
@@ -29,27 +29,26 @@ preamble: |
 
 **Abstract:**
 
-Simulation is one of the key tools in population genetics, and
+Simulation is one of the key tools in population genetics. It
 is useful for both methods development and empirical research, including
 providing training data and null models for hypothesis testing.
-As more and more information about many species becomes available
-and more detailed models estimated,
-the need for more and more detailed simulations of a wide range
-of species becomes more acute. Population genetic data is being generated
-faster than ever before, and there are currently efforts underway to
-sequence all vertebrate species (Vertabrate Genomes Project) and 10,000 plant species
-(10KP), among many others, that will facilitate an avalanche of population genetic
-data in non-model organisms as well. 
+As more and more information about many species genomes becomes available
+and more detailed population genetic models estimated,
+the need for more detailed simulations of a wide range
+of scenarios becomes more acute. Population genetic data is being generated
+faster than ever before with efforts like the Earth Biogenome and its affiliated
+project networks. These efforts will generate an avalanche of population genetic
+data in model and non-model organisms. 
 The recently developed stdpopsim tool makes it easy to simulate
-complex models using up to date information for a number of
-well characterised and model organisms such as humans, chimpanzees, and *Arabadopsis*,
+complex population genetic models using up to date information for a number of
+well characterised model organisms such as humans, chimpanzees, and *Arabidopsis*,
 but provides little help in enabling simulations for less
 well characterised organisms.
 Many users wish to simulate their study organism, but do not
 know what information is required in order to do this and
 where this information might be found.
 In this paper we discuss the elements of a population genetic
-simulation model, and the input data required in order to make
+simulation model, including the required input data to make
 them a realistic characterisation of a particular species. We also discuss
 common pitfalls and major considerations in choosing this input data.
 Further, we discuss how such information can be integrated into the
@@ -57,38 +56,37 @@ stdpopsim catalog to simplify future simulations of the same species,
 and some of the lessons learned from a
 recent effort to expand the range of supported species.
 Thus, this paper serves as a tutorial in both how to
-assemble the data that is required in order to simulate
+assemble the data that is required to simulate
 a species, and how this information can be incorporated
-into the stdpopsim catalog in order to make it available
+into the stdpopsim catalog to make it available
 to everyone.
 
 
 # Introduction
 
-Dramatic reductions in sequencing costs are enabling unprecedented genomic data to be generated for a huge variety of species (@Ellegren2014). Ongoing efforts to systematically sequence a wide variety of species (eg. Vertebrate Genomes Project (@Rhie2021), 10KP (10,000 Plants) Genome Project (@Cheng2018)) are in turn facilitating enormous increases in population-level genomic data for new model and non-model species.
+Dramatic reductions in sequencing costs are enabling unprecedented genomic data to be generated for a huge variety of species (@Ellegren2014). Ongoing efforts to systematically sequence the life on Earth with efforts like the Earth Biogenome (@Lewin2022) and its affiliated project networks (for example, Vertebrate Genomes (@Rhie2021), 10,000 Plants (@Cheng2018) and others, see https://www.earthbiogenome.org/affiliated-project-networks) are facilitating enormous increases in population-level genomic data for model and non-model species.
 Correspondingly, methods for inferring demographic history and natural selection from such data are flourishing (@Beichman2018).
 Past methods development has typically focused on model organisms such as *Drosophila* or, piggybacking on medical genomics, humans.
-But new methods are being developed, and old methods enhanced, to model population characteristics that are key to many organisms but less important in models of common model organisms, such as inbreeding (@Blischak2020), skewed offspring distributions (@Montano2016), or selfing (eg. as implemented in Demes (@Gower2022)).
-Models inferred from these tools are an important community resource, but reuse of such models can be arduous and error-prone (@Ragsdale2020).
+But new methods are being developed, and old methods enhanced, to model population characteristics that are key to many organisms but less important in models of common model organisms, such as inbreeding (@Blischak2020), skewed offspring distributions (@Montano2016), selfing (eg. as implemented in Demes (@Gower2022)), and intense artificial selection (@MacLeod2013, @MacLeod2014).
+Population genetic models inferred with these tools are an important community resource, but reuse of such models can be arduous and error-prone (@Ragsdale2020).
 
 Simulations from population genomic models have many uses, both for methods development and empirical research.
 They provide training data for inference methods based on machine learning (@Schrider2018) or Approximate Bayesian Computation (@Csillery2010).
-They can also serve as baselines for further analyses; for example, models incorporating demographic history serve as null models in selection analyses (@Hsieh2016a).
+They can also serve as baselines for further analyses; for example, models incorporating demographic history serve as null models in selection analyses (@Hsieh2016a) or to seed downstream breeding program simulations (@Gaynor2020).
 More recently, population genomic simulations have begun to be used to help guide conservation decisions for threatened species (@Teixeira2021).
 
 In general, population genomic simulations become more useful the more realistically they represent the organism being simulated - that is, as they incorporate more features of the organism's biology.
-The demographic history of a species, encompassing population sizes, divergences, and gene flow, can dramatically affect patterns of genetic variation (@Teshima2006), and recombination rate variation across the genome also strongly affects genetic variation and haplotype structure (@Nachman2002), particularly when linked selection is important (TODO: cite linked selection?). 
+Genome features such as mutation and recombination rates strongly affect genetic variation and haplotype structure (@Nachman2002), particularly when linked selection is important (TODO: cite linked selection?). Furthermore, the demographic history of a species, encompassing population sizes, divergences, and gene flow, can dramatically affect patterns of genetic variation (@Teshima2006). 
 Thus estimates of these parameters are fundamentally important to the development of simulations of species of interest. This presents challenges not only in the coding of the simulations themselves, but in the choice of parameter estimates to be used to shape the simulation model.
 
 Stdpopsim is a community resource recently developed to provide easy access to detailed population genomic simulations (@Adrion2020).
 This resource lowers the technical barriers to performing such simulations and reduces the possibility of erroneous implementation of simulations for species with published models.
 But so far stdpopsim has been primarily restricted to well-characterized model organisms.
-Feedback from workshops for users of stdpopsim emphasized the need for better understanding among the empirical population genomic community 
-of when it is practical to create a realistic simulation of a species of interest, and the community desire to expand the variety of organisms 
-incorporated into stdpopsim.
+Feedback from stdpopsim workshops emphasized the need for a better understanding among the empirical population genomic community 
+of when it is practical to create a realistic simulation of a species of interest, and the community desires to expand the variety of organisms in stdpopsim.
 
 Thus, the choice of whether and how to develop population genomic simulations for a species of interest is affected by the genomic resources and 
-knowledge available for the species. These choices have a major impact on the resulting patterns of genomic variation generated by the simulation. The  fundamental importance of these components of realistic population genomic simulations 
+knowledge available for the species. These choices have a major impact on the resulting patterns of genomic variation generated by the simulation. The fundamental importance of these components of realistic population genomic simulations 
 is not always well understood, and the necessary choices can be challenging. While stdpopsim provides a framework for standardizing simulations 
 of some species, the broader population genetics community would benefit from additional guidance in putting together such simulations.
 
@@ -96,8 +94,8 @@ Therefore this paper is intended as a resource for both methods developers and e
 own species of interest, with the potential to submit the simulation framework for inclusion in the stdpopsim catalog for peer review
 and future use. In the **Tutorial**, 
 we discuss the elements of a population genomic simulation model that realistically characterizes a species, including required input data 
-(genome assembly, mutation and recombination rates, demographic model) and its quality, common pitfalls in choosing appropriate parameters, 
-and considerations for how to approach species that are missing some necessary elements. This paper is not intended as a tutorial for 
+(genome assembly, mutation and recombination rates, and demographic model) and its quality, common pitfalls in choosing appropriate parameters, 
+and considerations for how to approach species that are missing some necessary inputs. This paper is not intended as a tutorial for 
 implementing simulations in any particular simulator, rather to provide guidance for what information is sufficient for a realistic 
 simulation using any simulator. We also discuss the **Application** of these principles to modeling a species new to the stdpopsim catalog, 
 and how species models may be integrated into the stdpopsim catalog, including briefly presenting the current method for adding species, 
@@ -342,8 +340,8 @@ We use species worked on during the hackathon to illustrate the process of choos
         -   reasons for adding
 
             - ag species, hence important for breeding and genetic simulations of applied problems
-            - Ne inferred to very recent times using a specific haplotype method (cite https://academic.oup.com/mbe/article/30/9/2209/1002512?login=true)
-            - decreasing Ne due to domestication and recent intense selection, this scenario is quite different to many other cases (stuff like GWAS is very limited due to long-range LD, but genomic prediction works really well withing populations, ... cite https://pubmed.ncbi.nlm.nih.gov/11290733/, https://academic.oup.com/genetics/article-abstract/198/4/1671/5935952, https://royalsocietypublishing.org/doi/abs/10.1098/rspb.2016.0569)
+            - Ne inferred to very recent times using a specific haplotype method (@MacLeod2013)
+            - decreasing Ne due to domestication and recent intense selection, this scenario is quite different to many other cases (stuff like GWAS is very limited due to long-range LD, but genomic prediction works really well withing populations, ... cite @Meuwissen2001, @MacLeod2014, https://royalsocietypublishing.org/doi/abs/10.1098/rspb.2016.0569)
 
         -   can be used for methods development and inference
 
@@ -640,4 +638,10 @@ It is important to note that the catalog is mutable, if more accurate estimates 
             -   not all species that people want to add have appropriate genomic resources yet, but many will soon!
             -   so this paper provides the population genomics community with more clarity in what resources are necessary and how to use them to simulate your favorite species
 
+# 8. Acknowledgements
 
+TODO
+
+# 9. Funding
+
+Gregor Gorjanc was supported by the University of Edinburgh and the UK Biotechnology and Biological Sciences Research Council grant to The Roslin Institute (BBS/E/D/30002275).
