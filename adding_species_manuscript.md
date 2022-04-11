@@ -163,7 +163,7 @@ is still a major open question in the field.
 
 Finally, what about *whole-genome* simulations?
 Chromosomes segregate independently,
-so between-chromosome correlations are possible but can only be induced by fairly extreme situations, such as intense selection (@Bulmer1971, @Lara2022) though this can be simulated in follow-up forward-in-time simulations (@Haller2018, @Gaynor2020).
+so between-chromosome correlations are possible but can only be induced by fairly extreme situations, such as intense directional or stabilising selection on multiple loci across chromosomes (@Bulmer1971, @Lara2022). However, this situation can be simulated in follow-up forward-in-time simulations (@Haller2018, @Gaynor2020).
 For this reason, we tend to simulate chromosomes independently, and few (TODO:any? if so, find them)
 simulators have mechanisms to simulate multiple chromosomes simultaneously.
 
