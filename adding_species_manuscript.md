@@ -335,43 +335,45 @@ We use species worked on during the hackathon to illustrate the process of choos
 
     -   A species that was fully added (Bos taurus?) **GREGOR**
     
-We have added Bos Taurus (cattle) species as an example of an agricultural
-species. Agricultural species have generally experienced strong reduction in
-effective population size over time due to selection caused by domestication and
-recently selective breeding. Both of these processes have occurred over a
+We have added Bos Taurus (cattle) as an example of an agricultural
+species. These species have generally experienced strong reduction in
+effective population size over time due to selection caused by past domestication
+and recent selective breeding. Both of these processes have occurred over a
 relatively short period (~10,000 years or less) and are increasingly intensified
 to improve food production (@Gaut2018, @MacLeod2013). In cattle, nowadays, high
-quality genome assemblies are available for several breeds (e.g., @Rosen2020,
+quality genome assemblies are available for several populations/breeds (e.g., @Rosen2020,
 @Heaton2021, @Talenti2022) and since the introduction of genomic prediction
-(@Meuwissen2001) the use of use of genomics is booming (e.g., @Taylor2016,
-@VanRaden2020). This boom inspired numerous simulation studies to study optimal
-uses of genomic data in selective breeding (@Meuwissen2001, @MacLeod2014, and
-others). Cattle is interesting for population genetic studies due to its
-decreasing effective population size. In the cosmopolitan dairy breed Holstein,
+(@Meuwissen2001) the use of use of genomic data is booming (e.g., @Taylor2016,
+@VanRaden2020). This boom inspired numerous simulations to find optimal
+uses of genomic data in selective breeding (@Meuwissen2001, @MacLeod2014, @Obsteter2021,
+and others). In the cosmopolitan dairy breed Holstein,
 the effective population size was estimated to be as low as ~90 around 1980
 (@MacLeod2013) and has since decreased even further due to intense selective
-breeding (e.g., @VanRaden2020, @Makanjouloa2020). This decrease is interesting
-because it is challenging the estimation of demography (@MacLeod2013),
-genome-wide association and prediction (@MacLeod2014), and inference of selection
-(@Hartfield2022). With respect to the parameters chosen in the stdpopsim
-implementation, for the basic genome simulation we used the @Rosen2020 assembly,
-@Harland2017 mutation rate of 1.2*10^-8, @Ma2015 recombination rate of 0.926*10^-8,
-and @MacLeod2013 base population effective population of 90, and generation
-interval of 5 years. This effective population size is specific to the Holstein
-breed, but is likely also representative of a small effective population size in
-other cattle breeds. Critically, this low current effective population size will
-generate very low levels of overall genetic diversity and the basic genome
-simulation must be complemented with a demographic model. We implemented the
-@MacLeod2013 demographic model for the Holstein breed, which used runs of
-homozygosity in the whole-genome sequence of two iconic bulls to describe the
-effective population size of cattle from deep past to about 1980, after which
-further breeding simulations with intense selective breeding are needed
-(@Gaynor2020). @MacLeod2013 assumed recombination and mutation rates of 1*10^-8
-in inferring their demograhic model. In line with the advice given in previous
+breeding (e.g., @VanRaden2020, @Makanjouloa2020). This decrease is challenging
+the estimation of demography (@MacLeod2013), genome-wide association and prediction
+(@MacLeod2014), and inference of selection (@Hartfield2022).
+With respect to the parameters chosen in the stdpopsim
+implementation, for the basic genome simulation we used the most recent assembly
+(@Rosen2020), mutation rate of 1.2*10^-8 (@Harland2017), recombination rate of
+0.926*10^-8 (@Ma2015), base population effective population of 90 (@MacLeod2013),
+and generation interval of 5 years (@MacLeod2013). The chosen effective population
+size is specific to the Holstein breed, but is likely also representative of a
+small effective population size in other breeds. Critically, this low effective
+population size will generate very low level of overall genetic diversity, which
+is not in line with the actually observed variation (e.g., @Rosen2020). To remedy
+this, the basic genome simulation must be complemented with a demographic model.
+We implemented the @MacLeod2013 demographic model for the Holstein breed, which
+was inferred from runs of homozygosity in the whole-genome sequence of two iconic
+bulls. The estimated effective population size in this demography spans from
+the deep past to about 1980, after which further breeding simulations with
+intense selective breeding are needed to (e.g., @MacLeod2014, @Gaynor2020,
+@Obsteter2021). @MacLeod2013 assumed recombination and mutation rates of 1*10^-8
+in inferring their demographic model. In line with the advice given in previous
 sections, we implemented these mutation and recombination rates for the @MacLeod2013
-demographic model, even though we have more recent estimates. When simulation
-with this demographic model is requested, the recent estimates are replaced
-with the estimates assumed in the demographic model. (Gregor: THIS IS TRUE FOR MUTATION RATE, BUT NOT FOR RECOMBINATION RATE - SHOULD YOU CHANGE THE IMPLEMENTATION?)
+demographic model, even we have implemented more recent estimates in the base
+genome model, though they are very similar. When a simulation with this demographic
+model is requested, the recent estimates are replaced with the estimates assumed
+in the demographic model. (Gregor: THIS IS TRUE FOR MUTATION RATE, BUT NOT FOR RECOMBINATION RATE - SHOULD YOU CHANGE THE IMPLEMENTATION?)
 
 ## What about species lacking chromosome-level assemblies?
 
