@@ -367,9 +367,10 @@ bulls. The estimated effective population size in this demography spans from
 the deep past to about 1980, after which further breeding simulations with
 intense selective breeding are needed to (e.g., @MacLeod2014, @Gaynor2020,
 @Obsteter2021). @MacLeod2013 assumed recombination and mutation rates of 1*10^-8
-in inferring their demographic model. In line with the advice given in previous
+in inferring their demographic model, but revised the mutation rate to 0.94*10^-8
+by taking sequence errors into account. In line with the advice given in previous
 sections, we implemented these mutation and recombination rates for the @MacLeod2013
-demographic model, even we have implemented more recent estimates in the base
+demographic model, even though we have implemented more recent estimates in the base
 genome model, though they are very similar. When a simulation with this demographic
 model is requested, the recent estimates are replaced with the estimates assumed
 in the demographic model. (Gregor: THIS IS TRUE FOR MUTATION RATE, BUT NOT FOR RECOMBINATION RATE - SHOULD YOU CHANGE THE IMPLEMENTATION?)
