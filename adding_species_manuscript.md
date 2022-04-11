@@ -335,23 +335,22 @@ We use species worked on during the hackathon to illustrate the process of choos
 
     -   A species that was fully added (Bos taurus?) **GREGOR**
     
-We have added Bos Taurus (cattle) as an example of an agricultural
-species. These species have generally experienced strong reduction in
-effective population size over time due to selection caused by past domestication
-and recent selective breeding. Both of these processes have occurred over a
+We have added Bos taurus (cattle) as an example of an agricultural species.
+These species have generally experienced strong reduction in effective
+population size over time due to selection caused by past domestication and
+recent selective breeding. Both of these processes have occurred over a
 relatively short period (~10,000 years or less) and are increasingly intensified
-to improve food production (@Gaut2018, @MacLeod2013). In cattle, nowadays, high
-quality genome assemblies are available for several populations/breeds (e.g., @Rosen2020,
-@Heaton2021, @Talenti2022) and since the introduction of genomic prediction
-(@Meuwissen2001) the use of use of genomic data is booming (e.g., @Taylor2016,
-@VanRaden2020). This boom inspired numerous simulations to find optimal
-uses of genomic data in selective breeding (@Meuwissen2001, @MacLeod2014, @Obsteter2021,
-and others). In the cosmopolitan dairy breed Holstein,
-the effective population size was estimated to be as low as ~90 around 1980
-(@MacLeod2013) and has since decreased even further due to intense selective
-breeding (e.g., @VanRaden2020, @Makanjouloa2020). This decrease is challenging
-the estimation of demography (@MacLeod2013), genome-wide association and prediction
-(@MacLeod2014), and inference of selection (@Hartfield2022).
+to improve food production (@Gaut2018, @MacLeod2013).  In cattle, high quality
+genome assemblies are now available for several breeds (e.g., @Rosen2020,
+@Heaton2021, @Talenti2022) and population genomic analyses have become widely
+used to improve selective breeding and genomic prediction
+@Meuwissen2001, @MacLeod2014, @Obsteter2021). Their small effective population
+size (~90 around 1980, and continuing to decline due to intense selective
+breeding (@MacLeod2013, @VanRaden2020, @Makanjouloa2020) is challenging
+demographic and selection inference (@MacLeod2013, @Hartfield2022), as well as
+genome-wide association and prediction (@MacLeod2014), For these reasons, it was
+useful to develop a standardized population genomic cattle model for stdpopsim.
+
 With respect to the parameters chosen in the stdpopsim
 implementation, for the basic genome simulation we used the most recent assembly
 (@Rosen2020), mutation rate of 1.2*10^-8 (@Harland2017), recombination rate of
