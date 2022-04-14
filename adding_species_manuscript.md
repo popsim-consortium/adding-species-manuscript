@@ -64,11 +64,15 @@ to everyone.
 
 # Introduction
 
-Dramatic reductions in sequencing costs are enabling unprecedented genomic data to be generated for a huge variety of species (@Ellegren2014). Ongoing efforts to systematically sequence the life on Earth with efforts like the Earth Biogenome (@Lewin2022) and its affiliated project networks (for example, Vertebrate Genomes (@Rhie2021), 10,000 Plants (@Cheng2018) and others, see https://www.earthbiogenome.org/affiliated-project-networks) are facilitating enormous increases in population-level genomic data for model and non-model species.
+Dramatic reductions in sequencing costs are enabling unprecedented genomic data to be generated for a huge variety of species (@Ellegren2014).
+Ongoing efforts to systematically sequence the life on Earth with efforts like the Earth Biogenome (@Lewin2022) and its affiliated project networks
+(for example, Vertebrate Genomes (@Rhie2021), 10,000 Plants (@Cheng2018) and others, see https://www.earthbiogenome.org/affiliated-project-networks) 
+are facilitating enormous increases in population-level genomic data for model and non-model species.
 Correspondingly, methods for inferring demographic history and natural selection from such data are flourishing (@Beichman2018).
-Past methods development has typically focused on model species such as *Drosophila* or, piggybacking on medical genomics, humans.
-But new methods are being developed, and old methods enhanced, to model population characteristics that are key to many species but less important in models of common model species, such as inbreeding (@Blischak2020), skewed offspring distributions (@Montano2016), selfing (eg. as implemented in Demes (@Gower2022)), and intense artificial selection (@MacLeod2013, @MacLeod2014).
-Population genetic models inferred with these tools are an important community resource, but reuse of such models can be arduous and error-prone (@Ragsdale2020).
+Past methods development has justifiably focused on the human genome as a model system, or a few key species such as *Drosophila*,
+yet more recently attention has been paid to generalize methods to include important population dynamics not present in these models 
+such as inbreeding (@Blischak2020), skewed offspring distributions (@Montano2016), selfing (eg. as implemented in Demes (@Gower2022)), 
+and intense artificial selection (@MacLeod2013, @MacLeod2014).
 
 Simulations from population genomic models have many uses, both for methods development and empirical research.
 They provide training data for inference methods based on machine learning (@Schrider2018) or Approximate Bayesian Computation (@Csillery2010).
@@ -132,7 +136,7 @@ linkage decreases the amount of
 variation in a chromosome simulated as a single continuous stretch, compared to simulating 
 multiple smaller fragments that add up to the same length. That is, treating a 100Mb chromosome as 100 independent 1Mb chunks of chromosome
 artificially increases the amount of independence in the data. This may be misleading if the scale of linkage is long:
-for instance, results on simulated human chromosome 22 are often very noisy due to a long stretch of near-zero recombination (TODO: CITE - @petrelharp?).
+for instance, results on simulated human chromosome 22 are often very noisy due to a long stretch of near-zero recombination (TODO: CITE).
 The effect of natural selection on patterns of inheritance would not have been evident if the chromosome had been broken into many independent pieces for simulation. 
 
 Second, linked selection (the effect that natural selection has on patterns of inheritance, and hence genetic diversity,
@@ -473,7 +477,7 @@ The next steps will flesh out the templates that the maintenance code just wrote
 
 The function call above has created a few new files in the directory structure of stdpopsim, in particular at the level of ```stdpopsim/catalog```, including a new directory. This utility has created a new directory called AnoGam, which contains three files. The naming scheme for this directory (and all following references in stdpopsim) is automatically parsed by the maintenance script:
 
-```
+```bash
 ├── catalog
 │   ├── AnoGam
 │   │   ├── __init__.py
@@ -660,23 +664,30 @@ It is important to note that the catalog is mutable, if more accurate estimates 
     
 # Conclusion/take-aways
 
-    - we present the basics for 
+As our ability to sequence genomes continues to advance, the need for population genomic simulation of new, non-model organism
+genomes is becoming more and more acute. 
+stdpopsim, as a resource, is uniquely poised to fill this gap as it provides easy access to simulation which 
+conditions on species-specific information, easy inclusion of new species genomes, and community-maintained accuracy and correctness. 
+Moreover one of our goals is to leverage stdpopsim itself as a springboard for education and inclusion of new communities into
+computational biology and software development. 
 
-        - 1) determining if a species-specific population genomic simulation is appropriate for the species/question
-        - 2) getting the required data
-        - 3) creating a population genomic simulation of that species in your simulator of choice
-        - 4) adding that species to the stdpopsim catalog
-        - we *do not* present tutorials for implementation in any particular simulator (there are lots of those)
+In this manuscript we present the basic steps required for adding a new species into stdpopsim and then using
+that information for simulation. This includes determining if a species-specific population genomic simulation is appropriate for the species and question,
+how to get the data required by stdpopsim, how to include that species into the stdpopsim catalog, and how the QC process 
+for species inclusion works. Currently large-scale projects such as the Darwin Tree of Life (CITE) project are generating tens of thousands
+of genome assemblies-- each of these, with some prior knowledge of mutation and recombination rates, would then be a candidate for
+inclusion into the stdpopsim catalog following the steps we have outlined above. As annotation of genome assemblies approve over time
+those too can easily be added to the stdpopsim catalog as well. 
 
-    - For many species we need better genomic resources: assemblies and annotations would be community resources
-    - there is a definite need for more and more species-specific population genomic simulations
+We are keen to use outreach, for instance in the form of workshops and hackathons, as a way to democratize development of population
+genetic simulation as well as grow the stdpopsim catalog and library generally. 
+By enabling non-model researchers with simulation platforms that traditionally have been quite narrowly focused with 
+respect to organism, we hope to raise the quality of research across a large number of systems, 
+while simultanousely expanding the community of software developers at work in the population and evolutionary genetics world.
+Our experience with such outreach over the past two years is that people are indeed keen to to in the time and effort to 
+include their favority study species, but that simple, clear guidance was the key-- our intention with this paper is in part to 
+provide another learning modality to meet that need. 
 
-        - but gaps in practitioners' understandings of when and how to implement them for a given species
-        - stdpopsim is a community-maintained resource intended to provide easy access to simulation frameworks, adding species expands the types of methods development and inference it is useful for
-
-            -   we learned from the hackathon that people are willing to put in the time and effort to add species, when given clear guidance for how to do it
-            -   not all species that people want to add have appropriate genomic resources yet, but many will soon!
-            -   so this paper provides the population genomics community with more clarity in what resources are necessary and how to use them to simulate your favorite species
 
 # Acknowledgements
 
@@ -685,3 +696,4 @@ TODO Workshop and hachaton attendes?
 # Funding
 
 Gregor Gorjanc was supported by the University of Edinburgh and the UK Biotechnology and Biological Sciences Research Council grant to The Roslin Institute (BBS/E/D/30002275).
+Andrew D. Kern and Peter L. Ralph were supported by NIH award R01HG010774.
