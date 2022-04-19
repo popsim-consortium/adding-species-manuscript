@@ -1,8 +1,18 @@
 IN PROGRESS
 Manuscript: "adding species"
 
+Title: ?
+
+Journal:
+1. eLife ("research advances")
+2. Molecular Ecology Resources
+3. MBE
+
 Goal:
 - preprint by ProbGen, March 28
+- Hahaha no that didn't happen. Revised: Good document for discussion next meeting (May 3)
+
+19 April: Full draft. TODOs include: add certain citations; acknowledgements; author list; figure out which species in the codebase are fully QC'd and which almost -> make phylogeny figure; a few other assorted things (see TODO in text) and resolving specific comments.
 
 If you want to do the main writing for a particular section, claim it in the outline .md file (**NAME**).
 If you want to do some writing but are ambivalent to section, let Elise know.
