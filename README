@@ -1,7 +1,12 @@
-IN PROGRESS
-Manuscript: "adding species"
+### How to compile
+`make`
 
-Title: ?
+can clean up all intermediates with
+
+`make clean`
+
+
+Title: Adding species to the stdpopsim library
 
 Journal:
 1. eLife ("research advances")
