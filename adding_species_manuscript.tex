@@ -48,7 +48,7 @@
      }
 
 
-% Avoid pandoc bug when there are lists in the body. 
+% Avoid pandoc bug when there are lists in the body.
 \providecommand{\tightlist}{%
 \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
@@ -82,26 +82,26 @@
 Simulation is a key tool in population genetics. It
 is useful for both methods development and empirical research, including
 providing training data and null models for hypothesis testing.
-Population genetic data is being generated faster than ever before with 
-efforts such the Earth Biogenome and its affiliated project networks. 
+Population genetic data is being generated faster than ever before with
+efforts such the Earth Biogenome and its affiliated project networks.
 These efforts will generate an avalanche of population genetic
-data in model and non-model species. This data, coupled with advances 
-in estimating detailed population genetic models, has made the need 
+data in model and non-model species. This data, coupled with advances
+in estimating detailed population genetic models, has made the need
 for more detailed simulations of a wide range of scenarios acute.
 The recently developed stdpopsim tool makes it easy to simulate
 complex population genetic models using up to date information for a number of
 well characterised model species such as humans, chimpanzees, and \emph{Arabidopsis},
 but provides little help in enabling simulations for less
 well characterised, non-model species.
-Many empirical researchers employing population genetics wish to simulate 
-their study species, but do not know what information is required in order 
+Many empirical researchers employing population genetics wish to simulate
+their study species, but do not know what information is required in order
 to do so sufficiently realistically, or where to find this information.
 In this paper we discuss the elements of a population genomic
 simulation model, including the required input data to make
 them a realistic characterisation of a particular species. We also discuss
 common pitfalls and major considerations in choosing this input data.
 Further, we discuss how such information can be integrated into the
-stdpopsim catalog to simplify future simulations of the same species, 
+stdpopsim catalog to simplify future simulations of the same species,
 and some of the lessons learned from a
 recent effort to expand the range of supported species.
 Thus, this paper serves as a tutorial in both how to
@@ -298,8 +298,8 @@ important to include linked selection in whole-chromosome simulations is
 still a major open question in the field.
 
 Finally, what about \emph{whole-genome} simulations? Chromosomes
-segregate independently, so between-chromosome correlations are possible
-but can only be induced by fairly extreme situations, such as intense
+segregate independently, so between-chromosome correlations are generally close
+to zero, but can be induced by fairly extreme situations, such as intense
 directional or stabilising selection on multiple loci across chromosomes
 \citep{Bulmer1971, Lara2022}. However, this situation can be simulated in
 follow-up forward-in-time simulations \citep{Haller2018, Gaynor2020}. For
@@ -384,7 +384,7 @@ Here we discuss all of these in more detail.
 \end{enumerate}
 
 Although few species currently have truly chromosome-level assemblies,
-we hope that many more will be available in the near future. 
+we hope that many more will be available in the near future.
 This is on the horizon thanks to the advent of long-read sequencing technologies
 \citep{Amarasinghe2020} and genome initiatives such as the Earth Biogenome
 \citep{Lewin2022} and its affiliated project networks (for example,
@@ -550,7 +550,7 @@ melanogaster}, \emph{Arabidopsis thaliana}, and \emph{Escherichia coli.}
 Since then, an additional 12 (TODO: check this) species have been added,
 as well as multiple demographic scenarios for \emph{Homo sapiens},
 \emph{Pongo abelii}, \emph{Drosophila melanogaster}, and
-\emph{Arabidopsis thaliana.}
+\emph{Arabidopsis thaliana}.
 
 The hackathon was developed in response to participant demand from a
 series of Introduction to stdpopsim workshops held in December 2020 and
@@ -601,16 +601,16 @@ MacLeod2014, Obsteter2021}. Their small effective population size
 selective breeding \citep{MacLeod2013, VanRaden2020, Makanjouloa2020} is
 challenging demographic and selection inference \citep{MacLeod2013,
 Hartfield2022}, as well as genome-wide association and prediction
-\citep{MacLeod2014}, For these reasons, it was useful to develop a
-standardized population genomic cattle model for stdpopsim.
+\citep{MacLeod2014}. For these reasons, it was useful to develop a
+cattle model for stdpopsim.
 
 With respect to the parameters chosen in the stdpopsim implementation,
-for the basic genome simulation we used the most recent assembly
+for the basic genome simulation, we used the most recent assembly
 \citep{Rosen2020}, mutation rate of 1.2\emph{10\^{}-8 \citep{Harland2017},
 recombination rate of 0.926}10\^{}-8 \citep{Ma2015}, base population
 effective population of 90 \citep{MacLeod2013}, and generation interval of 5
 years \citep{MacLeod2013}. The chosen effective population size is specific
-to the Holstein breed, but is likely also representative of a small
+to the Holstein breed, but is generally representative of a small
 effective population size in other breeds. Critically, this low
 effective population size will generate very low level of overall
 genetic diversity, which is not in line with the actually observed
@@ -619,19 +619,20 @@ simulation must be complemented with a demographic model. We implemented
 the \cite{MacLeod2013} demographic model for the Holstein breed, which was
 inferred from runs of homozygosity in the whole-genome sequence of two
 iconic bulls. The estimated effective population size in this demography
-spans from the deep past to about 1980, after which further breeding
-simulations with intense selective breeding are needed to \citep[][e.g.,]{
+spans from the deep past (33,154 generations ago with effective population size
+of 62,000) to the recent past (about 1980 with effective population size of 90),
+after which further breeding simulations with intense selection breeding are
+needed to reflect reality \citep[][e.g.,]{
 MacLeod2014, Gaynor2020, Obsteter2021}. \cite{MacLeod2013} assumed
 recombination and mutation rates of 1\emph{10\^{}-8 in inferring their
 demographic model, but revised the mutation rate to 0.94}10\^{}-8 by
 taking sequence errors into account. In line with the advice given in
 previous sections, we implemented these mutation and recombination rates
 for the \cite{MacLeod2013} demographic model, even though we have implemented
-more recent estimates in the base genome model, though they are very
+more recent estimates in the basic genome model, though they are very
 similar. When a simulation with this demographic model is requested, the
 recent estimates are replaced with the estimates assumed in the
-demographic model. (Gregor: THIS IS TRUE FOR MUTATION RATE, BUT NOT FOR
-RECOMBINATION RATE - SHOULD YOU CHANGE THE IMPLEMENTATION?)
+demographic model.
 
 \hypertarget{what-about-species-lacking-chromosome-level-assemblies}{%
 \paragraph{What about species lacking chromosome-level
@@ -733,10 +734,10 @@ recombination rate in the simulation:
 
 \begin{verbatim}
 _recombination_rate = {
-    "2L": 0, #setting to zero because of inversion 
-    "2R": 1.3e-8, 
-    "3L": 1.6e-8, 
-    "3R": 1.3e-8, 
+    "2L": 0, #setting to zero because of inversion
+    "2R": 1.3e-8,
+    "3L": 1.6e-8,
+    "3R": 1.3e-8,
     "X": 1e-8,
     "Mt": 0
 }
@@ -802,9 +803,9 @@ access to simulation which conditions on species-specific information,
 easy inclusion of new species genomes, and community-maintained accuracy
 and correctness. We additionally briefly describe how to add species to
 the stdpopsim catalog, and how the quality control process for species
-inclusion works. Currently large-scale projects such as the Darwin Tree
-of Life (TODO: CITE) project are generating tens of thousands of genome
-assemblies-- each of these, with some prior knowledge of mutation and
+inclusion works. Currently large-scale efforts such as the Earth Biogenome
+and its affiliated project networks are generating tens of thousands of genome
+assemblies. Each of these assemblies, with some prior knowledge of mutation and
 recombination rates, would then be a candidate for inclusion into the
 stdpopsim catalog following the steps we have outlined above. As
 annotation of genome assemblies approve over time those too can easily
@@ -823,24 +824,25 @@ systems, while simultanousely expanding the community of software
 developers at work in the population and evolutionary genetics world.
 Our experience with such outreach over the past two years is that people
 are indeed keen to to in the time and effort to include their favority
-study species, but that simple, clear guidance was the key-- our
+study species, but that simple, clear guidance was the key. Our
 intention with this paper is in part to provide another learning
 modality to meet that need.
 
 \hypertarget{acknowledgements}{%
 \section*{Acknowledgements}\label{acknowledgements}}
 
-TODO Workshop and hachaton attendes?
+TODO Workshop and hackhaton attendes?
 
 \hypertarget{funding}{%
 \section*{Funding}\label{funding}}
 
-Gregor Gorjanc was supported by the University of Edinburgh and the UK
-Biotechnology and Biological Sciences Research Council grant to The
-Roslin Institute (BBS/E/D/30002275). Andrew D. Kern and Peter L. Ralph
-were supported by NIH award R01HG010774. M. Elise Lauterbur was
-supported by an NSF Postdoctoral Research Fellowship \#2010884.
+TODO: should we order these alphabetically or in the same order as authors?
+
+M. Elise Lauterbur was supported by an NSF Postdoctoral Research Fellowship \#2010884.
+
+Gregor Gorjanc was supported by the University of Edinburgh and BBSRC grant to The Roslin Institute (BBS/E/D/30002275).
+
+Andrew D. Kern and Peter L. Ralph were supported by NIH award R01HG010774.
 
 \bibliography{references}
 \end{document}
-
