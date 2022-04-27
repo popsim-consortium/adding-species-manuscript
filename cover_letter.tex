@@ -1,6 +1,50 @@
+\begin{filecontents}{cover_letter.bib}
+@article{Adrion2020,
+  article_type = {journal},
+  title        = {A community-maintained standard library of population genetic models},
+  author       = {Adrion, Jeffrey R and Cole, Christopher B and Dukler, Noah and Galloway, Jared G and Gladstein, Ariella L and Gower, Graham and Kyriazis, Christopher C and Ragsdale, Aaron P and Tsambos, Georgia and Baumdicker, Franz and Carlson, Jedidiah and Cartwright, Reed A and Durvasula, Arun and Gronau, Ilan and Kim, Bernard Y and McKenzie, Patrick and Messer, Philipp W and Noskova, Ekaterina and Ortega-Del Vecchyo, Diego and Racimo, Fernando and Struck, Travis J and Gravel, Simon and Gutenkunst, Ryan N and Lohmueller, Kirk E and Ralph, Peter L and Schrider, Daniel R and Siepel, Adam and Kelleher, Jerome and Kern, Andrew D},
+  editor       = {Coop, Graham and Wittkopp, Patricia J and Novembre, John and Sethuraman, Arun and Mathieson, Sara},
+  volume       = 9,
+  year         = 2020,
+  month        = {jun},
+  pub_date     = {2020-06-23},
+  pages        = {e54967},
+  citation     = {eLife 2020;9:e54967},
+  doi          = {10.7554/eLife.54967},
+  url          = {https://doi.org/10.7554/eLife.54967},
+  abstract     = {The explosion in population genomic data demands ever more complex modes of analysis, and increasingly, these analyses depend on sophisticated simulations. Recent advances in population genetic simulation have made it possible to simulate large and complex models, but specifying such models for a particular simulation engine remains a difficult and error-prone task. Computational genetics researchers currently re-implement simulation models independently, leading to inconsistency and duplication of effort. This situation presents a major barrier to empirical researchers seeking to use simulations for power analyses of upcoming studies or sanity checks on existing genomic data. Population genetics, as a field, also lacks standard benchmarks by which new tools for inference might be measured. Here, we describe a new resource, stdpopsim, that attempts to rectify this situation. Stdpopsim is a community-driven open source project, which provides easy access to a growing catalog of published simulation models from a range of organisms and supports multiple simulation engine backends. This resource is available as a well-documented python library with a simple command-line interface. We share some examples demonstrating how stdpopsim can be used to systematically compare demographic inference methods, and we encourage a broader community of developers to contribute to this growing resource.},
+  keywords     = {simulation, reproducibility, open source},
+  journal      = {eLife},
+  issn         = {2050-084X},
+  publisher    = {eLife Sciences Publications, Ltd}
+}
+\end{filecontents}
+
 \documentclass[10pt,stdletter,dateno]{letter}
 \usepackage[utf8]{inputenc}
-\usepackage{hyperref}
+
+\makeatletter
+\newenvironment{thebibliography}[1]
+     {\list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
+\makeatother
+\usepackage[round]{natbib}
+\let\bibsection\relax
+\begin{document}
 \signature{\vspace{-40pt} M. Elise Lauterbur,\\
                           on behalf of all authors}
 \address{
@@ -9,7 +53,6 @@
   1041 E Lowell St\\
   Tucson, AZ 85719
 }
-\begin{document}
 
 \begin{letter}{
   Editors in Chief \\ 
@@ -18,18 +61,22 @@
 
 \opening{Dear Editors,}
 
-We are pleased to submit our manuscript “TITLE” for your consideration for publication in Genetics as a Communications article.
+We are pleased to submit our manuscript “TITLE” for your consideration for publication in eLife as a Research Advance for <TITLE> .
 
-The estimation and simulation of demographic models is central in population genetics and genomics studies. Realistic demographic models are crucial for downstream inferences of selection and genome biology, while understanding species histories is itself a primary goal of the field. The amount of genomic data and sophistication of inference and simulation tools now allow for the estimation of increasingly complex demographic models, often involving dozens of parameters with many interacting components.
+<Why popgen simulations are important and why stdpopsim is great>
 
-However, this growing model complexity has revealed major hurdles to community goals of replicability, robustness, and communication of results1. These shortcomings have two primary causes: (1) simulation and inference tools each have their own format for describing demographic models, so that errors are common when translating input between software, and (2) there are no agreed-upon guidelines for reporting demographic models, so that published results are typically difficult to reconstruct and are often presented with missing information.
+<What's the gap>
 
-Here, we present a solution to each of these issues. Demes defines a precise and user-friendly format for demographic model specification, and we include a suite of tools in multiple widely used programming languages for defining, manipulating, and validating demographic models. Already, Demes has been incorporated into popular simulation and inference tools, with growing support among population genetics simulation developers.
+<How this expands on stdpopsim and fills the gap>
 
-From a user’s perspective, these tools greatly reduce programming burden and the possibility for errors, while providing a concise and readable format for sharing results. In addition to describing Demes we showcase the simplicity of specifying a multi-population model, which is then used to illustrate the model, simulate sampled genomes using msprime2, and compare to expected patterns of diversity using moments3. Crucially, this requires only a single specification of the demographic model, avoiding the need to implement the model multiple time in different input formats.
+<More on why this is useful>
 
-[[Concluding paragraph on how this fills an big gap in the reproducibility and communication of pop gen results, and because so many papers in Genetics either specifically focus on demographic inference or is included within a broader analysis, this is a natural home for it.]]
+<Conclude on how it fills the gap by advancing stdpopsim. Because this is an advance on stdpopsim in lots of ways, in addition to being useful for broader popgen audience, eLife is the natural home>
 
 \closing{Sincerely,}
+
+\bibliographystyle{unsrtnat}
+\bibliography{letter}
+
 \end{letter}
 \end{document}
