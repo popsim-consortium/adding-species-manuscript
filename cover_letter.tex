@@ -1,0 +1,35 @@
+\documentclass[10pt,stdletter,dateno]{letter}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\signature{\vspace{-40pt} M. Elise Lauterbur,\\
+                          on behalf of all authors}
+\address{
+  409A BioSciences West\\
+  Department of Ecology\\and Evolutionary Biology\\
+  1041 E Lowell St\\
+  Tucson, AZ 85719
+}
+\begin{document}
+
+\begin{letter}{
+  Editors in Chief \\ 
+  eLife 
+}
+
+\opening{Dear Editors,}
+
+We are pleased to submit our manuscript “TITLE” for your consideration for publication in Genetics as a Communications article.
+
+The estimation and simulation of demographic models is central in population genetics and genomics studies. Realistic demographic models are crucial for downstream inferences of selection and genome biology, while understanding species histories is itself a primary goal of the field. The amount of genomic data and sophistication of inference and simulation tools now allow for the estimation of increasingly complex demographic models, often involving dozens of parameters with many interacting components.
+
+However, this growing model complexity has revealed major hurdles to community goals of replicability, robustness, and communication of results1. These shortcomings have two primary causes: (1) simulation and inference tools each have their own format for describing demographic models, so that errors are common when translating input between software, and (2) there are no agreed-upon guidelines for reporting demographic models, so that published results are typically difficult to reconstruct and are often presented with missing information.
+
+Here, we present a solution to each of these issues. Demes defines a precise and user-friendly format for demographic model specification, and we include a suite of tools in multiple widely used programming languages for defining, manipulating, and validating demographic models. Already, Demes has been incorporated into popular simulation and inference tools, with growing support among population genetics simulation developers.
+
+From a user’s perspective, these tools greatly reduce programming burden and the possibility for errors, while providing a concise and readable format for sharing results. In addition to describing Demes we showcase the simplicity of specifying a multi-population model, which is then used to illustrate the model, simulate sampled genomes using msprime2, and compare to expected patterns of diversity using moments3. Crucially, this requires only a single specification of the demographic model, avoiding the need to implement the model multiple time in different input formats.
+
+[[Concluding paragraph on how this fills an big gap in the reproducibility and communication of pop gen results, and because so many papers in Genetics either specifically focus on demographic inference or is included within a broader analysis, this is a natural home for it.]]
+
+\closing{Sincerely,}
+\end{letter}
+\end{document}
