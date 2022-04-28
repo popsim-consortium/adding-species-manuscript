@@ -6,6 +6,8 @@ library(tidytree)
 
 tree<-read.tree("./species.nwk")
 tree$tip.label<-gsub("_"," ",tree$tip.label)
+tree$tip.label[which(tree$tip.label=="Canis lupus")]<-"Canis familiaris"
+
 species<-tibble(species=tree$tip.label) %>%
   mutate(species = gsub("_", " ", species),
     original=ifelse(species %in% c("Homo sapiens", "Drosophila melanogaster", "Arabidopsis thaliana", 
@@ -17,4 +19,4 @@ ggtree(tree, size=2) %<+% species +
   scale_color_manual(values=c("darkorange3","darkblue")) +
   theme(legend.position = "none")
   
-ggsave("./species_fig.png")
+ggsave("./species_fig.png",height=7,width=6)
