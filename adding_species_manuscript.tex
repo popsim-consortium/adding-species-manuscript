@@ -146,11 +146,11 @@ to be used to help guide conservation decisions for threatened species
 
 In general, the usefulness of population genomic simulations increases
 the more realistically they represent the species being simulated - that
-is, as they incorporate more features of the species' biology. Important
-features include genome features such as mutation and recombination
+is, as they incorporate more elements of the species' biology. Important
+elements include genome features such as mutation and recombination
 rates that strongly affect genetic variation and haplotype structure
-\citep{Nachman2002}, particularly when linked selection is important (TODO:
-cite linked selection?). Furthermore, the demographic history of a
+\citep{Nachman2002}, particularly when linked selection is important \citep{Cutter2013}. 
+Furthermore, the demographic history of a
 species, encompassing population sizes, divergences, and gene flow, can
 dramatically affect patterns of genetic variation \citep{Teshima2006}. Thus
 estimates of these parameters are fundamentally important to the
@@ -253,7 +253,7 @@ treating a 100Mb chromosome as 100 independent 1Mb chunks of chromosome
 artificially increases the amount of independence in the data. This may
 be misleading if the scale of linkage is long. For instance, results on
 simulated human chromosome 22 are often very noisy due to a long stretch
-of near-zero recombination (TODO: CITE). The effect of natural selection
+of near-zero recombination \citep{Dawson2002}. The effect of natural selection
 on patterns of inheritance would not have been evident if the chromosome
 had been broken into many independent pieces for simulation. (MEL: I
 think we lost something here - where/when would these effects not have
@@ -267,11 +267,11 @@ have increased diversity as they have less flanking sequence on which
 selection might act (though other factors are in play as well). Without
 using a genetic map, we can't look at the effect of linked selection on
 the correlation between recombination rate and genetic diversity that is
-commonly observed in practice (CITE). The scale over which linked
+commonly observed in practice \citep{Begun1992}. The scale over which linked
 selection has an effect in practice can differ greatly depending on the
 species and the context, and the actual extent is unknown. Even in
 species with large population sizes, recent selective sweeps (e.g.,
-insecticide resistance TODO:CITE) can drive long haplotypes to high
+insecticide resistance \citep{Lynd2010}) can drive long haplotypes to high
 frequencies.
 
 Third, linkage has the potential to affect demographic realism. The
@@ -304,7 +304,7 @@ directional or stabilising selection on multiple loci across chromosomes
 \citep{Bulmer1971, Lara2022}. However, this situation can be simulated in
 follow-up forward-in-time simulations \citep{Haller2018, Gaynor2020}. For
 this reason, we tend to simulate chromosomes independently, and few
-(TODO:any? if so, find them) simulators have mechanisms to simulate
+simulators have mechanisms to simulate
 multiple chromosomes simultaneously.
 
 \hypertarget{on-the-utility-of-working-together}{%
@@ -424,7 +424,7 @@ see https://www.earthbiogenome.org/affiliated-project-networks).
   histories can vary across the species' range. This specification of
   population history is a primary determinant of its levels of genetic
   diversity. Misspecification of a demographic model can generate highly
-  unrealistic patterns of genetic variation. (TODO: citation) At a
+  unrealistic patterns of genetic variation (eg. \citep{Navascues2009}). At a
   minimum, simulations require a a plausible and citeable effective
   population size estimate. A single-population simulation with a
   reasonable effective size should at least give comparable levels of
@@ -441,7 +441,7 @@ much population genetics work is to understand the action or
 consequences of selection. Although analytical models tend to study the
 effect of single loci under selection in isolation, it has been
 demonstrated that the effects of linked selection can vary substantially
-along the genome in many species (TODO: CITE), although even the general
+along the genome in many species \citep{Wolf2017}, although even the general
 strength and nature of this selection is still unknown. To generate
 realistic amounts of selection at many locations on the genome, the
 simulator needs to know where the selected sites occur, and what is the
@@ -461,7 +461,7 @@ nature of selection on them.
   distribution is important for understanding the rate of adaptive
   evolution. Not all simulators are able to incorporate this
   information, those that do include a general purpose forward-in-time
-  population genetics simulator SLiM \citep{Haller2019}, (TODO: more). This,
+  population genetics simulator SLiM \citep{Haller2019}. This,
   too, should be citeable and drawn from the species of interest or one
   that is closely related.
 \end{enumerate}
@@ -547,7 +547,7 @@ variety of species included in the stdpopsim catalog. When first
 published, the stdpopsim catalog included 6 species: \emph{Homo
 sapiens}, \emph{Pongo abelii}, \emph{Canis familiaris}, \emph{Drosophila
 melanogaster}, \emph{Arabidopsis thaliana}, and \emph{Escherichia coli.}
-Since then, an additional 12 (TODO: check this) species have been added,
+Since then, an additional 12 species have been added,
 as well as multiple demographic scenarios for \emph{Homo sapiens},
 \emph{Pongo abelii}, \emph{Drosophila melanogaster}, and
 \emph{Arabidopsis thaliana}.
@@ -561,8 +561,7 @@ March, 2021, to prepare interested participants for the hackathon. Any
 member of the population genetic community who was familiar with the
 procedure for adding species to stdpopsim, either from attending the
 ``Growing the Zoo'' workshop or their own previous work, was invited to
-the hackathon. The hackathon ultimately added Z (TODO: figure out which
-started during hackathon were ultimately added) species models added to
+the hackathon. The hackathon ultimately added 12 species models to
 the stdpopsim catalog. However not all species models that were started
 at the hackathon were added, as we learned that there is a disconnect
 between what species community members wish to simulate, and those
@@ -726,7 +725,7 @@ The process for adding species data requires editing the template files
 with the citeable parameter choices. Here we use the recombination rate
 parameter as an example. As a reference for recombination rates in
 \emph{Anopheles gambiae} we use a recombination map based on a study
-from (TODO: add to BibTex file) Pombi et al.~(2006). In that manuscript
+from\citep{Pombi2006}. In that manuscript
 the authors cite rates around 1cM/Mb, with a bit of variation among
 arms. This is as easy as editing the following block of code in the
 species information file (\texttt{species.py}) that defines the
