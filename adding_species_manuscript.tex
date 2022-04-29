@@ -8,6 +8,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{amsmath}
+\usepackage[round]{natbib}
 \usepackage{fancyhdr}
 \usepackage{longtable}
 \usepackage{booktabs}
@@ -547,7 +548,7 @@ variety of species included in the stdpopsim catalog. When first
 published, the stdpopsim catalog included 6 species: \emph{Homo
 sapiens}, \emph{Pongo abelii}, \emph{Canis familiaris}, \emph{Drosophila
 melanogaster}, \emph{Arabidopsis thaliana}, and \emph{Escherichia coli.}
-Since then, an additional 12 species have been added,
+Since then, an additional 15 species have been added,
 as well as multiple demographic scenarios for \emph{Homo sapiens},
 \emph{Pongo abelii}, \emph{Drosophila melanogaster}, and
 \emph{Arabidopsis thaliana}.
@@ -668,10 +669,17 @@ particular species.
 The feedback on ``Growing the Zoo'' hackathon workshops (2020-2021) made
 it clear that many prospective users of stdpopsim want to simulate
 non-model species that are not already in the stdpopsim catalog.
-Currently there are multiple gaps in the species catalog (TODO: Figure
-XXX, phylogenetic tree of included species), and having a greater
+Currently there are multiple gaps in the species catalog (Figure \ref{fig:tree}), and having a greater
 representation of the tree of life would benefit the stdpopsim community
 as a whole.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{./figs/species_fig.png}
+  \caption{Phylogenetic tree of species with models currently available in stdpopsim. 
+           In blue are species in the original release, in orange are species added 
+           by the community using the process described here.}
+  \label{fig:tree}
+\end{figure}
 
 The steps to successfully add a species to the catalog are as follow:
 
@@ -679,7 +687,7 @@ The steps to successfully add a species to the catalog are as follow:
 \tightlist
 \item
   Find citeable resources describing the required population and species
-  genetic parameters as detailed in Section XXXX: Making a population
+  genetic parameters as detailed in (TODO: finalize section numbers/titles) Section XXXX: Making a population
   genomic simulation.''
 \item
   Open a GitHub account, fork the stdpopsim GitHub
