@@ -1,7 +1,11 @@
 *log
 *docx
-adding_species_manuscript.tex
 *lock*
 *pdf
 .*.swp
 .DS_Store
+*.bbl
+*.aux
+*.blg
+*.synctex.gz
+*.out
