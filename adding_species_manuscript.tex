@@ -265,150 +265,285 @@ but I felt like in the current version of the text, the Application
 part seemed like an afterthought when really it is the crux of the paper
 and the titular section, given that this is the ``adding-species-manuscript''!)
 
-\hypertarget{tutorial}{%
-\section*{Tutorial}\label{tutorial}}
 
-Simulation is one of the key tools in population genetics, but can
-present unexpected challenges and has many hidden pitfalls for the
-unwary population geneticist. Its broad use and usefulness makes it
-imperative that simulations are implemented correctly at the most basic
-level---the parameters describing the species. The following tutorial
-presents the rationales for: 1) when whole-genome simulations meant to
-realistically model a species of interest add utility beyond simple
-simulations representing a few generic loci; 2) the necessary input data
-with respect to the goal of the analysis; and 3) choosing what input
-data to use, and when it is of sufficient quality.
+\hypertarget{sec2}{%
+	\section*{Standardized genome-wide simulations}\label{sec:std-sim}}
 
-\hypertarget{on-the-utility-of-simulating-the-whole-genome}{%
-\subsubsection*{On the utility of simulating the whole
-genome}\label{on-the-utility-of-simulating-the-whole-genome}}
+\noindent\emph{Ilan: In this section I condensed and reordered the text that was previously
+	in ``The importance of independent quality control'' and ``The importance of simulating the whole genome". The second part is especially shortened, so people should examine this to make
+	sure that nothing important got cut.  The Tex source contains a more detailed documentation
+	of parts removed. The ending of the section requires clarification by Andy or Ryan.\vspace{5pt}}
 
-When a whole-genome simulation is discussed, it can refer to simulating
-one or a few chromosomes of particular interest in their entirety, or
-indeed simulating all chromosomes of a species. These present different
-issues, the most important of which come into play in simulating
-\emph{whole chromosomes}.
 
-It certainly seems ``more realistic'' to simulate a chromosome that
-matches the real one, but strict realism is not always attainable nor
-desirable. For instance, we should not ask that a simulation have
-polymorphic sites at precisely the same genomic positions observed in a
-real dataset, since it is these patterns of polymorphism themselves that
-we want to compare to the real data. Similarly, most simulations today
-do not use a reference genome sequence, since most population-level
-summaries of genetic variation do not take into account nucleotide
-identity. (However, this may change in the future.) (DRS: I am not sure
-we need this text. Perhaps we could just start with the ``what are the
-benefits of whole-genome simulation'' question below?)
 
-If these are elements that we do not typically seek to include for
-``realism,'' what are the benefits of whole-genome simulation? While
-these may vary depending on the nature of the analysis and hypotheses,
-processes that have important effects on genetic diversity are central.
-Primary among these is the physical linkage among sites along a chromosome. 
-In biological sequences, linkage induces correlations
-among nearby parts of a chromosome, even under neutral evolution. This
-has multiple important consequences for simulations.
+%%%%%%%%%%%%%%%%
+%ILAN: para 1 - give a broad intro to what is involved in popgen simulations.
+%   We later dive into the details in section 4.
+%%%%%%%%%%%%%%%%
+% ILAN: the sentence below looks like it would fit well in the intro,
+%   so I'm commenting it out here but will later consider moving it
+%
+%Simulation is one of the key tools in population genetics, but can
+%present unexpected challenges and has many hidden pitfalls for the
+%unwary population geneticist. 
 
-First, linkage decreases the amount of variation in a chromosome
-simulated as a single continuous stretch, compared to simulating
-multiple smaller fragments that add up to the same length. That is,
-treating a 100Mb chromosome as 100 independent 1Mb chunks of chromosome
-artificially increases the amount of independence in the data. This may
-be misleading if the scale of linkage is long. For instance, results on
-simulated human chromosome 22 are often very noisy due to a long stretch
-of near-zero recombination \citep{Dawson2002}. The effect of natural selection
-on patterns of inheritance would not have been evident if the chromosome
-had been broken into many independent pieces for simulation. (TODO: I
-think we lost something here - where/when would these effects not have
-been evident?)
+Implementing a useful population genomic simulation requires setting numerous
+parameters that specify genome architecture and evolutionary history.
+Broadly speaking, these parameters can be divided into the following categories:
+%
+\begin{enumerate}
+	\item The lengths of simulated segments
+	\item Mutation rates
+	\item Recombination rates
+	\item Demographic history (ancestral population sizes, divergence times, and migration rates)
+	\item Landscape of selection (e.g., sites of elements under selection, and a distribution of fitness effects)
+\end{enumerate}
+%
+Generating realistic simulations first of all requires obtaining reliable estimates of
+the different parameters, which is typically done by careful review of the relevant literature. The parameters then need to be applied correctly as input of a
+simulation software, such as \texttt{msprime} \citep{Kelleher2016,Nelson2020} or \texttt{SLiM} \citep{Haller2019}. This step often involves non-trivial conversion
+between different scales. Finally, the simulations are executed, which may
+require considerable computation resources.
 
-Second, linked selection, the effect of natural selection on
-patterns of inheritance at nearby locations on the genome, strongly
-affects patterns of genetic variation. For instance, since many types of
-selection reduce diversity near the selected site(s), one might expect chromosome ends to
-have increased diversity as they have less flanking sequence on which
-selection might act (though other factors are in play as well). Without
-using a genetic map, we can't look at the effect of linked selection on
-the correlation between recombination rate and genetic diversity that is
-commonly observed in practice \citep{Begun1992}. The scale over which linked
-selection has an effect can differ greatly depending on the
-species and the context, and the actual extent is unknown. Even in
-species with large population sizes, recent selective sweeps (e.g.,
-insecticide resistance \citep{Lynd2010}) can drive long haplotypes to high
-frequencies.
 
-Third, linkage has the potential to affect demographic realism. The
-genetic load in a simulation of a small segment of chromosome with
-deleterious mutations will necessarily be less than that in whole
-chromosome. This situation makes it easy to simulate unrealistically
-high levels of load without realizing it, if only small unlinked segments are used.
-(TODO: What is the direct effect on demographic realism of the effect of
-load?) (DRS: I think that the three examples given in this section
-aren't the most compelling. The point of the chr22 example isn't super clear,
-the chromosome ends thing seems like a minor issue especially given that
-rec rates there are generally pretty low, and the load case seems to be
-more an issue of ``small scale sims let you simulate unrealistic secnarios''
-rather than ``small scale sims prevent you from simulating realistic scenarios''
+%%%%%%%%%%%%%%%%
+%ILAN: para 2 - main advantages of standardized simulations
+%  I took the relevant text from the "working together" section
+%%%%%%%%%%%%%%%%
+%(DRS: suggestion for a title that I think is more specific:
+%``The importance of independent quality control''. But just a suggestion!)
+%ILAN: this is no longer a section with a title. Not sure it needs one
 
-In addition, the whole genome sequence can provide important comparative
+The main objective of \texttt{stdpopsim} is to standardize this process, focusing on the
+first two steps of curating the relevant literature and applying parameters
+correctly to the simulation software. This standardization has several key advantages
+\citep{Adrion2020}. First, it makes it easier to compare between different
+simulations generated for the same species. Another major advantage of the
+\texttt{stdpopsim} framework is the quality control process, by which the parameter choices and their conversion to the relevant units are checked by multiple researches.
+This process involves independently creating a separate set of simulation
+parameters based on the same literature sources. The new set of parameters are then
+compared to the original ones by automated scripts. If discrepancies are found, they
+are resolved between the two researchers with input of additional members of
+the community. This process quite often
+finds subtle bugs  \citep{Ragsdale2020} or highlights parts of the model that are
+ambiguously defined by the literature sources. 
+Therefore, this quality control considerably increases the reliability of the
+resulting simulations in any downstream analysis.
+
+% ILAN: I commented this out because it seems implied by the above
+%   arguments. We might want to return to this in the discussion and
+%   emphasized that some of the standards we use in stdpopsim can be used
+%   by simulations, even if they are not done as part of our community.
+%
+%However the advantage working together to validate population genomic
+%model implementation is not restricted to species that are added to
+%the stdpopsim catalog. Researchers implementing population genomic
+%simulations are encouraged to have their code and parameter choices
+%checked by at least one other person before using it to create
+%simulations. In addition, basic genomic features of the simulation
+%results (e.g. the site frequency spectrum, the extent of linkage disequilibrium, etc.)
+%can be compared to the reference genome and/or known population
+%genetic characteristics. In this too it is useful to have the input
+%of another researcher with fresh eyes.
+
+
+%%%%%%%%%%%%%%%%
+%ILAN: para 3 - advantages of whole-chrom simulations
+%  I took the relevant text from the "simulating the whole genome" section
+%  I shortened wuite a bit, trying to focus on the main points.
+% In particular, I avoid mentoining some of the caveats:
+% - no reference genome
+% - no linkage across chroms
+% We may wish to mention these in the discussion as future work, but I thought
+% that mentioning them here was too distracting.
+%%%%%%%%%%%%%%%%
+One of the things we advocate in \texttt{stdpopsim} is simulation of complete
+chromosomes. Such simulations are typically more complex because they require
+setting many parameters pertaining to genome structure, and they require
+considerable computational resources. Because of this, most simulations carried
+out for individual studies avoid simulating complete chromosomes and resort to
+separate simulations of many short segments. While this results in simpler
+simulations that can be executed concurrently, % and thus much more efficiently, 
+simulations of short segments ignore the structure of physical linkage along
+chromosome. This linkage affects patterns of variation in subtle ways, which could
+have significant influence on different aspects of downstream population genetic
+analysis \citep{Nelson2020}. 
+
+
+% ILAN: commented out part about modeling variation and not the exact sequence
+%
+%For instance, we should not ask that a simulation have
+%polymorphic sites at precisely the same genomic positions observed in a
+%real dataset, since it is these patterns of polymorphism themselves that
+%we want to compare to the real data. Similarly, most simulations today
+%do not use a reference genome sequence, since most population-level
+%summaries of genetic variation do not take into account nucleotide
+%identity. (However, this may change in the future.
+% (DRS: I am not sure we need this text. Perhaps we could just start with
+% the ``what are the benefits of whole-genome simulation'' question below?)
+% ILAN: I agree. Commenting this out for now. May be something we can
+%   return to in the discussion.
+
+First, the correlation between different sites along a chromosome reduces
+variation. This has a particularly striking effect in long stretches of
+low recombination rates, as observed on human chromosome 22 \citep{Dawson2002}.
+Second, the lengths of shared haplotypes within and
+between populations provides valuable information about recent demographic history.
+Methods that use such information, such as MSMC \citep{Schiffels2020}, require as
+input very long genomic segments, with realistic recombination rates.
+Thus, even when conducting simulations under neutral evolution, short segments
+would not be able to capture important features observed in neutral regions of
+real genome sequences.
+%
+%The effect of natural selection on patterns of inheritance would not have
+%been evident if the chromosome had been broken into many independent pieces
+%for simulation.
+%(TODO: I think we lost something here - where/when would these effects not
+%have been evident?)
+%ILAN: I think this is fine now.
+%
+%
+When conducting simulations with natural selection, linkage has
+an even stronger effect. Selection acting on a small number of sites drives down
+genetic variation in nearby sites. This has been argued to be one of the causes
+for the observed correlation between recombination rate and genetic diversity
+\citep{Begun1992}. Selection at linked sites has been shown to have a widespread
+effect on patterns of genome variation in different species \citep{McVicker2009,Charlesworth2012}. This effect tends to be stronger in species
+with smaller effective population sizes, but recent selective sweeps can dramatically
+reduce variation even in species with large population sizes \citep{Lynd2010}.
+%
+% ILAN: commented out this part on genetic load. We can mention this briefly,
+%   if we think it's important
+%
+%Third, linkage has the potential to affect demographic realism. The
+%genetic load in a simulation of a small segment of chromosome with
+%deleterious mutations will necessarily be less than that in whole
+%chromosome. This situation makes it easy to simulate unrealistically
+%high levels of load without realizing it, if only small unlinked segments are used.
+%(TODO: What is the direct effect on demographic realism of the effect of
+%load?) (DRS: I think that the three examples given in this section
+%aren't the most compelling. The point of the chr22 example isn't super clear,
+%the chromosome ends thing seems like a minor issue especially given that
+%rec rates there are generally pretty low, and the load case seems to be
+%more an issue of ``small scale sims let you simulate unrealistic secnarios''
+%rather than ``small scale sims prevent you from simulating realistic scenarios''
+%
+
+% ILAN: not sure about this last part. Can someone summarize what
+Finally, the whole genome sequence can provide important comparative
 data with which to evaluate the simulations. This is a powerful tool for
 making sure the simulations correspond to the elements of biological
 realism that are important for the intended analyses \citep{Hsieh2016a}. 
 (@Andy and/or @Ryan, or anyone else, can you expand on this?)
+(ILAN: I didn't remove this part, because I know it's supposed to be a compelling example,
+but I think that this requires more explanation).
+%
+%ILAN: end with statement that one still needs to think if this is 
+%  required for certain analysis.
+That said, for some purposes it might be completely fine to simulate short sequence
+segments or even independent (unlinked) sites. However, this should be done after
+careful consideration  of the benefits of whole-chromosome simulations.
 
-Despite these potential benefits, it is much faster to simulate many
-small chunks of a genome, in part because each chunk can be run
-concurrently, effectively parallelizing the simulation. It is probably
-safe to say that independently simulating small segments will not
-introduce serious problems in some situations, but could cause serious
-biases in others \citep[e.g.,][]{Nelson2020}. The degree to which it is
-important to include linked selection in whole-chromosome simulations is
-still a major open question.
 
-Finally, what about \emph{whole genome} simulations? Chromosomes
-segregate independently, so between-chromosome correlations are generally close
-to zero. But they can be occur in fairly extreme situations, such as intense
-directional or stabilising selection on multiple loci across chromosomes
-\citep{Bulmer1971, Lara2022}. However, this situation can be simulated in
-follow-up forward-in-time simulations \citep{Haller2018, Gaynor2020}. For
-this reason, we tend to simulate chromosomes independently, and few
-simulators have mechanisms to simulate
-multiple chromosomes simultaneously. (DRS: SLiM kind of lets you do this...)
+% ILAN: commented out this final caveat. We can mention this briefly in the
+%   end of this section, or just return to it in the discussion.
+%
+%Finally, what about \emph{whole genome} simulations? Chromosomes
+%segregate independently, so between-chromosome correlations are generally close
+%to zero. But they can be occur in fairly extreme situations, such as intense
+%directional or stabilising selection on multiple loci across chromosomes
+%\citep{Bulmer1971, Lara2022}. However, this situation can be simulated in
+%follow-up forward-in-time simulations \citep{Haller2018, Gaynor2020}. For
+%this reason, we tend to simulate chromosomes independently, and few
+%simulators have mechanisms to simulate
+%multiple chromosomes simultaneously. 
+% DRS: SLiM kind of lets you do this...
+% ILAN: I decided to remove this for now.
 
-\hypertarget{on-the-utility-of-working-together}{%
-\subsubsection*{On the utility of working
-together}\label{on-the-utility-of-working-together}}
-(DRS: suggestion for a title that I think is more specific:
- ``The importance of independent quality control''. But just a suggestion!)
+\hypertarget{sec3}{%
+	\section*{The expanded \texttt{stdpopsim} catalog}\label{sec:expanded-catalog}}
 
-A major advantage of the stdpopsim framework is the quality control (QC)
-process, by which the parameter choices and implementation of a new
-model are checked by multiple independent researchers. During this
-process, the model is recreated independently by another researcher,
-including decisions of parameter estimates,
-without reference to the original. Any discrepancies are checked and
-discussed before finalizing the model and its implementation. This
-provides a mechanism to catch mistakes or points of disagreement in 
-the literature and discuss alternative options
-before the simulation model is used for any analyses. In our experience,
-it is not uncommon to discover such mistakes or disagreements during
-this process, and in fact in the published record \citep{Ragsdale2020}.
+\noindent\emph{Ilan: I moved relevant text about the updates we made to the catalog here.
+	This requires another good pass and we can mention additional things like
+	gene conversion.\vspace{5pt}}
 
-However the advantage working together to validate population genomic
-model implementation is not restricted to species that are added to
-the stdpopsim catalog. Researchers implementing population genomic
-simulations are encouraged to have their code and parameter choices
-checked by at least one other person before using it to create
-simulations. In addition, basic genomic features of the simulation
-results (e.g. the site frequency spectrum, the extent of linkage disequilibrium, etc.)
-can be compared to the reference genome and/or known population
-genetic characteristics. In this too it is useful to have the input
-of another researcher with fresh eyes.
+stdpopsim is a community resource that makes detailed, realstic
+population genomic simulations accessible \citep{Adrion2020}. When first
+published, the stdpopsim catalog included 6 species: \emph{Homo
+	sapiens}, \emph{Pongo abelii}, \emph{Canis familiaris}, \emph{Drosophila
+	melanogaster}, \emph{Arabidopsis thaliana}, and \emph{Escherichia coli.}
+We have since incorporated more demographic scenarios for \emph{Homo sapiens},
+\emph{Pongo abelii}, \emph{Drosophila melanogaster}, and
+\emph{Arabidopsis thaliana}. However, stdpopsim has the potential to be
+useful to a wider community of researchers by involving the community
+in adding new model and non-model species to the catalog.
+To that end, the popsim consortium has made a concerted effort to 
+involve the population genetics community in adding new species 
+to the stdpopsim catalog.
 
-\hypertarget{implementing-a-population-genomic-simulation}{%
-\subsubsection*{Implementing a population genomic
-simulation}\label{implementing-a-population-genomic-simulation}}
+In April 2021, we held a ``Growing the Zoo'' hackathon 
+alongside the 2021 ProbGen conference. 
+The hackathon was developed in response to participant demand from a
+series of ``Introduction to stdpopsim'' workshops held in December 2020 and
+February 2021. These workshops had over 150 participants, many of whom
+expressed a wish to add their own species of interest to stdpopsim.
+These workshops were followed by a ``Growing the Zoo'' workshop in
+March 2021, to prepare interested participants for the hackathon. This
+workshop introduced the process of developing a new model (including
+parameter choice, as described above) and adding it to the stdpopsim
+code base. All members of the population genetic community who were 
+familiar with the this process, either from attending the
+``Growing the Zoo'' workshop or their own previous work, were invited to
+the hackathon. The hackathon ultimately added 12 species models to
+the stdpopsim catalog, and three additional species have been added by
+community members outside of the hackathon. (Figure \ref{fig:tree}),
+and started the ball rolling on expanding the
+stdpopsim catalog further. However not all species models that were started
+at the hackathon were added, as we learned that there is a disconnect
+between what species community members wish to simulate, and those
+species that have sufficient resources for a realistic simulation.
+
+
+%ILAN: took this from the "What about species lacking chromosome-level" section.
+When we set out to cast a wide net and add a wide variety of species to
+the catalog, we quickly ran into species that people were enthusiastic
+to add, but lacked many (or most) of the parameters estimates discussed above. The
+utility of stdpopsim is to make complex, multifaceted population genomic models easily available for
+simulation; such data includes genetic maps, annotations, and/or
+demographic models. We have not yet encountered a species with
+widely-used demographic models but no chromosome-level assembly, so the
+main issue in practice seems to be around chromosome-level assemblies
+and around matching genome parameters to demographic models.
+
+However, there is no clear line for what level of assembly quality is
+required to be ``useful'' - the most telling indication is whether there is
+a community of users eager to use it.
+
+%ILAN: took this from the "Adding species to stdpopsim catalog" section.
+The feedback from the workshops (2020-2021) made
+it clear that many prospective users of stdpopsim want to simulate
+non-model species that are not already in the stdpopsim catalog.
+Currently there are large gaps in the species catalog (Figure \ref{fig:tree}), 
+and having a greater representation of the tree of life would benefit 
+the stdpopsim community as a whole.
+
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{./figs/species_fig.png}
+	\caption{Phylogenetic tree of species with models currently available in stdpopsim. 
+		In blue are species in the original release, in orange are species added 
+		by the community using the process described here. (DRS: maybe add another
+		color to distinguish between those added during the hackathon and the other three.)}
+	\label{fig:tree}
+\end{figure}
+
+
+\hypertarget{sec4}{%
+	\section*{Guidelines for implementing a population genomic simulation}\label{sec:sim-guidelines}}
+
+\noindent\emph{ILAN: I kept this part unchanged, including subsections.
+	I plan to dive in during the next round of edits.\vspace{5pt}}
+
 
 When choosing to generate appropriately realistic population genetic
 simulations for a species of interest, certain population- and species-specific
@@ -572,7 +707,9 @@ When possible, all rate, generation time, and demographic models should
 be drawn from the same study. Mixing sources is not ideal, but sometimes
 necessary and should be approached with deliberation. In this situation
 it may be helpful to discuss these choices and their potential
-consequences with other researchers. (TODO: more?)
+consequences with other researchers.
+(TODO: we should explicitly discuss the task of lifting over from one build to
+another. This seems like a good place for this.)
 
 \hypertarget{what-if-we-dont-know-everything}{%
 \paragraph{What if we don't know
@@ -636,73 +773,30 @@ larger contigs.
     \end{tabular}
 \end{table}
 
-\hypertarget{application}{%
-\section*{Application}\label{application}}
+\hypertarget{sec5}{%
+	\section*{Examples of added species}\label{sec:std-sim}}
 
-stdpopsim is a community resource that makes detailed, realstic
-population genomic simulations accessible \citep{Adrion2020}. When first
-published, the stdpopsim catalog included 6 species: \emph{Homo
-sapiens}, \emph{Pongo abelii}, \emph{Canis familiaris}, \emph{Drosophila
-melanogaster}, \emph{Arabidopsis thaliana}, and \emph{Escherichia coli.}
-We have since incorporated more demographic scenarios for \emph{Homo sapiens},
-\emph{Pongo abelii}, \emph{Drosophila melanogaster}, and
-\emph{Arabidopsis thaliana}. However, stdpopsim has the potential to be
-useful to a wider community of researchers by involving the community
-in adding new model and non-model species to the catalog.
-To that end, the popsim consortium has made a concerted effort to 
-involve the population genetics community in adding new species 
-to the stdpopsim catalog.
+\noindent\emph{Ilan: I kept only the two examples here. The idea would be to
+use these two species to describe different aspects of adding species: setting up parameters based on literature (cow) and the technical steps involved in adding species.  (mosquito).
+I made very basic edit here and plan to get back to this later.\vspace{5pt}}
 
-In April 2021, we held a ``Growing the Zoo'' hackathon 
-alongside the 2021 ProbGen conference. 
-The hackathon was developed in response to participant demand from a
-series of ``Introduction to stdpopsim'' workshops held in December 2020 and
-February 2021. These workshops had over 150 participants, many of whom
-expressed a wish to add their own species of interest to stdpopsim.
-These workshops were followed by a ``Growing the Zoo'' workshop in
-March 2021, to prepare interested participants for the hackathon. This
-workshop introduced the process of developing a new model (including
-parameter choice, as described above) and adding it to the stdpopsim
-code base. All members of the population genetic community who were 
-familiar with the this process, either from attending the
-``Growing the Zoo'' workshop or their own previous work, were invited to
-the hackathon. The hackathon ultimately added 12 species models to
-the stdpopsim catalog, and three additional species have been added by
-community members outside of the hackathon. (Figure \ref{fig:tree}),
-and started the ball rolling on expanding the
-stdpopsim catalog further. However not all species models that were started
-at the hackathon were added, as we learned that there is a disconnect
-between what species community members wish to simulate, and those
-species that have sufficient resources for a realistic simulation.
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{./figs/species_fig.png}
-  \caption{Phylogenetic tree of species with models currently available in stdpopsim. 
-           In blue are species in the original release, in orange are species added 
-           by the community using the process described here. (DRS: maybe add another
-           color to distinguish between those added during the hackathon and the other three.)}
-  \label{fig:tree}
-\end{figure}
+\hypertarget{bos-taurus}{%
+	\subsubsection*{\texorpdfstring{\emph{Bos
+				taurus} (cattle)}{Bos taurus (cattle)}}\label{bos-taurus}}
 
 We use \emph{Bos taurus}, a species worked on during the hackathon, to
 illustrate the process of choosing a species to simulate and finding and
-deciding among the required resources. We also use the lessons from the
-hackathon about which species are impractical to simulate to further
-discuss the limitations of population genomic simulations to
-realistically model species of interest when these species have
-inadequate genomic resources. However, we note that what it means for genomic resources to
-be inadequate must be approached in the context of the research goals,
-and in some situations simulation may be a useful tool for researchers
-studying organisms with fewer genomic resources.
-
-\hypertarget{examples-from-the-growing-the-zoo-hackathon}{%
-\subsubsection*{Examples from the ``Growing the Zoo''
-hackathon}\label{examples-from-the-growing-the-zoo-hackathon}}
-
-\hypertarget{bos-taurus}{%
-\paragraph{\texorpdfstring{\emph{Bos
-taurus}}{Bos taurus}}\label{bos-taurus}}
-
+deciding among the required resources.
+%
+%ILAN: this will be covered earlier
+% We also use the lessons from the hackathon about which species are impractical to simulate
+% to further discuss the limitations of population genomic simulations to
+%realistically model species of interest when these species have
+%inadequate genomic resources. However, we note that what it means for genomic resources to
+%be inadequate must be approached in the context of the research goals,
+%and in some situations simulation may be a useful tool for researchers
+%studying organisms with fewer genomic resources.
+%
 \emph{Bos taurus} (cattle) was added to the stdpopsim catalog 
 because of its agricultural importance. Agricultural species experience
 strong selection due to domestication and selective breeding, leading
@@ -755,68 +849,46 @@ estimates assumed in the demographic model rather than the more
 recent estimates, in line with our advice of using estimates from the same
 source when possible.
 
-\hypertarget{what-about-species-lacking-chromosome-level-assemblies}{%
-\paragraph{What about species lacking chromosome-level
-assemblies?}\label{what-about-species-lacking-chromosome-level-assemblies}}
+\hypertarget{ano-gambea}{%
+	\subsubsection*{\texorpdfstring{\emph{Anopheles gambiae} (mosquito)}{Anopheles gambiae (mosquito)}}\label{bos-taurus}}
 
-When we set out to cast a wide net and add a wide variety of species to
-the catalog, we quickly ran into species that people were enthusiastic
-to add, but lacked many (or most) of the parameters estimates discussed above. The
-utility of stdpopsim is to make complex, multifaceted population genomic models easily available for
-simulation; such data includes genetic maps, annotations, and/or
-demographic models. We have not yet encountered a species with
-widely-used demographic models but no chromosome-level assembly, so the
-main issue in practice seems to be around chromosome-level assemblies
-and around matching genome parameters to demographic models.
-
-However, there is no clear line for what level of assembly quality is
-required to be ``useful'' - the most telling indication is whether there is
-a community of users eager to use it.
-
-\hypertarget{adding-a-species-to-stdpopsim-catalog}{%
-\subsubsection*{Adding a species to stdpopsim
-catalog}\label{adding-a-species-to-stdpopsim-catalog}}
-
-In stdpopsim, once all the necessary data (Table 1) for a given species
-is collected, then its inclusion is dependent upon a peer-reviewed
-quality control process. Before this process, it is considered preliminary. 
-If all quality control conditions are met, the
-species and its simulation framework are added to the catalog. Adding a
-species to the stdpopsim catalog is beneficial in many ways: (1) it
-increases the visibility of the species model, (2) it drastically
-improves the reproducibility of the given model framework, and (3) it
-allows other researchers to test different model simulations with that
-particular species.
-
-The feedback from the workshops (2020-2021) made
-it clear that many prospective users of stdpopsim want to simulate
-non-model species that are not already in the stdpopsim catalog.
-Currently there are large gaps in the species catalog (Figure \ref{fig:tree}), 
-and having a greater representation of the tree of life would benefit 
-the stdpopsim community as a whole.
-
-The steps to successfully add a species to the catalog are as follow:
-
-\begin{itemize}
-\tightlist
-\item
-  Find citeable resources describing the required population and species
-  genetic parameters as detailed in \textbf{Implementing a population genomic simulation}.
-\item
-  Open a GitHub account, fork the stdpopsim GitHub
-  repository, and start a pull request by following the steps provided
-  in the ``Adding a new species'' section of the Development chapter in
-  the stdpopsim docs, currently at
-  \url{https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding\%20species\%20catalog\#adding-a-new-species}
-  These steps as they stand in April 2022 are described in detail in the
-  supplementary material, but are subject to change as the stdpopsim
-  framework improves.
-\end{itemize}
-
-To demonstrate the steps that it would take to add a species, here we
-use the species \emph{Anopheles gambiae} (mosquito) as an example.
-
-stdpopsim uses git for version control. Our first step will be to create an upstream
+We use \emph{Anopheles gambiae} (mosquito), to illustrate the technical steps involved in adding a species to \texttt{stdpopsim}. 
+%
+%ILAN: commented this out because it is covered by previous sections.
+%   the idea is to focus here on the technical demo
+%
+%In stdpopsim, once all the necessary data (Table 1) for a given species
+%is collected, then its inclusion is dependent upon a peer-reviewed
+%quality control process. Before this process, it is considered preliminary. 
+%If all quality control conditions are met, the
+%species and its simulation framework are added to the catalog. Adding a
+%species to the stdpopsim catalog is beneficial in many ways: (1) it
+%increases the visibility of the species model, (2) it drastically
+%improves the reproducibility of the given model framework, and (3) it
+%allows other researchers to test different model simulations with that
+%particular species.
+%
+% ILAN: I removed this list to focus on the technical steps
+%   assuming that the model has been already figured out from relevant sources.
+%   [ this is covered by previous demo on cow ]
+%The steps to successfully add a species to the catalog are as follow:
+%\begin{itemize}
+%\tightlist
+%\item
+%  Find citeable resources describing the required population and species
+%  genetic parameters as detailed in \textbf{Implementing a population genomic simulation}.
+%\item
+%  Open a GitHub account, fork the stdpopsim GitHub
+%  repository, and start a pull request by following the steps provided
+%  in the ``Adding a new species'' section of the Development chapter in
+%  the stdpopsim docs, currently at
+%  %\url{https://popsim-consortium.github.io/stdpopsim-docs/stable/development.html?highlight=adding\%%20species\%20catalog\#adding-a-new-species}
+%  These steps as they stand in April 2022 are described in detail in the
+%  supplementary material, but are subject to change as the stdpopsim
+%  framework improves.
+%\end{itemize}
+%
+\texttt{stdpopsim} uses git for version control. You need to start by opening a GitHub account and forking the \texttt{stdpopsim} repository. Our first step will be to create an upstream
 link to the version of the repository owned by
 \texttt{popsim-consortium}, then we create a new branch of stdpopsim
 using git to keep track of the new species model we are adding.
