@@ -822,7 +822,7 @@ improve selective breeding and genomic prediction \citep{Meuwissen2001,
 MacLeod2014, Obsteter2021}. Their small effective population size
 (\textasciitilde 90 around 1980, and continuing to decline due to intense
 selective breeding \citep{MacLeod2013, VanRaden2020, Makanjouloa2020}) is
-challenging for demographic and selection inference \citep{MacLeod2013,
+challenging demographic and selection inference \citep{MacLeod2013,
 Hartfield2022} and genome-wide association and prediction
 \citep{MacLeod2014}. For these reasons, it was useful to develop a
 cattle model for stdpopsim.
@@ -830,33 +830,33 @@ cattle model for stdpopsim.
 With respect to the parameters chosen in the stdpopsim implementation,
 for the basic genome simulation, we used the most recent assembly
 \citep{Rosen2020}, a mutation rate of \(1.2 \times 10^{-8}\) \citep{Harland2017},
-a recombination rate of \(0.926 \times 10^{-8}\) \citep{Ma2015}, a base population
-effective population of 90 \citep{MacLeod2013}, and a generation interval of 5
-years \citep{MacLeod2013}. The chosen effective population size is specific
-to the Holstein breed, but is generally representative of a small
-effective population size in other breeds. Critically, this low
-effective population size will generate very low levels of overall
-genetic diversity, which is not in line with the actually observed
-variation \citep[e.g.,][]{Rosen2020}. To remedy this, the basic genome
-simulation must be complemented with a demographic model. We implemented
-the \cite{MacLeod2013} demographic model for the Holstein breed, which was
+a recombination rate of \(0.926 \times 10^{-8}\) \citep{Ma2015}, an
+effective population of 62,000 \citep{MacLeod2013}, and a generation interval of 5
+years \citep{MacLeod2013}. The chosen effective population size requires
+an explanation. Domestication and selective breeding have significantly reduced
+effective population size in cattle - from 62,000 at 33,154 generations ago in
+ancient cattle to 90 around 1980 in the Holstein dairy breed \citep{MacLeod2013}.
+Simulations with the current effective population size of 90 will generate very
+low levels of overall genetic diversity, while simulations with the ancient
+effective population size of 62,000 will not generate realistic genome structure
+in line with the observed genomes \citep[e.g.,][]{Rosen2020}. We have set
+the species effective population to 62,000 and strongly suggest complementing the
+basic genome simulation with a demographic model. We implemented
+the \cite{MacLeod2013} demographic model of the Holstein breed, which was
 inferred from runs of homozygosity in the whole-genome sequence of two
-iconic bulls. The estimated effective population size in this demography
-spans from the deep past (33,154 generations ago with effective population size
-of 62,000) to the recent past (about 1980 with effective population size of 90),
-after which further breeding simulations with intense selection breeding are
-needed to reflect reality \citep[e.g.,][]{
-MacLeod2014, Gaynor2020, Obsteter2021}. \cite{MacLeod2013} assumed
-recombination and mutation rates of \(10^{-8}\) in inferring their
+iconic bulls. \cite{MacLeod2013} assumed
+recombination and mutation rates of \(10^{-8}\) in inferring the
 demographic model, but revised the mutation rate to \(0.94 \times 10^{-8}\) by
 taking sequence errors into account. In line with the advice given in
 previous sections, we implemented these mutation and recombination rates
 for the \cite{MacLeod2013} demographic model, even though we have implemented
-more recent estimates in the basic genome model. 
-When a simulation with this demographic model is requested, stdpopsim uses the
-estimates assumed in the demographic model rather than the more
-recent estimates, in line with our advice of using estimates from the same
-source when possible.
+more recent estimates in the basic genome model. When a simulation with this
+demographic model is requested, stdpopsim uses the estimates from the
+demographic model rather than the estimates from the basic genome model.
+Of note, this demographic model simulates genomes that represent variation
+in the Holstein breed around 1980. Since then, intense selective breeding has
+further reduced the effective population size, which we can simulate with
+downstream breeding simulations \citep[e.g.,][]{MacLeod2014, Gaynor2020, Obsteter2021}. 
 
 \hypertarget{ano-gambea}{%
 	\subsubsection*{\texorpdfstring{\emph{Anopheles gambiae} (mosquito)}{Anopheles gambiae (mosquito)}}\label{bos-taurus}}
