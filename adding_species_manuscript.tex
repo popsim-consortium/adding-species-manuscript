@@ -521,8 +521,13 @@ For simulations to be useful, it is important to set the model parameters specif
 %\subsubsection*{Additional considerations}\label{additional-considerations}}
 
 Obtaining reliable and citeable estimates for all model parameters is not a trivial task. Oftentimes, different parameters will be extracted from different publications. For example, it is not uncommon to find an estimate of a mutation rate in one paper, a recombination map in a separate paper, and a suitable demographic model in a third paper. This practice is completely fine, but integrating information from different publications requires some care, because some of these parameters are entangled in non-trivial ways.
-For instance, the demographic model may have been estimated in the third paper assuming a mutation rate that has since been overwritten by the mutation rate estimate from the second paper. Naively using the demographic model, as published, with the new estimate of mutation rate will lead to levels of genetic diversity that do not fit the genomic data. This may be fixed by scaling all demographic parameter by the appropriate factor.
-However, it is not always clear that the original demographic model with the outdated mutation rate is fully equivalent to the scaled demographic model with the updated mutation rate. This may also depend on other assumptions made by the demography inference method, such as assumptions on recombination. Therefore, when possible, the demographic model, mutation rates, and recombination rates should
+For instance, the demographic model may have been estimated in the third paper assuming a mutation rate that has since been overwritten by the mutation rate estimate from the second paper. Naively using the demographic model, as published, with the new estimate of mutation rate will lead to levels of genetic diversity that do not fit the genomic data.
+% ILAN: removed rescaling because our recommendation is to specify the mut rate used in inference in the demo model 
+% This may be fixed by scaling all demographic parameter by the appropriate factor.
+%
+This is addressed in \texttt{stdpopsim} by allowing a demographic model to have a different mutation rate than the default rate specified for the species. This rate will override the species rate when this demographic model is simulated.
+%
+Note that this does not necessarily fix all inconsistencies, due to other assumptions made by the demography inference method that are not captured by the simulation (such as assuming a recombination rate different than the one we use for the species model). Therefore, when possible, the demographic model, mutation rates, and recombination rates should
 be drawn from the same study. If one needs to mix different sources, this should be approached with deliberation, and review by other researchers may be vital.
 
 
@@ -623,7 +628,7 @@ Estimates of average recombination rates for each of the five chromosomes (exclu
 
 \colorbox{yellow}{[TODO:  maybe add table similar to the one in the docs]} \href{https://popsim-consortium.github.io/stdpopsim-docs/latest/catalog.html#sec_catalog_AnoGam_genome}{[table link]}
 
-Since we could not find a citeable estimate for mutation rate for Anopheles gambiae, we used a genome-wide average mutation rate of $\mu=3.5e-09$ mutations per generation per site, estimated for Drosophila Melanogaster by \cite{Keightley2009} using mutation accumulation lines. Using this mutation rate and an estimate of $\theta=4\mu Ne$, the effective population size was set to $Ne=1,000,000$.
+Since we could not find a citeable estimate for mutation rate for Anopheles gambiae, we used a genome-wide average mutation rate of $\mu=3.5 \times 10^{-9}$ mutations per generation per site, estimated for Drosophila Melanogaster by \cite{Keightley2009} using mutation accumulation lines. Using this mutation rate and an estimate of $\theta=4\mu Ne$, the effective population size was set to $Ne=1,000,000$.
 %
 Importantly, the same mutation rate was also assumed when inferring a more detailed demographic history for this species \citep{Miles2017}. The demographic model inferred by \cite{Miles2017} specifies population size changes throughout the past 11,260 generations in 67 time intervals. During this time period, the population size was inferred to have fluctuated from below 80,000 (an ancient bottleneck roughly 10,000 generations ago) to the present-day estimate of over 4 million %
 To convert the time scale from generations to years, we suggest using an average generation times of $1/11$, which was also used in \citep{Miles2017}.
@@ -690,7 +695,7 @@ The species model was underwent the standard quality control process before it w
 	\subsection*{\texorpdfstring{\emph{Bos
 				taurus} (cattle)}{Bos taurus (cattle)}}\label{bos-taurus}}
 
-\colorbox{yellow}{[TODO: review this subsection and highlight high-level considerations and QC (Ilan) ]}
+\colorbox{yellow}{[TODO: check this subsection after some significant edits by Ilan (Gregor) ]}
 
 
 \emph{Bos taurus} (cattle) was added to the \texttt{stdpopsim} catalog during the 2020 hackathon because of its agricultural importance. Agricultural species experience
@@ -698,51 +703,56 @@ strong selection due to domestication and selective breeding, leading
 to a reduction in effective population size. These processes,
 as well as admixture and introgression, produce patterns
 of genetic variation that can be very different from typical model
-species \citep{Larson2013}. In cattle, these processes have occurred over a
-relatively short period (\textasciitilde 10,000 years or less) and are
-increasingly intensified to improve food production \citep{Gaut2018,
-MacLeod2013}. In cattle, high quality genome assemblies are now
-available for several breeds \citep[e.g.,][]{Rosen2020, Heaton2021,
+species \citep{Larson2013}. These processes have occurred over a
+relatively short period of time, since the advent of agriculture roughly 10,000 years ago, and they have increasingly intensified over the years to improve food production \citep{Gaut2018,MacLeod2013}. High quality genome assemblies are now
+available for several breeds of cattle \citep[e.g.,][]{Rosen2020, Heaton2021,
 Talenti2022} and population genomic analyses have become widely used to
 improve selective breeding and genomic prediction \citep{Meuwissen2001,
-MacLeod2014, Obsteter2021}. Their small effective population size
-(\textasciitilde 90 around 1980, and continuing to decline due to intense
-selective breeding \citep{MacLeod2013, VanRaden2020, Makanjouloa2020}) is
-challenging demographic and selection inference \citep{MacLeod2013,
-Hartfield2022} and genome-wide association and prediction
-\citep{MacLeod2014}. For these reasons, it was useful to develop a
-cattle model for stdpopsim.
+MacLeod2014, Obsteter2021}. These species have extremely low genetic diversity,
+with estimates of effective population size around 90 in the early 1980s, which continue to decline due to intense selective breeding \citep{MacLeod2013, VanRaden2020, Makanjouloa2020}. This presents non trivial challenge for demography inference, selection scans, genome-wide association and genomic prediction
+\citep{MacLeod2013,MacLeod2014,Hartfield2022}. For these reasons, it was useful to develop a detailed simulation model for cattle to be added to the \texttt{stdpopsim} catalog.
 
-With respect to the parameters chosen in the stdpopsim implementation,
-for the basic genome simulation, we used the most recent assembly
-\citep{Rosen2020}, a mutation rate of \(1.2 \times 10^{-8}\) \citep{Harland2017},
-a recombination rate of \(0.926 \times 10^{-8}\) \citep{Ma2015}, an
-effective population of 62,000 \citep{MacLeod2013}, and a generation interval of 5
-years \citep{MacLeod2013}. The chosen effective population size requires
-an explanation. Domestication and selective breeding have significantly reduced
-effective population size in cattle - from 62,000 at 33,154 generations ago in
-ancient cattle to 90 around 1980 in the Holstein dairy breed \citep{MacLeod2013}.
-Simulations with the current effective population size of 90 will generate very
-low levels of overall genetic diversity, while simulations with the ancient
-effective population size of 62,000 will not generate realistic genome structure
-in line with the observed genomes \citep[e.g.,][]{Rosen2020}. We have set
-the species effective population to 62,000 and strongly suggest complementing the
-basic genome simulation with a demographic model. We implemented
-the \cite{MacLeod2013} demographic model of the Holstein breed, which was
-inferred from runs of homozygosity in the whole-genome sequence of two
-iconic bulls. \cite{MacLeod2013} assumed
-recombination and mutation rates of \(10^{-8}\) in inferring the
-demographic model, but revised the mutation rate to \(0.94 \times 10^{-8}\) by
-taking sequence errors into account. In line with the advice given in
-previous sections, we implemented these mutation and recombination rates
-for the \cite{MacLeod2013} demographic model, even though we have implemented
-more recent estimates in the basic genome model. When a simulation with this
-demographic model is requested, stdpopsim uses the estimates from the
-demographic model rather than the estimates from the basic genome model.
-Of note, this demographic model simulates genomes that represent variation
-in the Holstein breed around 1980. Since then, intense selective breeding has
-further reduced the effective population size, which we can simulate with
-downstream breeding simulations \citep[e.g.,][]{MacLeod2014, Gaynor2020, Obsteter2021}. 
+We used the most recent assembly, ARS-UCD1.2
+\citep{Rosen2020}, a constant mutation rate \(\mu=1.2\times 10^{-8}\) for all chromosomes \citep{Harland2017}, and a constant recombination rate \(\rho=9.26 \times 10^{-9}\) for all chromosomes other than the mitochonrial genome \citep{Ma2015}.
+%
+We set the effective population size to $Ne=62,000$, reflecting the ancestral population size before  domestication  \citep{MacLeod2013}.
+%
+% ILAN: this somewhat repeats what's previously mentioned, so I shortened above.
+%Domestication and selective breeding have significantly reduced
+%effective population size in cattle - from 62,000 at 33,154 generations ago in
+%ancient cattle to 90 around 1980 in the Holstein dairy breed \citep{MacLeod2013}.
+%
+Clearly, simulating under the much lower current $Ne$ (of roughly 90) will produce a much lower genetic variation than observed in the genomic sequence.
+%
+However, simulations with the ancient effective population size of $Ne=62,000$ will not generate realistic genome structure  \citep[e.g.,][]{Rosen2020}.
+%
+When considering the two options, we chose the latter, but we note that because of the dramatic demographic changes in its history associated with domestication, simulating the cattle genome with any fixed value for $Ne$ will generate unrealistic patterns of genetic variation.
+%
+we thus strongly suggest simulating the cattle genome only with a reasonably detailed demographic model.
+
+We implemented the demographic model of the Holstein breed, which was
+inferred by \cite{MacLeod2013} from runs of homozygosity in the whole-genome sequence of two iconic bulls. 
+%
+This demographic model specifies the reduction in population size from $Ne=62,000$  around 33,000 generations to $Ne=90$ in the 1980s in 13 discrete steps (taken from Supplementary Table S1 in \cite{MacLeod2013}). 
+%
+To convert the time scale from generations to years, we suggest using an average generation time of $5$ \citep{MacLeod2013}.
+%
+Note that this demographic model does not capture the intense selective breeding since the 1980s that has even further reduced the effective population size of cattle \citep{MacLeod2014, Gaynor2020, Obsteter2021}. These effects can be modeled with
+downstream breeding simulations \citep[e.g.,][]{Gaynor2020}.
+%
+
+
+When setting up the parameters of the demographic model, we noticed that the inference by \cite{MacLeod2013} assumed a genome-wide fixed recombination rate of \(\rho=10^{-8}\), and a fixed mutation rate \(\mu=9.4 \times 10^{-9}\) (considering also sequence errors).
+%
+The more recently updated mutation rate assumed in the species model (\(1.2\times 10^{-8}\) from  \citep{Harland2017}; see above) is thus \(28\%\) higher than rate assumed in inference.
+%
+As a result, if one were to simulate the demographic model with the standard species mutation rate, they would produce synthetic genomes with considerably higher sequence diversity than actually observed in real genomic data.
+%
+To address this, we specified the mutation rate of \(\mu=9.4 \times 10^{-9}\) in the demographic model, and this rate then overrides the species mutation rate when the demographic model is applied in simulation.
+%
+%An alternative, and equivalent, approach would have been to keep the species mutation %rate (\(1.2\times 10^{-8}\)) and scale all times and population sizes in the %demographic model down by a multiplicative factor of \(120/94\).
+%
+The issue of fitting the rates used in simulation with those assumed during inference was discussed during the independent review of this demographic model, and it raised an important question about recombination rates. Since \cite{MacLeod2013} use runs of homozygosity to infer the demographic model, their method tightly depends on assumptions on recombination rate. The recombination rate assumed in inference (\(\rho=10^{-8}\)) is \(8\%\) higher than the one used in the species model (\(\rho=9.26\times 10^{-9}\)). In its current version, \texttt{stdpopsim} does not allow specification of a separate recombination rate for each demographic model, so we had no simple way to adjust for that. Thus, we note that simulated genomes might have slightly higher linkage disequilibrium than observed in real cattle genomes.
 
 \hypertarget{conclusion}{%
 \section*{Conclusion}\label{conclusion}}
