@@ -9,3 +9,9 @@
 *.blg
 *.synctex.gz
 *.out
+*.bcf
+*fls
+*.fdb_latexmk
+*.synctex.gz
+*.run.xml
+.vscode
