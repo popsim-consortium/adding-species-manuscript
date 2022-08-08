@@ -212,7 +212,7 @@ to be used to help guide conservation decisions for threatened species
 In general, the usefulness of population genomic simulations increases
 when they more realistically represent the species being simulated---that
 is, as they incorporate more relevant elements of the species' biology. Important
-elements include genomic features such as mutation and recombination
+elements include genomic features such as mutation, recombination, and gene conversion
 rates that strongly affect genetic variation and haplotype structure
 \citep{Nachman2002}, particularly when linked selection is important \citep{Cutter2013}.
 Furthermore, the demographic history of a
@@ -350,6 +350,8 @@ First, physical linkage of chromosomes induces correlations along a chromosome t
 reduce variance, generally, relative to independent simulations of equivalent genetic material.
 This has a particularly striking effect in long stretches of low recombination rates,
 as observed for instance on the long arm of human chromosome 22 \citep{Dawson2002}.
+In bacteria, a similar effect occurs due to genome-wide linkage that is broken only
+by gene conversion of short segments.
 Second, the lengths of shared haplotypes within and
 between populations provides valuable information about recent demographic history.
 Methods that use such information, such as MSMC \citep{Schiffels2020}, perform best
@@ -425,14 +427,30 @@ to  the simulation framework of \stdpopsim and to its species catalog.
 
 A key feature added to the simulation framework of \stdpopsim
 was modeling recombination by gene conversion. %
-\colorbox{yellow}{[ TODO: summarize model of GC in \stdpopsim in 5-7 sentences (Franz?) ]}
+To do so we had to upgrade the neutral simulation engine,
+\texttt{msprime}, from version 0.7.4 to version 1.0 \citep{Baumdicker2022}. %
+%\colorbox{yellow}{[ TODO: summarize model of GC in \stdpopsim in 5-7 sentences (Franz?) ]}
+Gene conversion affects shorter segments than crossover recombination and creates distinct patterns of genetic diversity along the genome~\citep{Korunes2017}.
+In particular, in the evolution of bacteria and archaea, homologous recombination occurs through gene conversion events rather than single crossover recombinations, so realistic simulations for bacterial populations are only now possible in \stdpopsim.
+In \stdpopsim, gene conversion is simulated based on two parameters: gene conversion rate, which
+is the rate at which a gene conversion event is initated at a single site, and gene conversion tract length,
+which gives the mean of the geometric distributed length of the segment transferred.
+Similar to species-specific mutation and recombination rates,
+default values for the gene conversion rate and the gene conversion tract length can be included in the species catalog, 
+if they pass the quality control step.
+% FB: We might want to consider adding some more default gc parameters to the catalog. If we do so in time, we should mention that here.
+For example, the species-specific gene conversion parameters of \emph{Escherichia coli} have now been included in the catalog.
+However, the rate at which gene conversions occur in eukaryotes is often several times higher than 
+the single crossover recombination rate, sucht that simulating including gene conversion can take considerably longer.
+Therefore gene conversion is disabled by default in \stdpopsim,
+but can be easily included with the use\_species\_gene\_conversion flag using the parameters from the species catalog or custom parameters.
 % JK: Demoting this as it's a pretty minor change from a stdpopsim users'
 % perspective.
-In addition, the update to msprime version 1.0~\citep{Baumdicker2022}
+In addition, the update to \texttt{msprime} version 1.0~\citep{Baumdicker2022}
 provides some benefits such as discrete sites mutations.
 
 
-The two aforementioned updates apply to neutral simulations.
+The aforementioned updates apply to neutral simulations.
 We also made significant updates to enable realistic simulations of natural selection
 using the \texttt{SLiM} engine \citep{Haller2019}. In particular we added the ability to
 apply to annotations to chromsomes to simulate selection at subsets of sites,
@@ -653,7 +671,7 @@ previous assembly coordinates and lift them over to the current assembly coordin
 \subsection*{Filling out the missing pieces}
 
 For some species it may be difficult to obtain citeable values for the necessary model parameters, even when combining different sources. We provide several suggestions for dealing with this scenario (see Table \ref{tab:param-mod}).
-If the species of interest does not have citeable mutation or recombination rates, the average genome-wide rates published for a closely related species may be used. This may slightly skew the average genetic diversity and the average genetic linkage, but will still likely produce useful simulations. A similar approach can be applied to the DFE if simulating natural selection.
+If the species of interest does not have citeable mutation, recombination, or gene conversion rates, the average genome-wide rates published for a closely related species may be used. This may slightly skew the average genetic diversity and the average genetic linkage, but will still likely produce useful simulations. A similar approach can be applied to the DFE if simulating natural selection.
 For species that lack a detailed demographic model inferred from genetic data, we suggest to use an average effective population size (\emph{Ne}), which best fits the average observed genetic diversity ($\theta$) in that species. There are various simple formulas to estimate $\theta$ from the number of segregating sites in a population \citep{Watterson1975} or the heterozygosity rate \citep{nei1979mathematical, tajima1983evolutionary}. This estimate of $\theta$ can then be converted to an effective population size by the formula: $Ne=\frac {\theta} {2p\mu}$, where $p$ is the ploidy of the species ($p=1$ for haploid species and $p=2$ for diploid species), and $\mu$ is the average mutation rate assumed for the species.
 
 Several researchers who participated in our hackathon in 2020 wished to add simulation models for species with partial genome assemblies. Many species' genome assemblies
@@ -706,6 +724,11 @@ other is not fully known. One way to deal with this situation is to include only
 			borrow from closest relative with a citeable mutation rate &
 			will affect levels of polymorphism \\                                                                                          						\hline
 			Recombination rate &
+			borrow from closest relative with a citeable rate &
+			will affect the impact of selection, linkage, and linked selection
+			\\
+			\hline
+			Gene conversion parameters &
 			borrow from closest relative with a citeable rate &
 			will affect the impact of selection, linkage, and linked selection
 			\\
