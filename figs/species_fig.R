@@ -4,19 +4,25 @@ library(ggtree)
 library(tidyverse)
 library(tidytree)
 
+setwd("/home/lauterbur/Documents/Manuscripts/adding-species-manuscript/figs/")
 tree<-read.tree("./species.nwk")
 tree$tip.label<-gsub("_"," ",tree$tip.label)
 tree$tip.label[which(tree$tip.label=="Canis lupus")]<-"Canis familiaris"
 
 species<-tibble(species=tree$tip.label) %>%
-  mutate(species = gsub("_", " ", species),
-    original=ifelse(species %in% c("Homo sapiens", "Drosophila melanogaster", "Arabidopsis thaliana", 
-                                        "Pongo abelii", "Canis familiaris", "Escherichia coli"), "original", "new"))
+  mutate(plot_species = gsub("_", " ", species),
+    original=ifelse(plot_species %in% c("Homo sapiens", "Drosophila melanogaster", "Arabidopsis thaliana", 
+                                        "Pongo abelii", "Canis familiaris", "Escherichia coli"), "original", 
+                    ifelse(plot_species %in% c("Bos taurus","Anas platyrhynchos", "Aedes aegypti", "Chlamydomonas reinhardtii",
+                                          "Apis mellifera", "Heliconius melpomene", "Caenorhabditis elegans",
+                                          "Streptococcus agalactiae", "Drosophila sechellia", "Papio anubis",
+                                          "Anolis carolinensis", "Gasterosteus aculeatus"), "hackathon", "new")))
 
 ggtree(tree, size=2) %<+% species +
-  geom_tiplab(aes(color=original), fontface='bold.italic', hjust=-.08)+
+  geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), 
+              lineheight=0.8, fontface='bold.italic', hjust=-.08)+
   ggplot2::xlim(0, 6000) +
-  scale_color_manual(values=c("darkorange3","darkblue")) +
+  scale_color_manual(values=c("darkorange3","seagreen","darkblue")) +
   theme(legend.position = "none")
   
-ggsave("./species_fig.png",height=7,width=6)
+ggsave("./species_fig.png",height=8,width=6)
