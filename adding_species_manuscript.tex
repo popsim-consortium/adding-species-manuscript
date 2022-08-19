@@ -149,25 +149,28 @@
 
 \section*{Abstract}
 
-Simulation is a key tool in population genetics, useful for both
-methods development and empirical research. An avalanche of population
-genomic data is in progress, as data is being generated faster than ever before.
-This data, coupled with methodological advances allowing for the estimation of more complex population genetic models, enable detailed simulations of a wide range of species and evolutionary scenarios.
-Many empirical researchers employing population genetics wish to simulate
-their study species, but do not know
-what is sufficient realism to address
-their question, what information is required to produce simulations of the desired realism and where to find it, or how to best share their simulation design for ease of reproducibility.
-In this paper we discuss the elements of a population genomic
-simulation model, including the required input data to make
-the model a realistic characterization of a particular species. We also discuss
-common pitfalls and major considerations in choosing this input data.
-Further, we describe how new species models can be integrated into the
-catalog of \stdpopsim, a community-developed tool that makes it easy to simulate
-complex population genetic models using up-to-date information.
-Initially, \stdpopsim was limited to well-characterized model species
-such as humans, chimpanzees, and \emph{Arabidopsis},
-and we illustrate the process of adding a species to \stdpopsim using
-examples and lessons learned from a recent hackathon that considerably expanded the range of supported species.
+Simulation is a key tool in population genetics for both methods development and empirical research,
+but producing simulations that recapitulate even the main features of genomic datasets remains a major obstacle.
+Today, more realistic simulations are possible thanks to large increases in
+the quantity of available data
+and the sophistication of inference and simulation software,
+but implementing these simulations can require substantial time and specialized knowledge.
+\stdpopsim library is a community-developed tool that seeks to lower this barrier,
+by making it easy to simulate complex population genetic models using up-to-date information,
+but its' initial release only provided methods for simulation from a few, mostly model organisms.
+Here, we report on efforts to expand the catalogue more broadly across the tree of life,
+which now contains 21 species across the tree of life,
+with 24 demographic models and 37 genetic maps.
+We also introduce several major advances to the realism of \stdpopsim's simulation ability,
+including gene conversion and provision of species-specific genomic annotations.
+We also report on lessons learned for best practices:
+many empirical researchers wish to simulate their study species for a variety of reasons,
+but it is not always clear what level of realism is sufficient to confidently answer a given question,
+what information is required to produce simulations of the desired realism and where to find it,
+or how to best share their simulation design for ease of reproducibility.
+So, we also discuss the elements of a population genomic
+simulation model, including the required input data, common pitfalls and major considerations,
+and describe how new species models can be integrated into the catalog of \stdpopsim.
 Thus, this paper provides a means to expand the accessibility of population
 genetic simulations to the broader population
 genetics community by serving as a tutorial in both how to
@@ -180,28 +183,27 @@ into the \stdpopsim catalog to make it available, transparent, and accessible to
 \section*{Introduction}\label{introduction}}
 
 Dramatic reductions in sequencing costs are enabling the generation of
-unprecedented amounts and diversity of genomic data for a huge variety of species
+unprecedented amounts of genomic data for a huge variety of species
 \citep{Ellegren2014}. Ongoing efforts to systematically sequence life on
 Earth by initiatives such as the Earth Biogenome \citep{Lewin2022} and its
 affiliated project networks (for example, Vertebrate Genomes
 \citep{Rhie2021}, 10,000 Plants \citep{Cheng2018} and others) are
-providing the backbone for enormous increases in population-level genomic data from
-new model and non-model species. Methods for inferring
-demographic history and natural selection from such data are also flourishing
-\citep{Beichman2018}. Past methods development has
-focused on humans and a few key species such as \emph{Drosophila}
-as model systems. More recently attention is being paid to
-generalize methods to include important population dynamics not present
-in these models, such as inbreeding or selfing \citep{Blischak2020}, skewed offspring
-distributions \citep{Montano2016}, intense artificial selection \citep{MacLeod2013,
-MacLeod2014}, and to realistically simulate particular non-model species of interest.
+providing the backbone for enormous increases in the amount of population-level genomic data
+available for new model and non-model species.
+These data are being used to answer an increasingly large number of questions across scales
+from deep evolutionary time to ongoing ecological dynamics.
+Methods that use these data, for example to infer demographic history and natural selection,
+are also flourishing \citep{Beichman2018}.
+Past methods development has focused on humans and a few key model systems such as \emph{Drosophila}.
+More recent efforts have
+generalized these methods to include important population dynamics not initially accounted for,
+such as inbreeding or selfing \citep{Blischak2020}, skewed offspring
+distributions \citep{Montano2016}, and intense artificial selection \citep{MacLeod2013, MacLeod2014}.
 
-Simulations from population genomic models are an important tool
-for analyzing these new data and testing these models;
-simulations are thus vital for testing new inference methods,
-as well as for validating findings from empirical and theoretical research.
-Among their uses are providing training
-data for inference methods based on machine learning \citep{Schrider2018} or
+Simulations are an important tool for planning studies, analyzing data, testing inference methods,
+and validating findings from empirical and theoretical research.
+For instance, simulations provide training data
+for inference methods based on machine learning \citep{Schrider2018} or
 Approximate Bayesian Computation \citep{Csillery2010}. They can also serve as
 baselines for further analyses: for example, models incorporating
 demographic history serve as null models in selection analyses
@@ -219,33 +221,31 @@ elements include genomic features such as mutation and recombination
 rates that strongly affect genetic variation and haplotype structure
 \citep{Nachman2002}. These have particularly strong ramifications 
 when linked selection is important in the patterns being studied \citep{Cutter2013}.
-Furthermore, the demographic history of a
-species, encompassing population sizes, divergences, and gene flow, can
+Furthermore, the demographic history of a species,
+encompassing population sizes and distributions, divergences, and gene flow, can
 dramatically affect patterns of genetic variation \citep{Teshima2006}. Thus
-estimates of these and other evolutionary parameters (e.g. those governing
+estimates of these and other ecological and evolutionary parameters (e.g., those governing
 the process of natural selection) are fundamentally important when
-developing simulations of a particular species of interest. This presents
-challenges not only in the coding of the simulations themselves, but in
-the choice of parameter estimates to be used to shape the simulation
-model.
+developing simulations of a particular species of interest.
+This presents challenges, especially to new researchers,
+as it takes a great deal of specialized knowledge not only to code the simulations themselves
+but also to find and choose appropriate estimates of the parameters underlying the simulation model.
 
 \stdpopsim is a community resource recently developed to provide easy
 access to detailed population genomic simulations \citep{Adrion2020}. This
 resource lowers the technical barriers to performing these simulations
 and reduces the possibility of erroneous implementation of simulations
 for species with published demographic models. 
-But the initial release of \stdpopsim was
+The initial release of \stdpopsim was
 primarily restricted to well-characterized model species, such as
-\emph{Drosophila melanogaster} and \emph{Homo sapiens}. Feedback from
-\stdpopsim workshops has emphasized the widespread desire of the
-population genomic community to simulate
-non-model species of interest, 
+\emph{Drosophila melanogaster} and \emph{Homo sapiens},
+but feedback from \stdpopsim workshops identified a widespread desire
+of the population genomic community to simulate
+a wider range of non-model species,
 and ideally to incorporate these into the \stdpopsim catalog for future use.
-More broadly, that feedback also emphasized need for a 
-better understanding among the empirical population
-genomic community of when it is practical to create a realistic
-simulation of a species of interest, which genomic elements are
-necessary, and how to choose relevant parameter estimates for them.
+That feedback, and subsequent efforts, also uncovered the need for a 
+better understanding of when it is practical to create a realistic
+simulation of a species of interest, and indeed what ``realistic'' means in this context.
 
 The choice of when and how to develop population genomic
 simulations for a species of interest is affected both by the intended
