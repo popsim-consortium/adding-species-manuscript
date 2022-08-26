@@ -13,7 +13,6 @@
 \usepackage{booktabs}
 % hyperlinks
 \usepackage{hyperref}
-\usepackage{nameref}
 
 \usepackage{xspace}
 \usepackage{mathrsfs}
@@ -53,6 +52,9 @@
         \renewcommand{\thefigure}{\arabic{figure}}%
      }
 
+\makeatletter
+\newcommand{\labelname}[1]{\def\@currentlabelname{#1}}
+\makeatother
 
 % Avoid pandoc bug when there are lists in the body.
 \providecommand{\tightlist}{%
@@ -182,8 +184,8 @@ into the \stdpopsim catalog to make it available, transparent, and accessible to
 
 
 
-\hypertarget{introduction}{%
-\section*{Introduction}\label{introduction}}
+\section*{Introduction}
+    \label{introduction}
 
 %Simulation is one of the key tools in population genetics, but can
 %present unexpected challenges and has many hidden pitfalls for the
@@ -262,7 +264,7 @@ This paper is intended to announce and describe the additions to the \stdpopsim 
 and as a resource for methods developers and empirical researchers
 who wisth to develop simulations of their own species of interest
 or add to the \stdpopsim catalogue.
-In the \hyperref[sec:sim-guidelines]{\textbf{Guidelines}} section,
+In the \nameref{sec:sim-guidelines} section,
 we discuss the elements of a
 population genomic simulation model that characterizes a
 species, including when a whole-genome simulation is more useful than
@@ -277,15 +279,14 @@ guidance for what information is sufficient for a realistic genome simulation
 using any simulator. We pay particular attention to the ways
 in which \stdpopsim eases this burden, and describe how new users might
 add their own species information to \stdpopsim.
-The latter is discussed in the \hyperref[sec:examples]{\textbf{Examples}} section, where we lay out in
+The latter is discussed in the \nameref{sec:examples} section, where we lay out in
 detail the simple process of incorporating the information discussed
-in the \hyperref[sec:sim-guidelines]{\textbf{Guidelines}} section into \stdpopsim.
+in the \nameref{sec:sim-guidelines} section into \stdpopsim.
 
 
 
-\hypertarget{sec2}{%
-	\section*{The utility of \stdpopsim for genome-wide simulations}\label{sec:std-sim}
-}
+\section*{The utility of \stdpopsim for genome-wide simulations}
+    \label{sec:std-sim}
 
 % \paragraph*{Parameterizing population genomic simulations is cumbersome}
 We begin with an overview of the goals and rationale behind \stdpopsim;
@@ -378,9 +379,8 @@ or to conduct power analyses for design of empirical studies that use them.
 % careful consideration  of the benefits of whole-chromosome simulations.
 
 
-\hypertarget{sec3}{%
-	\subsection*{Additions to \stdpopsim}
-\label{sec:expanded-catalog}}
+\subsection*{Additions to \stdpopsim}
+    \label{sec:expanded-catalog}
 
 Since its initial publication in \cite{Adrion2020},
 we have improved the simulation framework of \stdpopsim in several ways,
@@ -469,8 +469,9 @@ Not all of these have genetic maps or demographic models,
 but many do, and we hope the framework is laid for future contributions.
 
 
-\hypertarget{sec3}{
-\section*{Guidelines for implementing a population genomic simulation}\label{sec:sim-guidelines}}
+\section*{Guidelines for implementing a population genomic simulation}
+    \labelname{Guidelines}
+    \label{sec:sim-guidelines}
 
 
 The concentrated effort to add species to the \stdpopsim catalog
@@ -607,8 +608,7 @@ This practice often finds subtle bugs and helps increase the reliability and rep
 We highly recommend the similar practice of code review for simulations generated outside of \stdpopsim.
 
 
-%\hypertarget{additional-considerations}{%
-%\subsubsection*{Additional considerations}\label{additional-considerations}}
+%\subsubsection*{Additional considerations}\label{additional-considerations}
 
 Obtaining reliable and citeable estimates for all model parameters is not a trivial task.
 Oftentimes, different parameters must be gleaned from different publications and combined.
@@ -637,8 +637,6 @@ the coordinates of the genetic maps that we curate to
 the coordinates of the reference genome assemblies.
 
 
-%\hypertarget{what-if-we-dont-know-everything}{%
-%\paragraph{What if we don't know everything?}\label{what-if-we-dont-know-everything}}
 \subsection*{Filling out the missing pieces}
 
 For many species it is difficult to obtain estimates of the necessary model parameters.
@@ -723,15 +721,16 @@ and any such matching would be false precision.
 \end{table}
 
 
-\hypertarget{sec5}{%
-	\section*{Examples of added species}\label{sec:examples}}
+\section*{Examples of added species}
+    \labelname{Examples}
+    \label{sec:examples}
 
 In this section, we provide examples of two species recently added to the \stdpopsim catalog,
 \textit{Anopheles gambiae} and \textit{Bos taurus},
 to demonstrate the key considerations of the process.
 
-\hypertarget{ano-gambea}{%
-	\subsection*{\texorpdfstring{\emph{Anopheles gambiae} (mosquito)}{Anopheles gambiae (mosquito)}}\label{AnoGam}}
+\subsection*{\texorpdfstring{\emph{Anopheles gambiae} (mosquito)}{Anopheles gambiae (mosquito)}}
+    \label{AnoGam}
 
 \emph{Anopheles gambiae}, also known as the African malaria mosquito, is a good example
 of a non-model organism whose population history has direct implications for human health.
@@ -782,9 +781,8 @@ or the recombination map. Note that if in the future we obtain a direct estimate
 the new mutation rate.
 
 
-\hypertarget{bos-taurus}{%
-	\subsection*{\texorpdfstring{\emph{Bos
-				taurus} (cattle)}{Bos taurus (cattle)}}\label{bos-taurus}}
+\subsection*{\texorpdfstring{\emph{Bos taurus} (cattle)}{Bos taurus (cattle)}}
+    \label{bos-taurus}
 
 \emph{Bos taurus} (cattle) was added to the \stdpopsim catalog during the 2020 hackathon because of its agricultural importance. Agricultural species experience
 strong selection due to domestication and selective breeding, leading
@@ -845,8 +843,8 @@ However, we anticipate that this would affect patterns less
 than selection due to domestication and selective breeding,
 which are not modeled here.
 
-\hypertarget{conclusion}{%
-\section*{Conclusion}\label{conclusion}}
+\section*{Conclusion}
+    \label{conclusion}
 
 As our ability to sequence genomes continues to advance, the need for
 population genomic simulation of new model and non-model organism genomes is
@@ -962,22 +960,18 @@ in the intro or abstract? MEL: Agree, suggest abstract.)]}
 % a community of users eager to use it.
 %
 
-\hypertarget{acknowledgements}{%
-\section*{Acknowledgements}\label{acknowledgements}}
+\section*{Acknowledgements}\label{acknowledgements}
 
 TODO Workshop and hackhaton attendes?
 
-\hypertarget{funding}{%
-\section*{Funding}\label{funding}}
+\section*{Funding}
+    \label{funding}
 
 TODO: should we order these alphabetically or in the same order as authors?
 
-M. Elise Lauterbur was supported by an NSF Postdoctoral Research Fellowship \#2010884.
-
+M.~Elise Lauterbur was supported by an NSF Postdoctoral Research Fellowship \#2010884.
 Gregor Gorjanc was supported by the University of Edinburgh and BBSRC grant to The Roslin Institute (BBS/E/D/30002275).
-
 Andrew D. Kern and Peter L. Ralph were supported by NIH award R01HG010774.
-
 Ryan N. Gutenkunst was supported by NIH award R01GM127348.
 
 \bibliography{references}
