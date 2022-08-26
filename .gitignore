@@ -1,7 +1,6 @@
-*log
-*docx
+adding_species_manuscript.pdf
+*.log
 *lock*
-*pdf
 .*.swp
 .DS_Store
 *.bbl
@@ -10,7 +9,7 @@
 *.synctex.gz
 *.out
 *.bcf
-*fls
+*.fls
 *.fdb_latexmk
 *.synctex.gz
 *.run.xml
