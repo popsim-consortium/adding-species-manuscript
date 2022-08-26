@@ -16,12 +16,10 @@
 
 \usepackage{xspace}
 \usepackage{mathrsfs}
+\usepackage{graphicx}
 
 \pagestyle{fancy}
-\fancyhead[R]{\textbf{On population genomic simulations of new model and non-model species: a guide}}
-% for figures
-\usepackage{graphicx}
-\graphicspath{ {figs/} }
+\fancyhead[R]{\textbf{Expanding \stdpopsim}}
 
 
 % for highlighting text
@@ -60,7 +58,7 @@
 \providecommand{\tightlist}{%
 \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-\title{Expanding the \stdpopsim species catalogue, and lessons learned from realistic genome simulations}
+\title{Expanding the \stdpopsim species catalogue, and lessons learned for realistic genome simulations}
 
 \author[1,*]{M. Elise Lauterbur}
 \author[2,*]{Maria Izabel A. Cavassim}
@@ -158,11 +156,11 @@ Today, more realistic simulations are possible thanks to large increases in
 the quantity of available data
 and the sophistication of inference and simulation software,
 but implementing these simulations can require substantial time and specialized knowledge.
-\stdpopsim library is a community-developed tool that seeks to lower this barrier,
+The \stdpopsim library is a community-developed tool that seeks to lower this barrier,
 by making it easy to simulate complex population genetic models using up-to-date information,
 but its' initial release only provided methods for simulation from a few, mostly model organisms.
 Here, we report on efforts to expand the catalogue more broadly across the tree of life,
-which now contains 21 species across the tree of life,
+which now contains 21 species,
 with 24 demographic models and 37 genetic maps.
 We also introduce several major advances to the realism of \stdpopsim's simulation ability,
 including gene conversion and provision of species-specific genomic annotations.
@@ -199,7 +197,7 @@ affiliated project networks (for example, Vertebrate Genomes
 \citep{Rhie2021}, 10,000 Plants \citep{Cheng2018} and others) are
 providing the backbone for enormous increases in the amount of population-level genomic data
 available for new model and non-model species.
-These data are being used to answer an increasingly large number of questions across scales
+These data are being used to answer questions across scales
 from deep evolutionary time to ongoing ecological dynamics.
 Methods that use these data, for example to infer demographic history and natural selection,
 are also flourishing \citep{Beichman2018}.
@@ -241,6 +239,17 @@ This presents challenges, especially to new researchers,
 as it takes a great deal of specialized knowledge not only to code the simulations themselves
 but also to find and choose appropriate estimates of the parameters underlying the simulation model.
 
+The utility of population genomic simulations for a given endeavor
+depends on both the intended analyses
+and the genomic resources available for the species of interest.
+The availability of information about demographic history and genomic features
+(e.g., mutation and recombination rates)
+can strongly affect how much simulations produce data that resemble reality.
+The choices of demographic model, recombination rates, and so forth
+have a major impact on the resulting patterns of genomic variation,
+although the importance of these components of realistic population
+can be hard to intuit and are not always well understood.
+
 \stdpopsim is a community resource recently developed to provide easy
 access to detailed population genomic simulations \citep{Adrion2020}. This
 resource lowers the technical barriers to performing these simulations
@@ -262,7 +271,7 @@ the broader population genetics community.
 
 This paper is intended to announce and describe the additions to the \stdpopsim catalogue,
 and as a resource for methods developers and empirical researchers
-who wisth to develop simulations of their own species of interest
+who wish to develop simulations of their own species of interest
 or add to the \stdpopsim catalogue.
 In the \nameref{sec:sim-guidelines} section,
 we discuss the elements of a
@@ -294,8 +303,9 @@ see \citet{Adrion2020} for more on the topic.
 The main objective of population genomic simulations is to recreate 
 patterns of sequence variation along the genome under known conditions
 that model a given species (or population) of interest.
-\stdpopsim is build on tp of the
-\texttt{msprime} \citep{Kelleher2016,Nelson2020} and \texttt{SLiM} \citep{Haller2019} simulation engines,
+\stdpopsim is built on top of the
+\texttt{msprime} \citep{Kelleher2016,Nelson2020,Baumdicker2022}
+and \texttt{SLiM} \citep{Haller2019} simulation engines,
 that are capable of producing fairly realistic patterns of sequence variation
 if provided with accurate descriptions of the genome architecture
 and evolutionary history of the simulated species.
