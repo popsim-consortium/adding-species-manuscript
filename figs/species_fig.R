@@ -6,12 +6,11 @@ library(tidytree)
 library(ggnewscale)
 library(viridisLite)
 
-setwd("/home/lauterbur/Documents/Manuscripts/adding-species-manuscript/figs/")
-tree<-read.tree("./species.nwk")
-tree$tip.label<-gsub("_"," ",tree$tip.label)
-tree$tip.label[which(tree$tip.label=="Canis lupus")]<-"Canis familiaris"
+tree <- read.tree("species.nwk")
+tree$tip.label <- gsub("_"," ",tree$tip.label)
+tree$tip.label[which(tree$tip.label=="Canis lupus")] <- "Canis familiaris"
 
-species<-tibble(species=tree$tip.label) %>%
+species <- tibble(species=tree$tip.label) %>%
   mutate(plot_species = gsub("_", " ", species),
     original=ifelse(plot_species %in% c("Homo sapiens", "Drosophila melanogaster", "Arabidopsis thaliana", 
                                         "Pongo abelii", "Canis familiaris", "Escherichia coli"), "original", 
@@ -22,6 +21,7 @@ species<-tibble(species=tree$tip.label) %>%
                            #"new"))) # different color for hackathon and after hackathon
                            "hackathon"))) # don't distinguish between hackathon and after
 
+pdf(file="species_fig.pdf", width=6, height=8, pointsize=10)
 ggtree(tree, size=2) %<+% species +
   geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), 
               lineheight=0.8, fontface='bold.italic', hjust=-.08)+
@@ -29,6 +29,7 @@ ggtree(tree, size=2) %<+% species +
 #  scale_color_manual(values=c("darkorange3","seagreen","darkblue")) +
   scale_color_manual(values=c("darkorange3","darkblue")) +
   theme(legend.position = "none")
+<<<<<<< HEAD
 
 # add number of demographic models, genomic maps, annotations, DFE (as of 25 Aug 2022)
 data<-rbind(c("Escherichia coli" ,0,0,0,0),
@@ -231,3 +232,7 @@ tree_plot +
 ggsave("./species_fig_temp6.png",height=9,width=9)
 
 # increase size of column labels, angle, remove "NA" in legend - do this outside R because ggtree doesn't want to
+=======
+dev.off()
+  
+>>>>>>> main
