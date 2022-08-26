@@ -29,7 +29,6 @@ ggtree(tree, size=2) %<+% species +
 #  scale_color_manual(values=c("darkorange3","seagreen","darkblue")) +
   scale_color_manual(values=c("darkorange3","darkblue")) +
   theme(legend.position = "none")
-<<<<<<< HEAD
 
 # add number of demographic models, genomic maps, annotations, DFE (as of 25 Aug 2022)
 data<-rbind(c("Escherichia coli" ,0,0,0,0),
@@ -71,7 +70,6 @@ tree_plot <- ggtree(tree, size=2) %<+% species +
   ggplot2::xlim(0, 6000) +
 #  scale_color_manual(values=c("darkorange3","seagreen","darkblue"), guide="none") +
   scale_color_manual(values=c("darkorange3","darkblue"), guide="none") +
-  # theme(legend.position = "none") + 
   new_scale_color()
 
 species_long <-species %>% 
@@ -99,7 +97,6 @@ tree_plot +
    geom_text(aes(label = map), nudge_x = 2325) +
    geom_text(aes(label = annotations), nudge_x = 2750) +
    geom_text(aes(label = DFE), nudge_x = 3175) +
-   scale_x_discrete(position="top") +
    ggplot2::xlim(0, 8000) +
    ggplot2::ylim(-1.5,21.5) 
 
@@ -120,11 +117,6 @@ tree_plot +
              size=4
   ) +
   scale_alpha_discrete(range=c(0,1)) +
-  # geom_text(aes(label = demog),nudge_x = 1900) +
-  # geom_text(aes(label = map), nudge_x = 2325) +
-  # geom_text(aes(label = annotations), nudge_x = 2750) +
-  # geom_text(aes(label = DFE), nudge_x = 3175) +
-  scale_x_discrete(position="top") +
   ggplot2::xlim(0, 8000) +
   ggplot2::ylim(-1.5,21.5)
 
@@ -144,12 +136,6 @@ tree_plot +
              ),  # adjust the horizontal position of text of axis.
              size=4
   ) +
- # scale_alpha_continuous(range=c(0,1), guide=guide_legend(name = "test")) +
-  # geom_text(aes(label = demog),nudge_x = 1900) +
-  # geom_text(aes(label = map), nudge_x = 2325) +
-  # geom_text(aes(label = annotations), nudge_x = 2750) +
-  # geom_text(aes(label = DFE), nudge_x = 3175) +
- # scale_x_discrete(position="top") +
   ggplot2::xlim(0, 8000) +
   ggplot2::ylim(-1.5,21.5)
 
@@ -169,12 +155,6 @@ tree_plot +
              ),  # adjust the horizontal position of text of axis.
              size=4
   ) +
-  # scale_alpha_continuous(range=c(0,1), guide=guide_legend(name = "test")) +
-  # geom_text(aes(label = demog),nudge_x = 1900) +
-  # geom_text(aes(label = map), nudge_x = 2325) +
-  # geom_text(aes(label = annotations), nudge_x = 2750) +
-  # geom_text(aes(label = DFE), nudge_x = 3175) +
-  # scale_x_discrete(position="top") +
   ggplot2::xlim(0, 8000) +
   ggplot2::ylim(-1.5,21.5)
 
@@ -198,9 +178,6 @@ tree_plot +
    scale_color_viridis_c(na.value="white", option="C", name="count") +
    geom_text( aes(label = demog), nudge_x = 1875, family="bold") +
    geom_text(aes(label = map), nudge_x = 2525, family="bold") +
-  # geom_text(aes(label = annotations), nudge_x = 2750) +
-  # geom_text(aes(label = DFE), nudge_x = 3175) +
-  # scale_x_discrete(position="top") +
   ggplot2::xlim(0, 8000) +
   ggplot2::ylim(-1.5,21.5)
 
@@ -225,14 +202,9 @@ tree_plot +
              alpha=.7
   ) +
   scale_color_manual(name="count", na.value="white", values = c("grey","black")) +
-  # scale_x_discrete(position="top") +
   ggplot2::xlim(0, 8000) +
   ggplot2::ylim(-1.5,21.5)
 
 ggsave("./species_fig_temp6.png",height=9,width=9)
 
 # increase size of column labels, angle, remove "NA" in legend - do this outside R because ggtree doesn't want to
-=======
-dev.off()
-  
->>>>>>> main
