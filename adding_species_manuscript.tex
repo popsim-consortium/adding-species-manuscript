@@ -156,30 +156,27 @@ Today, more realistic simulations are possible thanks to large increases in
 the quantity of available data
 and the sophistication of inference and simulation software,
 but implementing these simulations can require substantial time and specialized knowledge.
-The \stdpopsim library is a community-developed tool that seeks to lower this barrier,
-by making it easy to simulate complex population genetic models using up-to-date information,
-but its' initial release only provided methods for simulation from a few, mostly model organisms.
+\Stdpopsim is a community-developed tool that seeks to lower this barrier,
+by making it easy to simulate complex population genetic models using
+up-to-date information.
+The initial version of the \stdpopsim catalog contained information for 
+6 species, most of which are well-characterized model organisms.
 Here, we report on efforts to expand the catalogue more broadly across the tree of life,
 which now contains 21 species,
 with 24 demographic models and 37 genetic maps.
 We also introduce several major advances to the realism of \stdpopsim's simulation ability,
 including gene conversion and provision of species-specific genomic annotations.
-We also report on lessons learned for best practices:
-many empirical researchers wish to simulate their study species for a variety of reasons,
-but it is not always clear what level of realism is sufficient to confidently answer a given question,
-what information is required to produce simulations of the desired realism and where to find it,
-or how to best share their simulation design for ease of reproducibility.
-So, we also discuss the elements of a population genomic
+Simulating model organisms presents significant challenges,
+but simulating less well studied species is far more difficult
+since it is not always clear what level of realism is sufficient to confidently answer a given question,
+or what information is required to produce simulations of the desired realism.
+The process of expanding the \stdpopsim catalogue 
+to include more species through community engagement yielded many insights, 
+and we report on lessons learned for best practices in population genetic simulation.
+We discuss the elements of a population genomic
 simulation model, including the required input data, common pitfalls and major considerations,
-and describe how new species models can be integrated into the catalog of \stdpopsim.
-Thus, this paper provides a means to expand the accessibility of population
-genetic simulations to the broader population
-genetics community by serving as a tutorial in both how to
-assemble the data that is required to simulate
-a species and how to incorporate the simulation
-into the \stdpopsim catalog to make it available, transparent, and accessible to everyone.
-
-
+and describe how new species models can be integrated into \stdpopsim,
+making it available, transparent, and accessible to everyone.
 
 
 \section*{Introduction}
