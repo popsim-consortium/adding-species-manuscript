@@ -159,7 +159,7 @@ but implementing these simulations can require substantial time and specialized 
 \Stdpopsim is a community-developed tool that seeks to lower this barrier,
 by making it easy to simulate complex population genetic models using
 up-to-date information.
-The initial version of the \stdpopsim catalog contained information for 
+The initial version of the \stdpopsim catalog contained information for
 6 species, most of which are well-characterized model organisms.
 Here, we report on efforts to expand the catalogue more broadly across the tree of life,
 which now contains 21 species,
@@ -170,8 +170,8 @@ Simulating model organisms presents significant challenges,
 but simulating less well studied species is far more difficult
 since it is not always clear what level of realism is sufficient to confidently answer a given question,
 or what information is required to produce simulations of the desired realism.
-The process of expanding the \stdpopsim catalogue 
-to include more species through community engagement yielded many insights, 
+The process of expanding the \stdpopsim catalogue
+to include more species through community engagement yielded many insights,
 and we report on lessons learned for best practices in population genetic simulation.
 We discuss the elements of a population genomic
 simulation model, including the required input data, common pitfalls and major considerations,
@@ -190,10 +190,10 @@ Dramatic reductions in sequencing costs are enabling the generation of
 unprecedented amounts of genomic data for a huge variety of species
 \citep{Ellegren2014}. Ongoing efforts to systematically sequence life on
 Earth by initiatives such as the Earth Biogenome \citep{Lewin2022} and its
-affiliated project networks (for example, Vertebrate Genomes
-\citep{Rhie2021}, 10,000 Plants \citep{Cheng2018} and others) are
+affiliated project networks~\citep[e.g.][]{Cheng2018,Rhie2021,darwin2022sequence}
+are
 providing the backbone for enormous increases in the amount of population-level genomic data
-available for new model and non-model species.
+available for model and non-model species.
 These data are being used to answer questions across scales
 from deep evolutionary time to ongoing ecological dynamics.
 Methods that use these data, for example to infer demographic history and natural selection,
@@ -217,49 +217,57 @@ More recently, population genomic simulations have begun
 to be used to help guide conservation decisions for threatened species
 \citep{Teixeira2021,kyriazis2022using}.
 
-Population genomic simulations are useful in so far as they can
-create realistic patterns of genetic variation for a species of interest.
-In general, their usefulness increases 
-as they incorporate more elements of the species' biology that are
-relevant to generating those patterns. Important
-elements include genomic features such as mutation and recombination
+% JK: this original text seems unnecessarily negative - were old-school coalescent
+% simulations not useful?
+
+% Population genomic simulations are useful in so far as they can
+% create realistic patterns of genetic variation for a species of interest.
+% In general, their usefulness increases
+% as they incorporate more elements of the species' biology that are
+% relevant to generating those patterns.
+Increasing amounts of data have enabled researchers to ask ever more
+specific and precise questions, and consequently, simulations must incorporate
+more and more detailed elements of a species' biology.
+Important elements include genomic features such as mutation and recombination
 rates that strongly affect genetic variation and haplotype structure
-\citep{Nachman2002}. These have particularly strong ramifications 
+\citep{Nachman2002}. These have particularly strong ramifications
 when linked selection is important in the patterns being studied \citep{Cutter2013}.
 Furthermore, the demographic history of a species,
 encompassing population sizes and distributions, divergences, and gene flow, can
 dramatically affect patterns of genetic variation \citep{Teshima2006}. Thus
 estimates of these and other ecological and evolutionary parameters (e.g., those governing
 the process of natural selection) are fundamentally important when
-developing simulations of a particular species of interest.
+developing simulations of a particular species.
 This presents challenges, especially to new researchers,
 as it takes a great deal of specialized knowledge not only to code the simulations themselves
 but also to find and choose appropriate estimates of the parameters underlying the simulation model.
 
-The utility of population genomic simulations for a given endeavor
-depends on both the intended analyses
-and the genomic resources available for the species of interest.
-The availability of information about demographic history and genomic features
-(e.g., mutation and recombination rates)
-can strongly affect how much simulations produce data that resemble reality.
-The choices of demographic model, recombination rates, and so forth
-have a major impact on the resulting patterns of genomic variation,
-although the importance of these components of realistic population
-can be hard to intuit and are not always well understood.
+% JK: can't really see what this paragraph was saying that was different
+% to the previous paragraph.
 
-\stdpopsim is a community resource recently developed to provide easy
+% The utility of population genomic simulations for a given endeavor
+% depends on both the intended analyses
+% and the genomic resources available for the species of interest.
+% The availability of information about demographic history and genomic features
+% (e.g., mutation and recombination rates)
+% can strongly affect how much simulations produce data that resemble reality.
+% The choices of demographic model, recombination rates, and so forth
+% have a major impact on the resulting patterns of genomic variation,
+% although the importance of these components of realistic population
+% can be hard to intuit and are not always well understood.
+
+\Stdpopsim is a community resource recently developed to provide easy
 access to detailed population genomic simulations \citep{Adrion2020}. This
 resource lowers the technical barriers to performing these simulations
 and reduces the possibility of erroneous implementation of simulations
-for species with published demographic models. 
+for species with published demographic models.
 The initial release of \stdpopsim was
 restricted to only six well-characterized model species, such as
 \emph{Drosophila melanogaster} and \emph{Homo sapiens},
 but feedback from \stdpopsim workshops identified a widespread desire
-of the population genomic community to simulate
-a wider range of non-model species,
+to simulate a wider range of non-model species,
 and ideally to incorporate these into the \stdpopsim catalog for future use.
-That feedback, and subsequent efforts, also uncovered the need for a 
+That feedback, and subsequent efforts, also uncovered the need for a
 better understanding of when it is practical to create a realistic
 simulation of a species of interest, and indeed what ``realistic'' means in this context.
 In addition to \stdpopsim's framework for standardizing simulations of some species,
@@ -297,10 +305,10 @@ in the \nameref{sec:sim-guidelines} section into \stdpopsim.
 % \paragraph*{Parameterizing population genomic simulations is cumbersome}
 We begin with an overview of the goals and rationale behind \stdpopsim;
 see \citet{Adrion2020} for more on the topic.
-The main objective of population genomic simulations is to recreate 
+The main objective of population genomic simulations is to recreate
 patterns of sequence variation along the genome under known conditions
 that model a given species (or population) of interest.
-\stdpopsim is built on top of the
+\Stdpopsim is built on top of the
 \texttt{msprime} \citep{Kelleher2016,Nelson2020,Baumdicker2022}
 and \texttt{SLiM} \citep{Haller2019} simulation engines,
 that are capable of producing fairly realistic patterns of sequence variation
@@ -340,7 +348,7 @@ The organization of genes on chromosomes is a key feature of a species' genome,
 and one that has largely been ignored in population genetic simulation (see \cite{schrider2020background} for a notable exception).
 % DRS: I added a citation for one exception I could think of, but it is not especially notable. Any more we could add?
 This is largely because simulation of chromosome-scale sequences, on the order of $ > 10^7$ bp,
-has until recently been largely out of reach computationally, 
+has until recently been largely out of reach computationally,
 so population geneticists have resorted to separate simulations of many short segments
 of the genome \citep[e.g.,][]{harris2016genetic}.
 
@@ -354,7 +362,7 @@ an even stronger effect. Selection acting on a small number of sites can
 indirectly influence levels and patterns of genetic variation at linked neutral sites,
 which has been shown to have a widespread
 effect on patterns of genome variation in myriad species
-\citep[e.g.,][]{McVicker2009,Charlesworth2012}. 
+\citep[e.g.,][]{McVicker2009,Charlesworth2012}.
 Second, the lengths of chromosome-scale shared haplotypes within and
 between populations provides valuable information.
 Methods that use such information, such as MSMC \citep{Schiffels2020},
@@ -418,7 +426,7 @@ these significant new capabilities of the \stdpopsim library will be detailed in
 \begin{figure}
     \includegraphics[width=\linewidth]{figs/species_fig}
 	\caption{Phylogenetic tree of species available in the \stdpopsim catalog.
-		In blue are species we published in the original release \citep{Adrion2020}, in orange those 
+		In blue are species we published in the original release \citep{Adrion2020}, in orange those
 		species started by members of the community during the past two years, and in green those species
 		added or refined since the hackathon.
 	\label{fig:tree} }
@@ -489,7 +497,7 @@ an implementation could be done using any software or engine, but we
 here pay special attention to the ease with which this can be accomplished
 in the framework of \stdpopsim.
 Implementing a realistic population genomic simulation for a species of interest
-requires integrating information from several publications to choose appropriate parameter values. 
+requires integrating information from several publications to choose appropriate parameter values.
 In this section, we outline these pieces of information and
 provide guidelines for how to use them to set the simulation parameters.
 
@@ -507,31 +515,30 @@ alternatives when values for the ideal parameters are not known.
 \def\labelenumi{\arabic{enumi}.}
 
 \item
-  \textbf{A chromosome-level genome assembly}, which consists of a list of chromosomes or scaffolds and their lengths. 
-  Having a good quality assembly with complete chromosomes, or at least very long scaffolds, 
+  \textbf{A chromosome-level genome assembly}, which consists of a list of chromosomes or scaffolds and their lengths.
+  Having a good quality assembly with complete chromosomes, or at least very long scaffolds,
   is clearly necessary if of chromosome-level population genomic simulations are to reflect the genomic architecture of the species.
   Currently, the number of species with complete chromosome-level assemblies is small,
-  but we expect this number to dramatically increase in the near future due to genome initiatives 
-  such as the Earth Biogenome \citep{Lewin2022} and its affiliated project networks (e.g.,
-  Vertebrate Genomes \citep{Rhie2021}, 10,000 Plants \citep{Cheng2018}).
+  but we expect this number to dramatically increase in the near future due to genome
+  initiatives such as the Earth Biogenome \citep{Lewin2022}.
   % see https://www.earthbiogenome.org/affiliated-project-networks).
   Furthermore, the development of new long-read sequencing technologies
   \citep{Amarasinghe2020} and concomitant advances in assembly pipelines
-  \citep{Chakraborty2016} are likely to boost these initiatives. 
-  When expanding the \stdpopsim catalog, we decided to focus on species with near-complete 
+  \citep{Chakraborty2016} are likely to boost these initiatives.
+  When expanding the \stdpopsim catalog, we decided to focus on species with near-complete
   chromosome-level genome assemblies (i.e., one contig per chromosome).
-  % \colorbox{yellow}{[TODO: do we want to specify a specific number here? (Jerome/Peter?)]} 
-  % MEL: I think this depends on if we're focusing on usefulness or storage as the constraint. If utility, a specific number wrt to "completeness" should be proportionate to the number of chromosomes. If storage, then it could be a straight maximum, but could result in situations with a small but poorly assembled genome being allowed (seems much more unlikely though). 
+  % \colorbox{yellow}{[TODO: do we want to specify a specific number here? (Jerome/Peter?)]}
+  % MEL: I think this depends on if we're focusing on usefulness or storage as the constraint. If utility, a specific number wrt to "completeness" should be proportionate to the number of chromosomes. If storage, then it could be a straight maximum, but could result in situations with a small but poorly assembled genome being allowed (seems much more unlikely though).
   % PLR: I think the restriction is to be roughly the same as the number of chromosomes or at least chromosome arms; so how's this?
-  This restriction was set mainly because species with less established genome builds 
-  typically do not have decent genetic maps or good estimates of recombination rate, 
-  making chromosome-level simulation much less useful. 
-  Therefore, the utility of adding such species to the catalog does not justify the 
+  This restriction was set mainly because species with less established genome builds
+  typically do not good estimates of recombination rate or genetic maps,
+  making chromosome-level simulation much less useful.
+  Therefore, the utility of adding such species to the catalog does not justify the
   maintenance and storage burden incurred by the large number of contigs in these partial assemblies.
 
 \item
   \textbf{An average mutation rate} for each chromosome (per generation per bp).
-  This rate estimate can be based on sequence data from pedigrees, mutation accumulation studies, 
+  This rate estimate can be based on sequence data from pedigrees, mutation accumulation studies,
   or comparative genomic analysis calibrated by fossil data (i.e., phylogenetic estimates).
   %If none of these are available for your species of interest, you may use an estimate obtained for another, closely related, species.
   Although mutation rates (CITE) and processes (CITE) are not uniform along the genome or through time,
@@ -565,8 +572,8 @@ alternatives when values for the ideal parameters are not known.
   This parameter is an important part of the species' natural history.
   This value does not directly affect the simulation, since
   \stdpopsim uses either the Wright-Fisher model (in SLiM) or the Moran model (in msprime),
-  both of which operate in time units of generations. 
-  Thus, the average generation time is only currently used to convert time units to years, 
+  both of which operate in time units of generations.
+  Thus, the average generation time is only currently used to convert time units to years,
   which is useful when comparing among different demographic models.
 
 \end{enumerate}
@@ -660,6 +667,10 @@ or the mean heterozygosity \citep{nei1979mathematical, tajima1983evolutionary}.
 An estimate of $\theta$ can then be converted to an effective population size using the formula $N_e=\frac {\theta} {2p\mu}$,
 where $p$ is the ploidy of the species ($p=1$ for haploid species and $p=2$ for diploid species), and $\mu$ is the mutation rate.
 
+% JK: I think this is much too specific to the current implementation
+% of stdpopsim. The actual useful information here (it doesn't really make
+% sense to simulated whole chrs in species with fragmented assemblies)
+% can be boiled down to a sentend and incorporated into the next paragraph.
 Several researchers who participated in our hackathon in 2020 wished to add species whose
 genome assemblies are composed of many relatively small contigs, unanchored to chromosome-level scaffolds.
 Although previously we did not plan to have restrictions on which species might be added,
@@ -744,7 +755,7 @@ of a non-model organism whose population history has direct implications for hum
 Several large-scale studies in recent years have provided information about the
 population history of this species, on which population genomic simulations can be based \citep[e.g.,][]{Miles2017, clarkson2020genome}.
 The lengths of each of the 5 chromosome arms, and the mitochondrial genome,
-used in simulation are based on the AgamP4 \textbf{genome assembly} \citep{Sharakhova2007}, which 
+used in simulation are based on the AgamP4 \textbf{genome assembly} \citep{Sharakhova2007}, which
 was downloaded from Ensembl \citep{ensembl2021}.
 The \stdpopsim repository has several utilities that interact with Ensembl,
 making it easy to accurately retrieve basic genome information and construct the appropriate Python data structures.
@@ -804,16 +815,16 @@ in selective breeding \citep{Meuwissen2001,MacLeod2014, Obsteter2021, Cesarani20
 Modern cattle have extremely low and declining genetic diversity,
 with estimates of effective population size around 90 in the early 1980s \citep{MacLeod2013, VanRaden2020, Makanjouloa2020}.
 Ancestral effective population size is estimated to be $N_e=62,000$ \citep{MacLeod2013}.
-This change in effective population size presents a challenge for demographic inference, 
+This change in effective population size presents a challenge for demographic inference,
 selection scans, genome-wide association, and genomic prediction
-\citep{MacLeod2013,MacLeod2014,Hartfield2022}. 
+\citep{MacLeod2013,MacLeod2014,Hartfield2022}.
 For these reasons, it was useful to develop a detailed simulation model for cattle to be added to the \stdpopsim catalog.
 
 We used the most recent \textbf{genome assembly}, ARS-UCD1.2
-\citep{Rosen2020}, a constant \textbf{mutation rate} \(\mu=1.2\times 10^{-8}\) for all chromosomes \citep{Harland2017}, 
+\citep{Rosen2020}, a constant \textbf{mutation rate} \(\mu=1.2\times 10^{-8}\) for all chromosomes \citep{Harland2017},
 and a constant \textbf{recombination rate} \(r=9.26 \times 10^{-9}\) for all chromosomes other than the mitochondrial genome \citep{Ma2015}.
 %
-With respect to the \textbf{effective population size}, it is clear that simulating with either 
+With respect to the \textbf{effective population size}, it is clear that simulating with either
 the ancestral or current effective population size will not generate realistic genome structure and diversity \citep{MacLeod2013,Rosen2020}.
 %
 However, the software does not allow for a missing value of $N_e$ (and we chose not to change this requirement),
