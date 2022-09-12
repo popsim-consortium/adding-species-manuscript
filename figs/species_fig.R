@@ -21,7 +21,6 @@ species <- tibble(species=tree$tip.label) %>%
                            #"new"))) # different color for hackathon and after hackathon
                            "hackathon"))) # don't distinguish between hackathon and after
 
-pdf(file="species_fig.pdf", width=6, height=8, pointsize=10)
 ggtree(tree, size=2) %<+% species +
   geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), 
               lineheight=0.8, fontface='bold.italic', hjust=-.08)+
@@ -206,6 +205,6 @@ tree_plot +
   scale_color_manual(name="count", na.value="white", values = c("grey","black")) +
   ggplot2::ylim(-1.5,21.5)
 
-ggsave("./species_fig_temp6.png",height=9,width=9)
+ggsave("./species_fig_temp6.pdf",height=9,width=9)
 
 # increase size of column labels, angle, remove "NA" in legend - do this outside R because ggtree doesn't want to
