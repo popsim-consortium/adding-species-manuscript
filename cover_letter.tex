@@ -1,0 +1,62 @@
+\documentclass[10pt,stdletter,dateno]{letter}
+\usepackage[utf8]{inputenc}
+
+\makeatletter
+\newenvironment{thebibliography}[1]
+     {\list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
+\makeatother
+\usepackage[round]{natbib}
+
+\let\bibsection\relax
+
+\begin{document}
+\signature{\vspace{-40pt} M. Elise Lauterbur,\\
+                          on behalf of stdpopsim authors}
+\address{
+  409A BioSciences West\\
+  Department of Ecology\\and Evolutionary Biology\\
+  1041 E Lowell St\\
+  Tucson, AZ 85719
+}
+
+\begin{letter}{
+  Editors in Chief \\ 
+  eLife 
+}
+
+\opening{Dear Editors,}
+
+We are pleased to submit our manuscript “TITLE” for your consideration for publication in eLife as a Research Advance for <TITLE> \citep{Adrion2020}.
+
+<Why popgen simulations are important and why stdpopsim is great>
+
+<What's the gap>
+
+<How this expands on stdpopsim and fills the gap>
+
+<More on why this is useful>
+
+<Conclude on how it fills the gap by advancing stdpopsim. Because this is an advance on stdpopsim in lots of ways, in addition to being useful for broader popgen audience, eLife is the natural home>
+
+\closing{Sincerely,}
+
+\bibliographystyle{unsrtnat}
+\bibliography{cover_letter}
+
+\end{letter}
+\end{document}

@@ -78,108 +78,110 @@ species_long <-species %>%
                      ifelse(name=="map","genetic\nmaps",
                             name)),
          name=factor(name,levels=c("demographic\nmodels","genetic\nmaps","annotations","DFE")))
-tree_plot +
-  geom_fruit(data=species_long,
-             geom=geom_tile,
-             aes(y=species,x=name,fill=value),
-             pwidth=.3,
-             offset=0.22,
-             axis.params=list(
-               axis="x", # add axis text of the layer.
-               text.angle=90, # the text angle of x-axis.
-               text.size=3,
-               hjust=1,
-               ),  # adjust the horizontal position of text of axis.
-             alpha=0,
-             color="grey"
-             ) +
-   geom_text(aes(label = demog),nudge_x = 1900) +
-   geom_text(aes(label = map), nudge_x = 2325) +
-   geom_text(aes(label = annotations), nudge_x = 2750) +
-   geom_text(aes(label = DFE), nudge_x = 3175) +
-   ggplot2::xlim(0, 8000) +
-   ggplot2::ylim(-1.5,21.5) 
 
-#ggsave("./species_fig_temp1.png",height=9,width=9)
-
-tree_plot +
-  geom_fruit(data=species_long %>% mutate(value=ifelse(value==0,0,1), value=factor(value)),
-             geom=geom_point,
-             aes(y=species,x=name,color=name,alpha=value),
-             pwidth=.3,
-             offset=0.22,
-             axis.params=list(
-               axis="x", # add axis text of the layer.
-               text.angle=90, # the text angle of x-axis.
-               text.size=3,
-               hjust=1
-             ),  # adjust the horizontal position of text of axis.
-             size=4
-  ) +
-  scale_alpha_discrete(range=c(0,1)) +
-  ggplot2::xlim(0, 8000) +
-  ggplot2::ylim(-1.5,21.5)
-
-#ggsave("./species_fig_temp2.png",height=9,width=9)
-
-tree_plot +
-  geom_fruit(data=species_long %>% filter(name!="DFE", name!="annotations") %>% mutate(name=droplevels(name)), #%>% mutate(value=ifelse(value==0,0,1), value=factor(value)),
-             geom=geom_point,
-             aes(y=species,x=name,color=name,alpha=log(value)),
-             pwidth=.15,
-             offset=0.22,
-             axis.params=list(
-               axis="x", # add axis text of the layer.
-               text.angle=90, # the text angle of x-axis.
-               text.size=3,
-               hjust=1
-             ),  # adjust the horizontal position of text of axis.
-             size=4
-  ) +
-  ggplot2::xlim(0, 8000) +
-  ggplot2::ylim(-1.5,21.5)
-
-#ggsave("./species_fig_temp3.png",height=9,width=9)
-
-tree_plot +
-  geom_fruit(data=species_long %>% filter(name!="DFE", name!="annotations") %>% mutate(name=droplevels(name)), #%>% mutate(value=ifelse(value==0,0,1), value=factor(value)),
-             geom=geom_point,
-             aes(y=species,x=name,color=log(value)),
-             pwidth=.15,
-             offset=0.22,
-             axis.params=list(
-               axis="x", # add axis text of the layer.
-               text.angle=90, # the text angle of x-axis.
-               text.size=3,
-               hjust=1
-             ),  # adjust the horizontal position of text of axis.
-             size=4
-  ) +
-  ggplot2::xlim(0, 8000) +
-  ggplot2::ylim(-1.5,21.5)
-
-#ggsave("./species_fig_temp4.png",height=9,width=9)
-
-tree_plot +
-  geom_fruit(data=species_long %>% filter(name!="DFE", name!="annotations") %>% mutate(name=droplevels(name)), #%>% mutate(value=ifelse(value==0,0,1), value=factor(value)),
-             geom=geom_point,
-             aes(y=species,x=name,color=log(value)),
-             pwidth=.15,
-             offset=0.22,
-             axis.params=list(
-               axis="x", # add axis text of the layer.
-               text.angle=90, # the text angle of x-axis.
-               text.size=3,
-               hjust=1
-             ),  # adjust the horizontal position of text of axis.
-             size=7,
-             alpha=.7
-  ) +
-   scale_color_viridis_c(na.value="white", option="C", name="count") +
-   geom_text( aes(label = demog), nudge_x = 1875, family="bold") +
-   geom_text(aes(label = map), nudge_x = 2525, family="bold") +
-  ggplot2::xlim(0, 8000) +
-  ggplot2::ylim(-1.5,21.5)
+# the below are testing versions with various combinations of colors, values, positions
+# tree_plot +
+#   geom_fruit(data=species_long,
+#              geom=geom_tile,
+#              aes(y=species,x=name,fill=value),
+#              pwidth=.3,
+#              offset=0.22,
+#              axis.params=list(
+#                axis="x", # add axis text of the layer.
+#                text.angle=90, # the text angle of x-axis.
+#                text.size=3,
+#                hjust=1,
+#                ),  # adjust the horizontal position of text of axis.
+#              alpha=0,
+#              color="grey"
+#              ) +
+#    geom_text(aes(label = demog),nudge_x = 1900) +
+#    geom_text(aes(label = map), nudge_x = 2325) +
+#    geom_text(aes(label = annotations), nudge_x = 2750) +
+#    geom_text(aes(label = DFE), nudge_x = 3175) +
+#    ggplot2::xlim(0, 8000) +
+#    ggplot2::ylim(-1.5,21.5) 
+# 
+# #ggsave("./species_fig_temp1.png",height=9,width=9)
+# 
+# tree_plot +
+#   geom_fruit(data=species_long %>% mutate(value=ifelse(value==0,0,1), value=factor(value)),
+#              geom=geom_point,
+#              aes(y=species,x=name,color=name,alpha=value),
+#              pwidth=.3,
+#              offset=0.22,
+#              axis.params=list(
+#                axis="x", # add axis text of the layer.
+#                text.angle=90, # the text angle of x-axis.
+#                text.size=3,
+#                hjust=1
+#              ),  # adjust the horizontal position of text of axis.
+#              size=4
+#   ) +
+#   scale_alpha_discrete(range=c(0,1)) +
+#   ggplot2::xlim(0, 8000) +
+#   ggplot2::ylim(-1.5,21.5)
+# 
+# #ggsave("./species_fig_temp2.png",height=9,width=9)
+# 
+# tree_plot +
+#   geom_fruit(data=species_long %>% filter(name!="DFE", name!="annotations") %>% mutate(name=droplevels(name)), #%>% mutate(value=ifelse(value==0,0,1), value=factor(value)),
+#              geom=geom_point,
+#              aes(y=species,x=name,color=name,alpha=log(value)),
+#              pwidth=.15,
+#              offset=0.22,
+#              axis.params=list(
+#                axis="x", # add axis text of the layer.
+#                text.angle=90, # the text angle of x-axis.
+#                text.size=3,
+#                hjust=1
+#              ),  # adjust the horizontal position of text of axis.
+#              size=4
+#   ) +
+#   ggplot2::xlim(0, 8000) +
+#   ggplot2::ylim(-1.5,21.5)
+# 
+# #ggsave("./species_fig_temp3.png",height=9,width=9)
+# 
+# tree_plot +
+#   geom_fruit(data=species_long %>% filter(name!="DFE", name!="annotations") %>% mutate(name=droplevels(name)), #%>% mutate(value=ifelse(value==0,0,1), value=factor(value)),
+#              geom=geom_point,
+#              aes(y=species,x=name,color=log(value)),
+#              pwidth=.15,
+#              offset=0.22,
+#              axis.params=list(
+#                axis="x", # add axis text of the layer.
+#                text.angle=90, # the text angle of x-axis.
+#                text.size=3,
+#                hjust=1
+#              ),  # adjust the horizontal position of text of axis.
+#              size=4
+#   ) +
+#   ggplot2::xlim(0, 8000) +
+#   ggplot2::ylim(-1.5,21.5)
+# 
+# #ggsave("./species_fig_temp4.png",height=9,width=9)
+# 
+# tree_plot +
+#   geom_fruit(data=species_long %>% filter(name!="DFE", name!="annotations") %>% mutate(name=droplevels(name)), #%>% mutate(value=ifelse(value==0,0,1), value=factor(value)),
+#              geom=geom_point,
+#              aes(y=species,x=name,color=log(value)),
+#              pwidth=.15,
+#              offset=0.22,
+#              axis.params=list(
+#                axis="x", # add axis text of the layer.
+#                text.angle=90, # the text angle of x-axis.
+#                text.size=3,
+#                hjust=1
+#              ),  # adjust the horizontal position of text of axis.
+#              size=7,
+#              alpha=.7
+#   ) +
+#    scale_color_viridis_c(na.value="white", option="C", name="count") +
+#    geom_text( aes(label = demog), nudge_x = 1875, family="bold") +
+#    geom_text(aes(label = map), nudge_x = 2525, family="bold") +
+#   ggplot2::xlim(0, 8000) +
+#   ggplot2::ylim(-1.5,21.5)
 
 #ggsave("./species_fig_temp5.png",height=9,width=9)
 
@@ -202,7 +204,6 @@ tree_plot +
              alpha=.7
   ) +
   scale_color_manual(name="count", na.value="white", values = c("grey","black")) +
-  ggplot2::xlim(0, 8000) +
   ggplot2::ylim(-1.5,21.5)
 
 ggsave("./species_fig_temp6.png",height=9,width=9)
