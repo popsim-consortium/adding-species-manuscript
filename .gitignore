@@ -14,4 +14,4 @@ adding_species_manuscript.pdf
 *.synctex.gz
 *.run.xml
 .vscode
-figs/species_fig_temp.*
+figs/species_fig_temp?.*
