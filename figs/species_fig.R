@@ -5,6 +5,7 @@ library(tidyverse)
 library(tidytree)
 library(ggnewscale)
 library(viridisLite)
+library(ggtreeExtra)
 
 tree <- read.tree("species.nwk")
 tree$tip.label <- gsub("_"," ",tree$tip.label)
@@ -184,6 +185,31 @@ species_long <-species %>%
 
 #ggsave("./species_fig_temp5.png",height=9,width=9)
 
+# tree_plot +
+#   geom_fruit(data=species_long %>% filter(name!="DFE", name!="annotations") %>% 
+#                mutate(name=droplevels(name)) %>%
+#                mutate(value=ifelse(value==1,1,ifelse(value>1,">1",NA)),
+#                       value=factor(value,levels=c("1",">1"))), 
+#              geom=geom_point,
+#              aes(y=species,x=name,color=value),
+#              pwidth=.15,
+#              offset=0.22,
+#              axis.params=list(
+#                axis="x", # add axis text of the layer.
+#                text.angle=90, # the text angle of x-axis.
+#                text.size=3,
+#                hjust=1
+#              ),  # adjust the horizontal position of text of axis.
+#              size=7,
+#              alpha=.7
+#   ) +
+#   scale_color_manual(name="count", na.value="white", values = c("grey","black")) +
+#   ggplot2::ylim(-1.5,21.5)
+# 
+# ggsave("./species_fig_temp6.pdf",height=9,width=9)
+
+# increase size of column labels, angle, remove "NA" in legend - do this outside R because ggtree doesn't want to
+
 tree_plot +
   geom_fruit(data=species_long %>% filter(name!="DFE", name!="annotations") %>% 
                mutate(name=droplevels(name)) %>%
@@ -191,20 +217,18 @@ tree_plot +
                       value=factor(value,levels=c("1",">1"))), 
              geom=geom_point,
              aes(y=species,x=name,color=value),
-             pwidth=.15,
-             offset=0.22,
+             pwidth=.12,
+             offset=0.13,
              axis.params=list(
                axis="x", # add axis text of the layer.
                text.angle=90, # the text angle of x-axis.
-               text.size=3,
+               text.size=4,
                hjust=1
              ),  # adjust the horizontal position of text of axis.
              size=7,
-             alpha=.7
-  ) +
+             alpha=.7) +
   scale_color_manual(name="count", na.value="white", values = c("grey","black")) +
+  theme(legend.position = "none") +
   ggplot2::ylim(-1.5,21.5)
 
-ggsave("./species_fig_temp6.pdf",height=9,width=9)
-
-# increase size of column labels, angle, remove "NA" in legend - do this outside R because ggtree doesn't want to
+ggsave("./species_fig.pdf",height=9,width=9)
