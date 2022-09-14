@@ -59,7 +59,7 @@
 
 \title{Expanding the \stdpopsim species catalog, and lessons learned for realistic genome simulations}
 
-\author[1,*]{M. Elise Lauterbur}
+\author[1]{M. Elise Lauterbur}
 \author[2,*]{Maria Izabel A. Cavassim}
 \author[3,*]{Ariella L. Gladstein}
 \author[4,*]{Graham Gower}
@@ -155,8 +155,8 @@ Simulation is a key tool in population genetics for both methods development and
 but producing simulations that recapitulate even the main features of genomic datasets remains a major obstacle.
 Today, more realistic simulations are possible thanks to large increases in
 the quantity of available data
-and the sophistication of inference and simulation software,
-but implementing these simulations can require substantial time and specialized knowledge.
+and the sophistication of inference and simulation software.
+However, implementing these simulations can require substantial time and specialized knowledge.
 These challenges are especially pronounced for simulating less well-studied species,
 since it is not always clear what level of realism is sufficient
 to confidently answer a given question, or what information is required
@@ -186,10 +186,6 @@ for non-model organisms, making them available, transparent, and accessible to e
 
 \section*{Introduction}
     \label{introduction}
-
-%Simulation is one of the key tools in population genetics, but can
-%present unexpected challenges and has many hidden pitfalls for the
-%unwary population geneticist.
 
 Dramatic reductions in sequencing costs are enabling the generation of
 unprecedented amounts of genomic data for a huge variety of species
@@ -255,10 +251,11 @@ That feedback, and subsequent efforts to expand the catalog,
 also uncovered the need for a better understanding of when it is practical to create a realistic
 simulation of a species of interest, and indeed what ``realistic'' means in this context.
 In addition to \stdpopsim's framework for standardizing simulations of some species,
-our experience has led us to develop guidance that may be of use to
+our experience has led us to develop guidelines that may be of use to
 the broader population genetics community.
 
-This paper is intended to announce and describe the additions to the \stdpopsim catalog,
+%ILAN: need to get back to this paragraph after I review everything else
+This paper is intended to describe the additions to the \stdpopsim catalog,
 and as a resource for methods developers and empirical researchers
 who wish to develop simulations of their own species of interest
 or add to the \stdpopsim catalog.
@@ -324,21 +321,17 @@ often the task of correctly parameterizing simulation software.
 % \paragraph*{\Stdpopsim streamlines the parameterization of population genomic simulations}
 The main objective of \stdpopsim is to streamline this process,
 making it less time consuming, less error prone, and more reproducible.
-Contributors use a template to build the model for their species of interest,
-including the required parameter values. This model then goes through a
-vital peer-review process, including validating the choices of parameter values.
-% Elise: Commented out the below sentences because this seems like too much detail here. Replaced with above sentence.
-% To ensure reliability,
-% after a contributor adds a new simulation model to the catalog, it is flagged for review.
-% Then, another contributor independently creates a simulation model
-% based on the same literature sources and the documentation provided by the initial contributor.
-% The two separate models are then compared to each other by automated scripts.
-% Any discrepancies are resolved by the two contributors,
-Any discrepancies are resolved between the contributor and reviewer,
-if necessary with input of additional members of the community.
+Contributors collect parameter values for their species of interest from the literature,
+and then specify these parameters in a template file for the new model.
+%Ilan: I added some of the details commented out by Elise but streamlined it in one sentence
+This model then goes through a vital peer-review process,
+which involves recreating the model based on the provided documentation
+and executing automated scripts to compare the two models.
+If discrepancies are found in this process, they are resolved by discussion between the contributor and reviewer,
+and if necessary with input of additional members of the community.
 This quality control process quite often finds subtle bugs \citep[e.g., as in][]{Ragsdale2020}
 or highlights parts of the model that are ambiguously defined by the literature sources.
-This considerably increases the reliability of the resulting simulations in any downstream analysis.
+Importantly, this increases the reliability of the resulting simulations in any downstream analysis.
 
 
 % \paragraph*{\textbf{Species-specific genomic architecture is challenging to model}}
@@ -355,6 +348,8 @@ However, physical linkage of chromosomes induces correlations along a chromosome
 generally reduce variance relative to independent simulations of equivalent genetic material.
 This has a particularly striking effect in long stretches of low recombination rates,
 as observed for instance on the long arm of human chromosome 22 \citep{Dawson2002}.
+In bacteria, a similar effect occurs due to genome-wide linkage that is broken only
+by gene conversion of short segments.
 When conducting simulations with natural selection, linkage has
 an even stronger effect. Selection acting on a small number of sites can
 indirectly influence levels and patterns of genetic variation at linked neutral sites,
@@ -370,29 +365,13 @@ Chromosome-scale simulations are clearly required to test (or, train) such metho
 or to conduct power analyses for design of empirical studies that use them.
 
 
-% ILAN: commented out this part on genetic load. We can mention this briefly,
-%   if we think it's important
-%
-%Third, linkage has the potential to affect demographic realism. The
-%genetic load in a simulation of a small segment of chromosome with
-%deleterious mutations will necessarily be less than that in whole
-%chromosome. This situation makes it easy to simulate unrealistically
-%high levels of load without realizing it, if only small unlinked segments are used.
-%(TODO: What is the direct effect on demographic realism of the effect of
-%load?) (DRS: I think that the three examples given in this section
-%aren't the most compelling. The point of the chr22 example isn't super clear,
-%the chromosome ends thing seems like a minor issue especially given that
-%rec rates there are generally pretty low, and the load case seems to be
-%more an issue of ``small scale sims let you simulate unrealistic secnarios''
-%rather than ``small scale sims prevent you from simulating realistic scenarios''
-
 % Andy: I'm commenting this out here to stay on message
 % That said, for some purposes it might be completely fine to simulate short sequence
 % segments or even independent (unlinked) sites. However, this should be done after
 % careful consideration  of the benefits of whole-chromosome simulations.
 
 
-\subsection*{Additions to \stdpopsim}
+\section*{Additions to \stdpopsim}
     \label{sec:expanded-catalog}
 
 Since its initial publication in \cite{Adrion2020},
@@ -407,43 +386,27 @@ One way the catalog has expanded is through introduction of additional demograph
 for \emph{Homo sapiens}, \emph{Pongo abelii}, \emph{Drosophila melanogaster},
 and \emph{Arabidopsis thaliana}, enabling a wider variety of simulations for these
 mostly model species.
-
-However,
-these species represent a small slice of the tree of life.
+However, these species represent a small slice of the tree of life.
 This is a concern
-not only because of the large community of researchers studying other organisms that might benefit from these efforts,
-but also because methods developed for application to humans (for instance)
+not only because there is a large community of researchers studying other organisms,
+but also because methods developed for application to model species (such as humans)
 may not perform well when applied to other species with very different biology.
-It should thus be made easy to test methods across a wide variety of organisms.
-To begin to address this, we made a concerted effort
+Adding species to the \stdpopsim catalog will allow developers to easily test their methods across a wider variety of organisms.
+
+
+We thus made a concerted effort
 to recruit members of the population and evolutionary genetics community
-to add new species to the \stdpopsim catalog, culminating in a
-``Growing the Zoo'' hackathon organized alongside the 2021 ProbGen conference.
-To introduce people to using \stdpopsim and to prepare people for the hackathon,
-we organized a series of seven workshops in the preceeding months.
-These allowed us to reach a broad community of more than 150 researchers,
+to add their species of interest to the \stdpopsim catalog.
+This effort involved a series of workshops to introduce potential contributors to \stdpopsim, followed by a ``Growing the Zoo'' hackathon organized alongside the 2021 ProbGen conference.
+The seven workshops allowed us to reach a broad community of more than 150 researchers,
 many of whom expressed interest in adding non-model species to \stdpopsim.
 The hackathon was then structured based on feedback from these participants.
 One month before the hackathon, we organized a final workshop to prepare interested
 participants for the hackathon, by introducing them to  the process of developing
 a new species model and adding it to the \stdpopsim code base.
-
 Roughly 20 scientists participated in the hackathon,
 which resulted in the addition of 15 species to the \stdpopsim catalog
-% % PLR: no need to split hairs here.
-% This initial concentrated effort later resulted in the addition or refinement of
-% of 3 more species during the year following the hackathon
 (Figure \ref{fig:tree}).
-
-\begin{figure}
-    \includegraphics[width=\linewidth]{figs/species_fig}
-	\caption{Phylogenetic tree of species available in the \stdpopsim catalog.
-		In blue are species we published in the original release \citep{Adrion2020}, in orange are those 
-		species that have since been added. Columns show which species have one (light grey) or more
-		(dark grey) demographic models and genetic maps.
-	\label{fig:tree} }
-\end{figure}
-
 The catalog now includes
 a teleost fish (\textit{Gasterosteus aculeatus}),
 a bird (\textit{Anas platyrhynchos}),
@@ -453,34 +416,61 @@ six insects including two vectors of human disease (\textit{Aedes aegypti} and \
 a nematode (\textit{Caenorhabditis elegans}),
 two flowering plants including a crop (\textit{Helianthus annuus}),
 an algae (\textit{Chlamydomonas reinhardtii}),
-and two bacteria,
-in addition to four primates 
-and a common mammalian associate of primates (\textit{Canis familiaris}). % Elise: An aside, I find this way of describing dogs to be hilariously academic
-Not all of these have genetic maps or demographic models,
+two bacteria,
+%in addition to
+four primates and a common mammalian associate of primates (\textit{Canis familiaris}).
+% Elise: An aside, I find this way of describing dogs to be hilariously academic
+% Ilan: I concur :-)
+Not all of these have genetic maps or demographic models (see Figure \ref{fig:tree}),
 but this lays the framework for future contributions.
+\begin{figure}
+    \includegraphics[width=\linewidth]{figs/species_fig}
+	\caption{Phylogenetic tree of species available in the \stdpopsim catalog,
+		including the six species we published in the original release \citep[in blue]{Adrion2020}, and 15 species that have since been added (in orange).
+		Solid circles indicate species that have one (light grey) or more
+		(dark grey) demographic models and genetic maps.
+	\label{fig:tree} }
+\end{figure}
 
-A key feature added to \stdpopsim that expands the diversity of species that can
-be realistically modeled is the inclusion of recombination by gene conversion,
-which is essential for organisms such as \textit{E.\ coli}
-that lack crossing over.
-\colorbox{yellow}{[ TODO: summarize model of GC (see PR\#57) ]}
+Expanding the species catalog required adding several functionalities to the simulation framework.
+We thus upgraded the neutral simulation engine, \texttt{msprime}, from version 0.7.4 to version 1.0. % \citep{Baumdicker2022}.
+One of the key features enabled by this upgrade was recombination by gene conversion,
+which is essential for modeling genomes of baceria and archea.
+Gene conversion affects shorter segments than crossover recombination and creates distinct patterns of genetic diversity along the genome~\citep{Korunes2017}.
+In bacteria and archaea, homologous recombination occurs primarily through gene conversion rather than single crossover recombinations.
+As a result, such species cannot be realistically simulated with a recombination model that considers only crossovers.
+In \stdpopsim, gene conversion is simulated by specifying on two parameters: 
+the \emph{gene conversion rate}, which is the rate at which a gene conversion event is initiated at a single site;
+and \emph{gene conversion tract length}, which is the mean of the geometric distribution from which the length of the transferred segment is sampled.
+These parameter values should be specified in the species model in order to enable recombination by gene conversion.
+% Ilan: I commented this part out, since it seems a bit redundant
+% Similar to species-specific mutation and recombination rates,
+% default values for the gene conversion rate and the gene conversion tract length
+% can be included in the species catalog, if they pass the quality control step.
+% FB: We might want to consider adding some more default gc parameters to the catalog.
+% If we do so in time, we should mention that here.
+For example, the model for \textit{Escherichia coli} in the \stdpopsim catalog has been updated with a gene conversion rate of $8.9\times 10^{-11}$ and a tract length of 345 bases [ADD CITATION].
+We note, however, that in eukaryotes, the gene conversion rate might be considerably higher than the rate of single crossover recombination.
+As a result, simulations of eukaryote genomes with gene conversion will typically incur a significant computational load.
+Therefore, in \stdpopsim, users are required to explicitly enable gene conversion
+by  using the use\_species\_gene\_conversion flag.
 % Elise: Not sure the blow fits in the GC paragraph?
-In addition, the update to msprime version 1.0~\citep{Baumdicker2022}
+% Ilan: the idea is that the model of GC is enabled due to the upgrade to msprime 1.0. I made sure to mention this above. This is still a bit tacked-on here, but still probably the best place to mention this.
+In addition to modeling gene conversion, the upgrade of \texttt{msprime} to version 1.0
 provides a number of additional benefits such as a discrete site model of mutation,
-so that simulated data will now, as in real data,
-have a small proportion of sites with multiple mutations and more than two alleles.
+so that simulated data will now %, as in real data,
+have a small proportion of sites with multiple mutations and possibly more than two alleles \citep{Baumdicker2022}.
 
-Moreover, we have extended \stdpopsim so that
-genome annotations can be associated with a genome assembly.
-These can be used to simulate selection at a subset of sites (e.g., the annotated coding regions)
+Lastly, we extended \stdpopsim to allow augmenting a genome assembly by genome annotations, such as coding regions, promoters, conserved elements, etc.
+These annotations can be used to simulate selection at a subset of sites (e.g., the annotated coding regions)
 using parametric distribution(s) of fitness effects.
-This step is transformative---standardized, easily accessible simulations
+Standardized, easily accessible simulations
 that include the reality of pervasive linked selection in a species-specific
 manner has long been identified as a goal for evolutionary genetics
-\cite[e.g.,][]{McVicker2009,comeron2014background}, and through \stdpopsim
-this is now achievable.
-However, this is not the focus of the current paper, since
-these significant new capabilities of the \stdpopsim library will be detailed in a forthcoming publication.
+\cite[e.g.,][]{McVicker2009,comeron2014background}.
+Thus, we expect this extension of \stdpopsim to be transformative in the way simulations are carried out in population genetics.
+These significant new capabilities of the \stdpopsim library will be detailed in a forthcoming publication,
+and are not the focus of this paper.
 
 \section*{Guidelines for implementing a population genomic simulation}
     \labelname{Guidelines}
@@ -733,6 +723,11 @@ but general statistical patterns can be compared.
             \hline
 			Recombination rate &
 			borrow from closest relative with a citeable rate &
+			will affect the impact of selection, linkage, and linked selection
+			\\
+            \hline
+			Gene conversion rate and tract length &
+			set to 0 or borrow from closest relative with a citeable rate &
 			will affect the impact of selection, linkage, and linked selection
 			\\
 			\hline
