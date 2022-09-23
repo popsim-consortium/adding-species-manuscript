@@ -733,22 +733,27 @@ downstream users of these models.
 
 %Ilan: applied some important edits in this paragraph to better address some of the delicate situations and options we suggest for them 
 That being said, simulation is still potentially useful for species with partial genome builds.
-One way to deal with this situation is to treat the longer contigs or scaffolds in these builds as separate chromosomes in the simulation.
+Longer contigs or scaffolds in these builds can be simulated separately and independently.
 %
 This approach allows us to model genetic linkage within each contig,
 but linkage between different contigs that map to the same chromosome will not be captured by the simulation.
 This provides a reasonable approximation for many purposes, at least for genomic regions far from the contig edges.
-Short contigs can either be omitted from simulation, or lumped together into one (or several) longer pseudo-chromosome(s).
-When lumping short contigs together, one should weigh the benefits of
-fitting the amount of data of real genomes and capturing the linkage structure within each contig,
-against the adverse effects of inducing false or inaccurate correlation between variants from different contigs.
 %
-In some extreme cases, a sepcies genome build may solely be comprised of very short sequence contigs.
-One viable option in such a case is to simulate an anonymous chromosome from which patterns of genetic variation can be extracted (if important, in chunks of size similar to the contigs).
-Despite not providing an accurate model for linkage along chromosomes,
-this artificial construct does have some benefits,
-such as reproducing the main statistical properties of background selection.
+For shorter contigs, separate independent simulations will not be able to capture patterns of long-range linkage in a reasonably realistic way.
 %
+Thus, a viable option for shorter contigs is to lump them together into longer pseudo-chromosomes, trying to mimic the species' expected chromosome lengths.
+%
+Despite their somewhat artificial construction,
+these pseudo-chromosomes have the important benefit of
+capturing patterns of linkage similar to those observed in real genomic chromosomes.
+%Ilan: tried to give a few concrete examples here
+If, for example, the main purpose of the simulation is to examine the distribution of lengths of shared haplotypes between individuals,
+or study patterns of background selection,
+then it makes sense to simulate such pseudo chromosomes.
+Note, however, that specific genetic correlations between different contigs lumped together will potentially be highly inaccurate.
+So, if the main purpose of the simulation is to examine local patterns of genetic variation in certain loci of interest, then it might make more sense to simulate the relevant contigs separately (even if they are short), or to randomly sample several mappings of contigs to pseudo-chromosomes.
+%
+Ultimately, the recommended mode of simulation for species with partial genome builds depends on the intended use of the simulated genomes.
 Finally, we note that for some purposes it may be sufficient to simulate a large number of unlinked sites \citep{Gutenkunst2009,Excoffier2013},
 which can be generated without any sort of genome assembly.
 However, this approach would not have the many benefits of whole-chromosome simulations,
