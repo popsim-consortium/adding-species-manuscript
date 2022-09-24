@@ -345,7 +345,7 @@ Demography inference methods that use such information,
 such as MSMC \citep{Schiffels2020}, or IBDNe \citep{browning2015accurate},
 perform best on long genomic segments with realistic recombination rates.
 Chromosome-scale simulations are clearly required to test (or, train) such methods,
-or to conduct power analyses for design of empirical studies that use them.
+or to conduct power analyses when designing empirical studies that use them.
 
 
 \section*{Additions to \stdpopsim}
@@ -498,7 +498,7 @@ provide guidelines for how to set them based on current knowledge.
   and this can strongly affect the patterns of linkage disequilibrium and shared haplotype lengths.
   When this information is not available, we suggest specifying an average recombination rate for each chromosome.
   At minimum, an average genome-wide recombination rate needs to be specified, which is typically available for well assembled genomes.
-  Recall that for bacteria and archea, which primarily experience non-crossover recombination,
+  For bacteria and archea, which primarily experience non-crossover recombination,
   the average tract length should also be specified
   (see details in previous section).\\
   \textbf{Gene conversion (optional):} If one wishes to model gene conversion in eukaryotes either together with crossover recombination or as a stand-alone process,
@@ -674,7 +674,7 @@ This approach allows us to model genetic linkage within each contig,
 but linkage between different contigs that map to the same chromosome will not be captured by the simulation.
 This provides a reasonable approximation for many purposes, at least for genomic regions far from the contig edges.
 For shorter contigs, separate independent simulations will not be able to capture patterns of long-range linkage in a reasonably realistic way.
-Thus, a viable option for shorter contigs is to lump them together into longer pseudo-chromosomes, trying to mimic the species' expected chromosome lengths.
+Thus, a potentially viable option for shorter contigs is to lump them together into longer pseudo-chromosomes, trying to mimic the species' expected chromosome lengths.
 Despite their somewhat artificial construction,
 these pseudo-chromosomes have the important benefit of
 capturing patterns of linkage similar to those observed in real genomic chromosomes.
@@ -682,14 +682,13 @@ capturing patterns of linkage similar to those observed in real genomic chromoso
 If, for example, the main purpose of the simulation is to examine the distribution of lengths of shared haplotypes between individuals,
 or study patterns of background selection,
 then it makes sense to simulate such pseudo chromosomes.
-Note, however, that specific genetic correlations between different contigs lumped together will potentially be highly inaccurate.
-So, if the main purpose of the simulation is to examine local patterns of genetic variation in certain loci of interest, then it might make more sense to simulate the relevant contigs separately (even if they are short), or to randomly sample several mappings of contigs to pseudo-chromosomes.
-Ultimately, the recommended mode of simulation for species with partial genome builds depends on the intended use of the simulated genomes.
+Note, however, that specific genetic correlations between different contigs lumped together can be highly inaccurate.
+So, if the main purpose of the simulation is to examine local patterns of genetic variation in loci of interest, then it would be more appropriate to simulate the relevant contigs separately (even if they are short), or to randomly sample several mappings of contigs to pseudo-chromosomes.
 Finally, we note that for some purposes it may be sufficient to simulate a large number of unlinked sites \citep{Gutenkunst2009,Excoffier2013},
 which can be generated without any sort of genome assembly.
 However, this approach would not have the many benefits of whole-chromosome simulations,
 which we promote in \stdpopsim.
-
+Ultimately, the recommended mode of simulation for species with partial genome builds depends on the intended use of the simulated genomes.
 
 \section*{Examples of added species}
     \labelname{Examples}
