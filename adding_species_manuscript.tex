@@ -250,7 +250,7 @@ but feedback we received from the community identified a widespread desire
 to simulate a wider range of non-model species,
 and ideally to incorporate these into the \stdpopsim catalog for future use.
 This feedback, and subsequent efforts to expand the catalog, 
-also uncovered the need for a better understanding of when it is practical to create a realistic
+also uncovered a vital need for a better understanding of when it is practical to create a realistic
 simulation of a species of interest, and indeed what ``realistic'' means in this context.
 
 This paper reports on the updates made in the current release of \stdpopsim  (version 0.2),
@@ -260,18 +260,18 @@ We start by describing the main idea behind the standardized simulation framewor
 of \stdpopsim,
 and then outline the main updates made to the \stdpopsim catalog and simulation framework
 in the past two years.
-We then devote a major section of the paper to provide guidelines for
+We then provide guidelines for
 generating population genomic simulations, either for the purpose of using them in one specific study,
-or with the intent of adding these simulations to \stdpopsim.
-Among other things, we discuss when a whole-genome simulation is more useful than
+or with the intent of making the simulations available for future work by adding the appropriate models to \stdpopsim.
+Among other considerations, we discuss when a whole-genome simulation is more useful than
 simulations based on either individual loci or generic (non-species specific) loci.
 We specify the required input data,
 mention common pitfalls in choosing appropriate parameters,
-and suggested courses of action for species that are missing estimates of some necessary inputs.
-We conclude with examples from a couple of species recently added to \stdpopsim,
+and suggest courses of action for species that are missing estimates of some necessary inputs.
+We conclude with examples from two species recently added to \stdpopsim,
 which demonstrate some of the main considerations involved in the process of designing realistic whole-genome simulations.
 While the guidelines provided in this paper are intended for any researcher interested in implementing a population genomic simulation using any software,
-we do highlight the ways in which the framework set up by \stdpopsim eases the burden involved in this process.
+we highlight the ways in which the \stdpopsim framework eases the burden involved in this process and facilitates reproducible research.
 
 
 
@@ -308,8 +308,8 @@ The main objective of \stdpopsim is to streamline this process,
 and to make it more robust and more reproducible.
 Contributors collect parameter values for their species of interest from the literature,
 and then specify these parameters in a template file for the new model.
-This model then goes through a vital peer-review process,
-which involves recreating the model based on the provided documentation,
+This model then undergoes a vital peer-review process,
+which involves another researcher independently recreating the model based on the provided documentation,
 and executing automated scripts to compare the two models.
 If discrepancies are found in this process, they are resolved by discussion between the contributor and reviewer,
 and if necessary with input of additional members of the community.
@@ -357,7 +357,7 @@ When first published, the \stdpopsim catalog included six species:
 One way the catalog has expanded is through introduction of additional demographic models
 for \emph{Homo sapiens}, \emph{Pongo abelii}, \emph{Drosophila melanogaster},
 and \emph{Arabidopsis thaliana}, enabling a wider variety of simulations for these
-thoroughly studied species.
+well-studied species.
 However, the initial collection of six species represents a small slice of the tree of life.
 This is a concern
 not only because there is a large community of researchers studying other organisms,
@@ -404,9 +404,9 @@ but this lays the framework for future contributions.
 
 Expanding the species catalog required adding several functionalities to the simulation framework of \stdpopsim.
 Some features were added by upgrading the neutral simulation engine, \texttt{msprime}, from version 0.7.4 to version 1.0. \citep{Baumdicker2022}.
-Among other things, this upgrade includes a discrete site model of mutation,
+Among other features, this upgrade includes a discrete site model of mutation,
 which enables simulating sites with multiple mutations and possibly more than two alleles.
-Another key functionality added to the simulation framework of \stdpopsim was modeling of non-crossover recombination.
+Another key functionality added to \stdpopsim's simulation framework was the ability to model non-crossover recombination.
 In bacteria and archaea, recombination occurs primarily through the transfer of DNA segments from one organism to another \citep{Thomas2005,Didelot2010,Gophna2022}.
 As a result, such species cannot be realistically simulated with a recombination model that considers only crossovers,
 as did the initial version of \stdpopsim.
@@ -453,7 +453,7 @@ but we also mention specific requirements that apply to simulations done in the 
 \subsection*{Basic setup for chromosome-level simulations}
 
 Implementing a realistic population genomic simulation for a species of interest
-requires a fairly detailed description of the organism's demography and mechanisms of genetic inheritance.
+requires a detailed description of the organism's demography and mechanisms of genetic inheritance.
 While simulation software requires unforgivingly precise values,
 in practice, we may only have rough guesses for most of  the parameters describing these processes.
 In this section, we list these parameters and
@@ -476,7 +476,7 @@ provide guidelines for how to set them based on current knowledge.
   When expanding the \stdpopsim catalog, we decided to focus on species with near-complete 
   chromosome-level genome assemblies (i.e., close to one contig per chromosome).
   This restriction was set mainly because species with less complete genome builds 
-  typically do not have good estimates of recombination rate or genetic maps, 
+  typically do not have genetic maps or good estimates of recombination rates, 
   making chromosome-level simulation much less useful. 
   Therefore, the utility of adding such species to the catalog does not justify the 
   maintenance and storage burden incurred by the large number of contigs in these partial assemblies (see also discussion below).
