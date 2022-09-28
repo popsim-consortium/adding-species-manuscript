@@ -170,8 +170,8 @@ Here, we report on major updates made in the new release of \stdpopsim (version 
 which includes a significant expansion of the species catalog and substantial additions to simulation capabilities.
 Features added to improve the realism of the simulated genomes include non-crossover recombination and provision of species-specific genomic annotations.
 Through community-driven efforts, we expanded the number of species in the catalog by more than three-fold and broadened coverage across the tree of life.
-In this paper, we aim to provide guidance for others aiming to do genome-scale simulations
-by reporting on the main lessons learned through this process.
+During the process of expanding the catalog,
+we have identified common sticking points and developed best practices for setting up genome-scale simulations. 
 We describe the input data required for generating a realistic simulation,
 suggest good practices for obtaining the relevant information,
 and discuss common pitfalls and major considerations.
@@ -229,7 +229,7 @@ encompassing population sizes and distributions, divergences, and gene flow, can
 dramatically affect patterns of genomic variation \citep{Teshima2006}. Thus
 species-specific estimates of these and other ecological and evolutionary parameters 
 (e.g., those governing the process of natural selection) 
-are important to realistic simulations.
+are important when generating realistic simulations.
 This presents challenges, especially to new researchers,
 as it takes a great deal of specialized knowledge not only to code the simulations themselves
 but also to find and choose appropriate estimates of the parameters underlying the simulation model.
@@ -311,7 +311,7 @@ If discrepancies are found in this process, they are resolved by discussion betw
 and if necessary with input of additional members of the community.
 This quality control process quite often finds subtle bugs \citep[e.g., as in][]{Ragsdale2020}
 or highlights parts of the model that are ambiguously defined by the literature sources.
-This increases the reproducibility of the resulting simulations in any downstream analysis.
+This increases the reliability and reproducibility of the resulting simulations in any downstream analysis.
 
 Another important goal of \stdpopsim is to promote whole-genome simulations,
 as opposed to the common practice of simulating many short segments  \citep[see, e.g.,][]{harris2016genetic}.
@@ -377,7 +377,7 @@ The hackathon was then structured based on feedback from these participants.
 One month before the hackathon, we organized a final workshop to prepare interested
 participants, by introducing them to  the process of developing
 a new species model and adding it to the \stdpopsim code base.
-Roughly 20 scientists participated in the hackathon (and are included as authors on this paper),
+Roughly 20 scientists participated in the hackathon (most of whom are included as authors on this paper),
 which resulted in the addition of 15 species to the \stdpopsim catalog
 (Figure \ref{fig:tree}).
 The catalog now includes
@@ -546,8 +546,8 @@ The development version of \stdpopsim enables simulation with selection
 by specifying genome annotations and distributions of fitness effects,
 as specified below.
 The ability to simulate chromosomes with realistic models of
-selection is still under development and will be finalized in the next release of \stdpopsim,
-and will be described in more detail in a future paper.
+selection is still under development. It will be finalized in the next release of \stdpopsim,
+and described in more detail in a future paper.
 
 \begin{enumerate}
 	\def\labelenumi{\arabic{enumi}.}
@@ -686,10 +686,10 @@ or study patterns of background selection,
 then it makes sense to simulate such pseudo-chromosomes.
 However, genetic correlations between different specific contigs lumped together in this way are obviously not accurate.
 So, if the main purpose of the simulation is to examine local patterns of genetic variation in loci of interest, then it may be more appropriate to simulate the relevant contigs separately (even if they are short), or to randomly sample several mappings of contigs to pseudo-chromosomes.
-% Finally, we note that for some purposes it may be sufficient to simulate a large number of unlinked sites \citep{Gutenkunst2009,Excoffier2013},
-% which can be generated without any sort of genome assembly.
-% However, this approach would not have the many benefits of whole-chromosome simulations,
-% which we promote in \stdpopsim.
+For some purposes it makes sense to simulate a large number of unlinked sites \citep{Gutenkunst2009,Excoffier2013},
+which can be generated without any sort of genome assembly.
+However, this approach would not have the benefits of whole-chromosome simulations.
+While some of the same considerations hold, a discussion of the advantages and disadvantages of such simulations goes beyond the scope of this paper.
 Ultimately, the recommended mode of simulation for species with partial genome builds depends on the intended use of the simulated genomes.
 
 \section*{Examples of added species}
@@ -763,7 +763,7 @@ All of these parameters were set in the appropriate source files in the \stdpops
 accompanied by the relevant citation information,
 and the model underwent the standard quality control process.
 %Ilan: any issues worth mentioning that were raised in the QC?
-The species may be refined in the future by adding more demographic models,
+The species entry may be refined in the future by adding more demographic models,
 updating or refining the recombination map,
 or updating the mutation rate estimates based on ones directly estimated for this species.
 Note that even if the mutation rate is ever updated,
@@ -853,9 +853,9 @@ we encourage wider adoption of ``code review'',
 i.e., for researchers implementing simulations to have their
 parameter choices and implementation reviewed by at least one other researcher.
 %% PLR: It's not totally clear which "these steps" are, and they are actually required for stdpopsim?
-% These steps can be followed if you are implementing a simulation independently for your own use,
-% or, as we encourage, when you add your simulation code to \stdpopsim,
-% to ensure its robustness and make it available for future standardized research.
+The guidelines in this paper can be followed when implementing a simulation independently for a single study,
+or (as we encourage others to do) when adding code to \stdpopsim,
+which helps to ensure its robustness and to make it available for future research.
 Currently, large-scale efforts such as the Earth Biogenome
 and its affiliated project networks are generating tens of thousands of genome
 assemblies. Each of these assemblies
