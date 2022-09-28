@@ -22,13 +22,15 @@ species <- tibble(species=tree$tip.label) %>%
                            #"new"))) # different color for hackathon and after hackathon
                            "hackathon"))) # don't distinguish between hackathon and after
 
-ggtree(tree, size=2) %<+% species +
-  geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), 
-              lineheight=0.8, fontface='bold.italic', hjust=-.08)+
-  ggplot2::xlim(0, 6000) +
-#  scale_color_manual(values=c("darkorange3","seagreen","darkblue")) +
-  scale_color_manual(values=c("darkorange3","darkblue")) +
-  theme(legend.position = "none")
+if (FALSE) { # plot just the phylogeny
+    ggtree(tree, size=2) %<+% species +
+      geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), 
+                  lineheight=0.8, fontface='bold.italic', hjust=-.08)+
+      ggplot2::xlim(0, 6000) +
+    #  scale_color_manual(values=c("darkorange3","seagreen","darkblue")) +
+      scale_color_manual(values=c("darkorange3","darkblue")) +
+      theme(legend.position = "none")
+}
 
 # add number of demographic models, genomic maps, annotations, DFE (as of 25 Aug 2022)
 data<-rbind(c("Aedes aegypti",0,0,0,0),
@@ -38,7 +40,7 @@ data<-rbind(c("Aedes aegypti",0,0,0,0),
             c("Apis mellifera",0,0,0,0),
             c("Arabidopsis thaliana",3,1,2,1),
             c("Bos taurus",1,0,0,0),
-            c("Caenorhabditis elegans",1,0,0,0),
+            c("Caenorhabditis elegans",0,1,0,0),
             c("Canis familiaris",0,1,0,0),
             c("Chlamydomonas reinhardtii",0,0,0,0),
             c("Drosophila melanogaster",2,2,2,2),
