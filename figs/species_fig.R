@@ -31,14 +31,12 @@ ggtree(tree, size=2) %<+% species +
   theme(legend.position = "none")
 
 # add number of demographic models, genomic maps, annotations, DFE (as of 25 Aug 2022)
-data<-rbind(c("Escherichia coli" ,0,0,0,0),
-            c("Streptococcus agalactiae",0,0,0,0),
-            c("Aedes aegypti",0,0,0,0),
-            c("Anas platyrhynchos",0,0,0,0),
+data<-rbind(c("Aedes aegypti",0,0,0,0),
+            c("Anas platyrhynchos",1,0,0,0),
             c("Anolis carolinensis",0,0,0,0),
             c("Anopheles gambiae",1,0,0,0),
             c("Apis mellifera",0,0,0,0),
-            c("Arabidopsis thaliana",3,1,2,0),
+            c("Arabidopsis thaliana",3,1,2,1),
             c("Bos taurus",1,0,0,0),
             c("Caenorhabditis elegans",1,0,0,0),
             c("Canis familiaris",0,1,0,0),
