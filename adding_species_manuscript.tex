@@ -154,7 +154,7 @@
 Simulation is a key tool in population genetics for both methods development and empirical research,
 but producing simulations that recapitulate the main features of genomic datasets remains a major obstacle.
 Today, more realistic simulations are possible thanks to large increases in
-genetic data,
+the quantity and quality of available genetic data,
 and to the sophistication of inference and simulation software.
 However, implementing these simulations still requires substantial time and specialized knowledge.
 These challenges are especially pronounced for simulating less well-studied species,
@@ -209,14 +209,14 @@ and validating findings from empirical and theoretical research.
 For instance, simulations provide training data
 for inference methods based on machine learning \citep{Schrider2018} and
 Approximate Bayesian Computation \citep{Csillery2010}. They can also serve as
-baselines for further analyses: simulations incorporating
+baselines for further analyses: for example, simulations incorporating
 demographic history serve as null models when detecting selection \citep{Hsieh2016a}
 or seed downstream breeding program simulations \citep{Gaynor2020}.
 More recently, population genomic simulations have been used to help guide conservation decisions for threatened species
 \citep{Teixeira2021,kyriazis2022using}.
 
 Increasing amounts of data and sophistication of inference methods
-have enabled researchers to ask even more
+have enabled researchers to ask ever more
 specific and precise questions. Consequently, simulations must incorporate
 more and more detailed elements of a species' biology.
 Important elements include genomic features such as mutation and recombination
@@ -488,7 +488,7 @@ provide guidelines for how to set them based on current knowledge.
   However, we anticipate future development will provide support for more complex, heterogeneous mutational processes,
   as these are easily specified in both the \texttt{SLiM} and \texttt{msprime} simulation engines.
   Such progress will further improve the realism of simulated genomes,
-  since mutation rates and evolutionary processes are known to vary along the genome and through time \citep{Benzer1961,Ellegren2003,Supek2019}.
+  since mutation processes, including rates, are known to vary along the genome and through time \citep{Benzer1961,Ellegren2003,Supek2019}.
 
 \item
   \textbf{Recombination rates} (per generation per bp).
@@ -514,7 +514,7 @@ provide guidelines for how to set them based on current knowledge.
   A given species might have more than one demographic model, fit from different data or by different methods.
   Thus, when selecting a demographic model, one should examine the data sources and methods used to obtain it to ensure that they are relevant to their study.
   At a minimum, simulation requires a single estimate of \textbf{effective population size}. This estimate, which may correspond to some sort of historical average effective population size,
-  should translate in simulation to the average observed genetic diversity in that species. Note, however, that this average effective population size will not capture features of genetic variation that are caused by recent changes in population size and the presence of population structure \citep{MacLeod2013,Eldon2015}.
+  should reproduce in simulation to the average observed genetic diversity in that species. Note, however, that this average effective population size will not capture features of genetic variation that are caused by recent changes in population size and the presence of population structure \citep{MacLeod2013,Eldon2015}.
   For example, a recent population expansion will produce
   an excess of low frequency alleles that no simulation of a constant-sized
   population will reproduce \citep{Tennessen2012}.
@@ -534,7 +534,7 @@ provide guidelines for how to set them based on current knowledge.
 These five categories of parameters are sufficient for generating simulations
 under neutral evolution. Such simulations are useful for a number of purposes,
 but they cannot be used to model the influence of natural selection on patterns of genetic variation.
-As mentioned above, it is a widely appreciated the fact that linked selection modulates
+As mentioned above, it is a widely appreciated fact that linked selection modulates
 patterns of variation within genomes.
 Therefore, its incorporation into simulations is crucial for simulating realistic genomes.
 To achieve this, the simulator needs to know which regions along the genome are subject to selection,
@@ -568,7 +568,7 @@ and described in more detail in a future paper.
 \subsection*{Extracting parameters from the literature}
 
 Simulations cannot of course precisely match reality, but in setting up simulations
-it is desireable to choose parameters that best reflect our current understanding of evolution.
+it is desireable to choose parameters that best reflect our current understanding of the evolutionary history of the species of interest.
 In practice a researcher may choose each parameter to match a fairly precise estimate or a wild guess,
 which may be obtained from a peer-reviewed publication or from word of mouth.
 However, values in \stdpopsim are always chosen to match published estimates,
@@ -665,7 +665,6 @@ as well as long-term maintenance to keep it up-to-date with changes made to the 
 So, the benefit of including species with very partial genome builds in \stdpopsim
 would be outweighed by the substantial extra burden on \stdpopsim maintainers as well as
 downstream users of these models.
-% Izabel: this bit above is a repetition, maybe delete or shrink? Or maybe when talking about it in the chromosome part just briefly mention it. 
 
 
 %Ilan: applied some important edits in this paragraph to better address some of the delicate situations and options we suggest for them 
