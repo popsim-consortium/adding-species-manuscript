@@ -152,10 +152,10 @@
 \section*{Abstract}
 
 Simulation is a key tool in population genetics for both methods development and empirical research,
-but producing simulations that recapitulate even the main features of genomic datasets remains a major obstacle.
+but producing simulations that recapitulate the main features of genomic datasets remains a major obstacle.
 Today, more realistic simulations are possible thanks to large increases in
-the quantity of available data
-and the sophistication of inference and simulation software.
+the quantity and quality of available genetic data,
+and to the sophistication of inference and simulation software.
 However, implementing these simulations still requires substantial time and specialized knowledge.
 These challenges are especially pronounced for simulating less well-studied species,
 since it is not always clear what level of realism is sufficient
@@ -195,7 +195,7 @@ providing the backbone for enormous increases in the amount of population-level 
 available for model and non-model species.
 These data are being used to answer questions across scales
 from deep evolutionary time to ongoing ecological dynamics.
-Methods that use these data, for example to infer demographic history and natural selection,
+Methods that use these data, e.g. to infer demographic history and natural selection,
 are also flourishing \citep{Beichman2018}.
 While past methods development focused on humans and a few key model systems such as \emph{Drosophila},
 more recent efforts are generalizing these methods to include 
@@ -212,8 +212,7 @@ Approximate Bayesian Computation \citep{Csillery2010}. They can also serve as
 baselines for further analyses: for example, simulations incorporating
 demographic history serve as null models when detecting selection \citep{Hsieh2016a}
 or seed downstream breeding program simulations \citep{Gaynor2020}.
-More recently, population genomic simulations have begun
-to be used to help guide conservation decisions for threatened species
+More recently, population genomic simulations have been used to help guide conservation decisions for threatened species
 \citep{Teixeira2021,kyriazis2022using}.
 
 Increasing amounts of data and sophistication of inference methods
@@ -222,10 +221,9 @@ specific and precise questions. Consequently, simulations must incorporate
 more and more detailed elements of a species' biology.
 Important elements include genomic features such as mutation and recombination
 rates that strongly affect genetic variation and haplotype structure
-\citep{Nachman2002}, which have particularly strong ramifications 
-when linked selection is important in the patterns of genomic diversity being studied \citep{Cutter2013}.
-Furthermore, the demographic history of a species,
-encompassing population sizes and distributions, divergences, and gene flow, can
+\citep{Nachman2002}. The inclusion of these genomic features is particularly important
+when linked selection is acting upon the patterns of genomic diversity being studied \citep{Cutter2013}.
+Furthermore, the demographic history of a species--encompassing population sizes and distributions, divergences, and gene flow--can
 dramatically affect patterns of genomic variation \citep{Teshima2006}. Thus
 species-specific estimates of these and other ecological and evolutionary parameters 
 (e.g., those governing the process of natural selection) 
@@ -314,7 +312,7 @@ or highlights parts of the model that are ambiguously defined by the literature 
 This increases the reliability and reproducibility of the resulting simulations in any downstream analysis.
 
 Another important goal of \stdpopsim is to promote whole-genome simulations,
-as opposed to the common practice of simulating many short segments  \citep[see, e.g.,][]{harris2016genetic}.
+as opposed to the common practice of simulating many short segments \citep[see, e.g.,][]{harris2016genetic}.
 Simulation of long sequences, on the order of $10^7$ bases,
 has until recently been computationally prohibitive,
 but this has changed with the development of modern simulation engines,
@@ -456,7 +454,7 @@ but we also mention specific requirements that apply to simulations done in the 
 Implementing a realistic population genomic simulation for a species of interest
 requires a detailed description of the organism's demography and mechanisms of genetic inheritance.
 While simulation software requires unforgivingly precise values,
-in practice we may only have rough guesses for most of  the parameters describing these processes.
+in practice we may only have rough guesses for most of the parameters describing these processes.
 In this section, we list these parameters and
 provide guidelines for how to set them based on current knowledge.
 
@@ -490,7 +488,7 @@ provide guidelines for how to set them based on current knowledge.
   However, we anticipate future development will provide support for more complex, heterogeneous mutational processes,
   as these are easily specified in both the \texttt{SLiM} and \texttt{msprime} simulation engines.
   Such progress will further improve the realism of simulated genomes,
-  since mutation rates and processes are known to vary along the genome and through time \citep{Benzer1961,Ellegren2003,Supek2019}.
+  since mutation processes, including rates, are known to vary along the genome and through time \citep{Benzer1961,Ellegren2003,Supek2019}.
 
 \item
   \textbf{Recombination rates} (per generation per bp).
@@ -504,7 +502,7 @@ provide guidelines for how to set them based on current knowledge.
   (see details in previous section).
   \textbf{Gene conversion (optional):} If one wishes to model gene conversion in eukaryotes either together with crossover recombination or as a stand-alone process,
   then they should specify the fraction of recombinations done by gene conversion
-  as well as the average tract length (per chromosome).
+  as well as the per chromosome average tract length.
 
 \item
   \textbf{A demographic model} describing 
@@ -516,7 +514,7 @@ provide guidelines for how to set them based on current knowledge.
   A given species might have more than one demographic model, fit from different data or by different methods.
   Thus, when selecting a demographic model, one should examine the data sources and methods used to obtain it to ensure that they are relevant to their study.
   At a minimum, simulation requires a single estimate of \textbf{effective population size}. This estimate, which may correspond to some sort of historical average effective population size,
-  should reproduce in simulation the average observed genetic diversity in that species. Note, however, that this average effective population size will not capture features of genetic variation that are caused by recent changes in population size and the presence of population structure \citep{MacLeod2013,Eldon2015}.
+  should reproduce in simulation to the average observed genetic diversity in that species. Note, however, that this average effective population size will not capture features of genetic variation that are caused by recent changes in population size and the presence of population structure \citep{MacLeod2013,Eldon2015}.
   For example, a recent population expansion will produce
   an excess of low frequency alleles that no simulation of a constant-sized
   population will reproduce \citep{Tennessen2012}.
@@ -538,7 +536,7 @@ under neutral evolution. Such simulations are useful for a number of purposes,
 but they cannot be used to model the influence of natural selection on patterns of genetic variation.
 As mentioned above, it is a widely appreciated fact that linked selection modulates
 patterns of variation within genomes.
-Therefore, its incorporation into simulations is crucial for many purposes.
+Therefore, its incorporation into simulations is crucial for simulating realistic genomes.
 To achieve this, the simulator needs to know which regions along the genome are subject to selection,
 and the nature and strength of this selection.
 The development version of \stdpopsim enables simulation with selection
@@ -570,13 +568,13 @@ and described in more detail in a future paper.
 \subsection*{Extracting parameters from the literature}
 
 Simulations cannot of course precisely match reality, but in setting up simulations
-it is desireable to choose parameters that best reflect our current understanding.
+it is desireable to choose parameters that best reflect our current understanding of the evolutionary history of the species of interest.
 In practice a researcher may choose each parameter to match a fairly precise estimate or a wild guess,
 which may be obtained from a peer-reviewed publication or from word of mouth.
 However, values in \stdpopsim are always chosen to match published estimates,
 so that the underlying data and methods are documented and can be validated.
 Because the process of converting information reported in the literature to parameters used by a simulation engine is quite error-prone,
-some kind of independent validation of the simulation code is crucial.
+independent validation of the simulation code is crucial.
 We highly recommend following a quality control procedure similar to the one used in \stdpopsim,
 in which each species or model added to the catalog is independently recreated or thoroughly reviewed by a separate researcher.
 
@@ -585,8 +583,8 @@ Obtaining reliable and citeable estimates for all model parameters is not a triv
 Oftentimes, values for different parameters must be gleaned from multiple publications and combined.
 For example, it is not uncommon to find an estimate of a mutation rate in one paper,
 a recombination map in a separate paper, and a suitable demographic model in a third paper.
-Integrating information from different publications requires some care,
-because some of these parameter estimates are entangled in non-trivial ways.
+Integrating information from different publications requires caution,
+since some of these parameter estimates are entangled in non-trivial ways.
 For instance, consider simulating a demographic model estimated in a specific paper that assumes
 a certain mutation rate.
 Naively using the demographic model, as published, with a new estimate of mutation rate
@@ -676,7 +674,7 @@ This approach allows us to model genetic linkage within each contig,
 but linkage between different contigs that map to the same chromosome will not be captured by the simulation.
 This provides a reasonable approximation for many purposes, at least for genomic regions far from the contig edges.
 For shorter contigs, separate independent simulations will not be able to capture patterns of long-range linkage in a reasonably realistic way.
-Thus, a potentially viable option for shorter contigs is to lump them together into longer pseudo-chromosomes, trying to mimic the species' expected chromosome lengths.
+Thus, a potentially viable option for shorter contigs is to combine them into longer pseudo-chromosomes, trying to mimic the species' expected chromosome lengths.
 Despite their somewhat artificial construction,
 these pseudo-chromosomes have the important benefit of
 capturing patterns of linkage similar to those observed in real genomic chromosomes.
@@ -690,7 +688,7 @@ For some purposes it makes sense to simulate a large number of unlinked sites \c
 which can be generated without any sort of genome assembly.
 However, this approach would not have the benefits of whole-chromosome simulations.
 While some of the same considerations hold, a discussion of the advantages and disadvantages of such simulations goes beyond the scope of this paper.
-Ultimately, the recommended mode of simulation for species with partial genome builds depends on the intended use of the simulated genomes.
+Ultimately, the recommended mode of simulation for species with partial genome assembly depends on the intended use of the simulated genomes.
 
 \section*{Examples of added species}
     \labelname{Examples}
