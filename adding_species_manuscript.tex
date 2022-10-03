@@ -153,13 +153,13 @@
 
 \section*{Abstract}
 
-Simulation is a key tool in population genetics for both method development and empirical research,
+Simulation is a key tool in population genetics for both methods development and empirical research,
 but producing simulations that recapitulate the main features of genomic datasets remains a major obstacle.
 Today, more realistic simulations are possible thanks to large increases in
 the quantity and quality of available genetic data,
-and to the more sophisticated inference and simulation software.
+and to the sophistication of inference and simulation software.
 However, implementing these simulations still requires substantial time and specialized knowledge.
-These challenges are especially pronounced for simulating data for species that were not well-studied,
+These challenges are especially pronounced for simulating genomes for species that were not well-studied,
 since it is not always clear what information is required
 to produce simulations with a level of realism 
 to confidently answer a given question.
@@ -199,7 +199,7 @@ These data are being used to answer questions across scales
 from deep evolutionary time to ongoing ecological dynamics.
 Methods that use these data, e.g. to infer demographic history and natural selection,
 are also flourishing \citep{Beichman2018}.
-While past method development focused on humans and a few key model systems such as \emph{Drosophila},
+While past methods development focused on humans and a few key model systems such as \emph{Drosophila},
 more recent efforts are generalizing these methods to include 
 important population dynamics not initially accounted for,
 such as inbreeding or selfing \citep{Blischak2020}, skewed offspring
@@ -278,8 +278,8 @@ we highlight the ways in which the \stdpopsim framework eases the burden involve
 We begin by providing a brief overview of the importance of genome-wide simulations and the main rationale behind \stdpopsim;
 see \citet{Adrion2020} for more on the topic.
 The main objective of population genomic simulations is to recreate 
-patterns of sequence variation along the genome under known conditions
-that are modeled in a given species (or population) of interest.
+patterns of sequence variation along the genome under 
+the inferred evolutionary history of a given species.
 \Stdpopsim is built on top of the
 \texttt{msprime} \citep{Kelleher2016,Nelson2020,Baumdicker2022}
 and \texttt{SLiM} \citep{Haller2019} simulation engines,
