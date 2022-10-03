@@ -79,7 +79,7 @@
 \author[19]{Vitor Antonio Corrêa Pavinato}
 \author[20,21]{Alice Pearson}
 \author[22,23]{David Peede}
-\author[24]{Manolo Perez}
+\author[24]{Manolo F. Perez}
 \author[6]{Nathaniel S. Pope}
 \author[6]{Murillo F. Rodrigues}
 \author[6]{Chris C. R. Smith}
@@ -159,12 +159,12 @@ Today, more realistic simulations are possible thanks to large increases in
 the quantity and quality of available genetic data,
 and to the sophistication of inference and simulation software.
 However, implementing these simulations still requires substantial time and specialized knowledge.
-These challenges are especially pronounced for simulating less well-studied species,
-since it is not always clear what level of realism is sufficient
-to confidently answer a given question, or what information is required
-to produce simulations of that desired realism.
+These challenges are especially pronounced for simulating genomes for species that were not well-studied,
+since it is not always clear what information is required
+to produce simulations with a level of realism 
+to confidently answer a given question.
 \Stdpopsim is a community-developed framework that seeks to lower this barrier
-by making it easy to simulate complex population genetic models using
+by facilitating the simulation of complex population genetic models using
 up-to-date information.
 The initial version of \stdpopsim focused on establishing this framework using 
 six well-characterized model species.
@@ -203,7 +203,7 @@ While past methods development focused on humans and a few key model systems suc
 more recent efforts are generalizing these methods to include 
 important population dynamics not initially accounted for,
 such as inbreeding or selfing \citep{Blischak2020}, skewed offspring
-distributions \citep{Montano2016}, and intense artificial selection \citep{MacLeod2013, MacLeod2014}.
+distributions \citep{Montano2016}, and intense artificial selection even for non-model organisms \citep{MacLeod2013, MacLeod2014}.
 
 Simulations can be useful at all stages of this work---for
 planning studies, analyzing data, testing inference methods,
@@ -278,8 +278,8 @@ we highlight the ways in which the \stdpopsim framework eases the burden involve
 We begin by providing a brief overview of the importance of genome-wide simulations and the main rationale behind \stdpopsim;
 see \citet{Adrion2020} for more on the topic.
 The main objective of population genomic simulations is to recreate 
-patterns of sequence variation along the genome under known conditions
-that model a given species (or population) of interest.
+patterns of sequence variation along the genome under 
+the inferred evolutionary history of a given species.
 \Stdpopsim is built on top of the
 \texttt{msprime} \citep{Kelleher2016,Nelson2020,Baumdicker2022}
 and \texttt{SLiM} \citep{Haller2019} simulation engines,
@@ -333,7 +333,7 @@ When conducting simulations with natural selection, linkage has
 an even stronger effect. Selection acting on a small number of sites can
 indirectly influence levels and patterns of genetic variation at linked neutral sites,
 which has been shown to have a widespread
-effect on patterns of genome variation in myriad species
+effect on patterns of genome variation in a myriad of species
 \citep[e.g.,][]{McVicker2009,Charlesworth2012}. 
 In addition, the lengths of chromosome-scale shared haplotypes within and
 between populations provides valuable information on their demographic history.
@@ -390,7 +390,7 @@ a nematode (\textit{Caenorhabditis elegans}),
 two flowering plants including a crop (\textit{Helianthus annuus}),
 an algae (\textit{Chlamydomonas reinhardtii}),
 two bacteria,
-four primates and a common mammalian associate of primates (\textit{Canis familiaris}).
+four primates and a common mammalian associate of humans (\textit{Canis familiaris}).
 Not all of these have genetic maps or demographic models (see Figure \ref{fig:tree}),
 but this lays a framework for future contributions.
 \begin{figure}
