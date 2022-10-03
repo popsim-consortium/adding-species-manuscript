@@ -205,8 +205,8 @@ important population dynamics not initially accounted for,
 such as inbreeding or selfing \citep{Blischak2020}, skewed offspring
 distributions \citep{Montano2016}, and intense artificial selection \citep{MacLeod2013, MacLeod2014}.
 
-Simulations can be useful at all stages of this work --
-for planning studies, analyzing data, testing inference methods,
+Simulations can be useful at all stages of this work---for
+planning studies, analyzing data, testing inference methods,
 and validating findings from empirical and theoretical research.
 For instance, simulations provide training data
 for inference methods based on machine learning \citep{Schrider2018} and
@@ -225,7 +225,7 @@ Important elements include genomic features such as mutation and recombination
 rates that strongly affect genetic variation and haplotype structure
 \citep{Nachman2002}. The inclusion of these genomic features is particularly important
 when linked selection is acting upon the patterns of genomic diversity being studied \citep{Cutter2013}.
-Furthermore, the demographic history of a species--encompassing population sizes and distributions, divergences, and gene flow--can
+Furthermore, the demographic history of a species---encompassing population sizes and distributions, divergences, and gene flow---can
 dramatically affect patterns of genomic variation \citep{Teshima2006}. Thus
 species-specific estimates of these and other ecological and evolutionary parameters 
 (e.g., those governing the process of natural selection) 
@@ -243,7 +243,7 @@ The initial release of \stdpopsim was
 restricted to only six well-characterized model species, such as
 \emph{Drosophila melanogaster} and \emph{Homo sapiens},
 but feedback we received from the community identified a widespread desire
-to simulate a wider range of non-model species,
+to simulate a broader range of non-model species,
 and ideally to incorporate these into the \stdpopsim catalog for future use.
 This feedback, and subsequent efforts to expand the catalog, 
 also uncovered a vital need for a better understanding of when it is practical to create a realistic
@@ -430,7 +430,7 @@ it is turned off by default in \stdpopsim, and must be explicitly invoked by the
 
 Another important extension of \stdpopsim allows augmenting a genome assembly by genome annotations, such as coding regions, promoters, conserved elements, etc.
 These annotations can be used to simulate selection at a subset of sites (e.g., the annotated coding regions)
-using parametric distribution(s) of fitness effects.
+using parametric distributions of fitness effects.
 Standardized, easily accessible simulations
 that include the reality of pervasive linked selection in a species-specific
 manner has long been identified as a goal for evolutionary genetics
@@ -499,7 +499,7 @@ provide guidelines for how to set them based on current knowledge.
   and this can strongly affect the patterns of linkage disequilibrium and shared haplotype lengths.
   When this information is not available, we suggest specifying an average recombination rate for each chromosome.
   At minimum, an average genome-wide recombination rate needs to be specified, which is typically available for well assembled genomes.
-  For bacteria and archea, which primarily experience non-crossover recombination,
+  For bacteria and archaea, which primarily experience non-crossover recombination,
   the average tract length should also be specified
   (see details in previous section).
   \textbf{Gene conversion (optional):} If one wishes to model gene conversion in eukaryotes either together with crossover recombination or as a stand-alone process,
@@ -516,7 +516,7 @@ provide guidelines for how to set them based on current knowledge.
   A given species might have more than one demographic model, fit from different data or by different methods.
   Thus, when selecting a demographic model, one should examine the data sources and methods used to obtain it to ensure that they are relevant to their study.
   At a minimum, simulation requires a single estimate of \textbf{effective population size}. This estimate, which may correspond to some sort of historical average effective population size,
-  should reproduce in simulation to the average observed genetic diversity in that species. Note, however, that this average effective population size will not capture features of genetic variation that are caused by recent changes in population size and the presence of population structure \citep{MacLeod2013,Eldon2015}.
+  should produce simulated data that matches the average observed genetic diversity in that species. Note, however, that this average effective population size cannot capture features of genetic variation that are caused by recent changes in population size and the presence of population structure \citep{MacLeod2013,Eldon2015}.
   For example, a recent population expansion will produce
   an excess of low frequency alleles that no simulation of a constant-sized
   population will reproduce \citep{Tennessen2012}.
@@ -570,7 +570,7 @@ and described in more detail in a future paper.
 \subsection*{Extracting parameters from the literature}
 
 Simulations cannot of course precisely match reality, but in setting up simulations
-it is desireable to choose parameters that best reflect our current understanding of the evolutionary history of the species of interest.
+it is desirable to choose parameters that best reflect our current understanding of the evolutionary history of the species of interest.
 In practice a researcher may choose each parameter to match a fairly precise estimate or a wild guess,
 which may be obtained from a peer-reviewed publication or from word of mouth.
 However, values in \stdpopsim are always chosen to match published estimates,
@@ -581,7 +581,7 @@ We highly recommend following a quality control procedure similar to the one use
 in which each species or model added to the catalog is independently recreated or thoroughly reviewed by a separate researcher.
 
 
-Obtaining reliable and citeable estimates for all model parameters is not a trivial task.
+Obtaining reliable and citable estimates for all model parameters is not a trivial task.
 Oftentimes, values for different parameters must be gleaned from multiple publications and combined.
 For example, it is not uncommon to find an estimate of a mutation rate in one paper,
 a recombination map in a separate paper, and a suitable demographic model in a third paper.
@@ -614,7 +614,7 @@ to the coordinates of the current genome assembly.
 		For each parameter, we provide a suggested course of action, 
 		and mention the main discrepancies between the simulated data
 		and real genomic data,
-		which can be caused by mis-specification of that parameter.
+		which can be caused by misspecification of that parameter.
 	} \label{tab:param-mod}
 	\begin{tabular}{p{1.5in}p{2.2in}p{2.2in}}
 		\hline
@@ -623,16 +623,16 @@ to the coordinates of the current genome assembly.
 		\textbf{Possible discrepancies} \\
 		\hline
 		Mutation rate      &
-		Borrow from closest relative with a citeable mutation rate &
+		Borrow from closest relative with a citable mutation rate &
 		Number of polymorphic sites  \\
 		\hline
 		Recombination rate &
-		Borrow from closest relative with a citeable recombination rate &
+		Borrow from closest relative with a citable recombination rate &
 		Patterns of linkage disequilibrium
 		\\
 		\hline
 		Gene conversion rate and tract length &
-		Set rate to 0 or borrow from closest relative with a citeable rate &
+		Set rate to 0 or borrow from closest relative with a citable rate &
 		Lengths of shared haplotypes across individuals
 		\\
 		\hline
@@ -650,7 +650,7 @@ to the coordinates of the current genome assembly.
 For many species it is difficult to obtain estimates of all necessary model parameters.
 Table \ref{tab:param-mod} provide suggestions for ways to deal with missing values of various central model parameters.
 The table also mentions the main discrepancies between the simulated data and real genomic data,
-which can be caused by mis-specification of each parameter.
+which can be caused by misspecification of each parameter.
 
 Several researchers who participated in the ``Growing the Zoo'' hackathon wished to add species
 whose genome assemblies are composed of many relatively small contigs,
@@ -865,7 +865,7 @@ although substantial changes to the structure of \stdpopsim would be required
 to include so many distinct species.
 As annotations of those genome assemblies improve over time this information too can easily be added to the \stdpopsim catalog.
 
-One of the important objectives of the PopSim consortium is to leverage \stdpopsim as means to promote education and inclusion of new communities into
+One of the important objectives of the PopSim consortium is to leverage \stdpopsim as a means to promote education and inclusion of new communities into
 computational biology and software development.
 We are keen to use outreach, such as the workshops and hackathons described here, 
 as a way to grow the \stdpopsim catalog and library and
@@ -876,7 +876,7 @@ Thus, we hope that further expansion of \stdpopsim will improve the ease and rep
 while simultaneously expanding the community of software developers among population and evolutionary geneticists.
 
 
-\section*{Acknowledgements}\label{acknowledgements}
+\section*{Acknowledgments}\label{acknowledgements}
 
 %Ilan: anyone else to acknoweldge?
 We wish to thank the dozens of workshop attendees,
