@@ -83,7 +83,7 @@
 \author[6]{Nathaniel S. Pope}
 \author[6]{Murillo F. Rodrigues}
 \author[6]{Chris C. R. Smith}
-\author[25]{Jeff Spence}
+\author[25]{Jeffrey P. Spence}
 \author[6]{Anastasia Teterina}
 \author[6]{Silas Tittes}
 \author[26]{Per Unneberg}
@@ -92,7 +92,7 @@
 \author[29]{Anthony Wilder Wohns}
 \author[30]{Yan Wong}
 \author[31]{Franz Baumdicker}
-\author[32]{Reed Cartwright}
+\author[32]{Reed A. Cartwright}
 \author[33]{Gregor Gorjanc}
 \author[34]{Ryan N. Gutenkunst}
 \author[30]{Jerome Kelleher}
@@ -106,13 +106,13 @@
 \affil[*]{\small{These authors contributed equally to the paper.}}
 \affil[*]{\small{corresponding authors: lauterbur@gmail.com ; ilan.gronau@runi.ac.il.}}
 \affil[1]{\small{Department of Ecology and Evolutionary Biology, University of Arizona, Tucson AZ 85719, USA}}
-\affil[2]{\small{Department of Ecology and Evolutionary Biology, University of California, Los Angeles, Los Angeles, CA, USA}}
-\affil[3]{\small{Embark Veterinary, Inc., Boston, MA 02111, USA}}
+\affil[2]{\small{Department of Ecology and Evolutionary Biology, University of California, Los Angeles, Los Angeles CA, USA}}
+\affil[3]{\small{Embark Veterinary, Inc., Boston MA 02111, USA}}
 \affil[4]{\small{Section for Molecular Ecology and Evolution, Globe Institute, University of Copenhagen, Denmark}}
 \affil[5]{\small{School of Mathematics and Statistics, University of Melbourne, Australia}}
 \affil[6]{\small{Institute of Ecology and Evolution, University of Oregon, Eugene OR 97402, USA}}
-\affil[7]{\small{AncestryDNA, San Francisco, CA, 94107, USA}}
-\affil[8]{\small{54Gene, Inc., Washington, DC 20005, USA}}
+\affil[7]{\small{AncestryDNA, San Francisco CA 94107, USA}}
+\affil[8]{\small{54Gene, Inc., Washington DC 20005, USA}}
 \affil[9]{\small{Université Paris-Saclay, CNRS, INRIA, Laboratoire Interdisciplinaire des Sciences du Numérique, UMR 9015 Orsay, France}}
 \affil[10]{\small{School of Life Sciences, University of Glasgow, Glasgow, UK}}
 \affil[11]{\small{Department of Computational Biology, Cornell University, Ithaca NY, USA}}
@@ -129,7 +129,7 @@
 \affil[22]{\small{Department of Ecology, Evolution, and Organismal Biology, Brown University, Providence RI, USA}}
 \affil[23]{\small{Center for Computational Molecular Biology, Brown University, Providence RI, USA}}
 \affil[24]{\small{Department of Genetics and Evolution, Federal University of Sao Carlos, Sao Carlos 13565905, Brazil}}
-\affil[25]{\small{Department of Genetics, Stanford University School of Medicine, Stanford, CA, 94305}}
+\affil[25]{\small{Department of Genetics, Stanford University School of Medicine, Stanford CA 94305, USA}}
 \affil[26]{\small{Department of Cell and Molecular Biology, National Bioinformatics Infrastructure Sweden, Science for Life Laboratory, Uppsala University, Uppsala, Sweden}}
 \affil[27]{\small{Department of Integrative Biology, University of California, Berkeley, Berkeley CA, USA}}
 \affil[28]{\small{Department of Biostatistics, University of Washington, Seattle WA, USA}}
@@ -167,7 +167,7 @@ to confidently answer a given question.
 by facilitating the simulation of complex population genetic models using
 up-to-date information.
 The initial version of \stdpopsim focused on establishing this framework using 
-six well-characterized model species.
+six well-characterized model species \citep{Adrion2020}.
 Here, we report on major updates made in the new release of \stdpopsim (version 0.2),
 which includes a significant expansion of the species catalog and substantial additions to simulation capabilities.
 Features added to improve the realism of the simulated genomes include non-crossover recombination and provision of species-specific genomic annotations.
@@ -251,7 +251,7 @@ simulation of a species of interest, and indeed what ``realistic'' means in this
 
 This paper reports on the updates made in the current release of \stdpopsim  (version 0.2),
 and is also intended as a resource for any researcher
-who wishes to develop whole-genome simulations for their own species of interest.
+who wishes to develop chromosome-scale simulations for their own species of interest.
 We start by describing the main idea behind the standardized simulation framework
 of \stdpopsim,
 and then outline the main updates made to the \stdpopsim catalog and simulation framework
@@ -259,23 +259,23 @@ in the past two years.
 We then provide guidelines for
 generating population genomic simulations, either for the purpose of using them in one specific study,
 or with the intent of making the simulations available for future work by adding the appropriate models to \stdpopsim.
-Among other considerations, we discuss when a whole-genome simulation is more useful than
+Among other considerations, we discuss when a chromosome-scale simulation is more useful than
 simulations based on either individual loci or generic (non-species specific) loci.
 We specify the required input data,
 mention common pitfalls in choosing appropriate parameters,
 and suggest courses of action for species that are missing estimates of some necessary inputs.
 We conclude with examples from two species recently added to \stdpopsim,
-which demonstrate some of the main considerations involved in the process of designing realistic whole-genome simulations.
+which demonstrate some of the main considerations involved in the process of designing realistic chromosome-scale simulations.
 While the guidelines provided in this paper are intended for any researcher interested in implementing a population genomic simulation using any software,
 we highlight the ways in which the \stdpopsim framework eases the burden involved in this process and facilitates reproducible research.
 
 
 
 
-\section*{The utility of \stdpopsim for genome-wide simulations}
+\section*{The utility of \stdpopsim for chromosome-scale simulations}
     \label{sec:std-sim}
 
-We begin by providing a brief overview of the importance of genome-wide simulations and the main rationale behind \stdpopsim;
+We begin by providing a brief overview of the importance of chromosome-scale simulations and the main rationale behind \stdpopsim;
 see \citet{Adrion2020} for more on the topic.
 The main objective of population genomic simulations is to recreate 
 patterns of sequence variation along the genome under 
@@ -313,7 +313,7 @@ This quality control process quite often finds subtle bugs \citep[e.g., as in][]
 or highlights parts of the model that are ambiguously defined by the literature sources.
 This increases the reliability and reproducibility of the resulting simulations in any downstream analysis.
 
-Another important goal of \stdpopsim is to promote whole-genome simulations,
+Another important goal of \stdpopsim is to promote chromosome-scale simulations,
 as opposed to the common practice of simulating many short segments \citep[see, e.g.,][]{harris2016genetic}.
 Simulation of long sequences, on the order of $10^7$ bases,
 has until recently been computationally prohibitive,
@@ -408,7 +408,7 @@ Some features were added by upgrading the neutral simulation engine, \texttt{msp
 Among other features, this upgrade includes a discrete site model of mutation,
 which enables simulating sites with multiple mutations and possibly more than two alleles.
 Another key functionality added to \stdpopsim's simulation framework was the ability to model non-crossover recombination.
-In bacteria and archaea, recombination occurs primarily through the transfer of homologous DNA segments from one organism to another \citep{Thomas2005,Didelot2010,Gophna2022}.
+In bacteria and archaea, recombination occurs through horizontal transfer of homologous DNA segments from one organism to another \citep{Thomas2005,Didelot2010,Gophna2022}.
 As a result, such species cannot be realistically simulated with a recombination model that considers only crossovers,
 as did the initial version of \stdpopsim.
 To address this, we made use of features of the \texttt{msprime} and \texttt{SLiM} simulation engines for modeling non-crossover recombination.
@@ -688,8 +688,8 @@ However, genetic correlations between different specific contigs lumped together
 So, if the main purpose of the simulation is to examine local patterns of genetic variation in loci of interest, then it may be more appropriate to simulate the relevant contigs separately (even if they are short), or to randomly sample several mappings of contigs to pseudo-chromosomes.
 For some purposes it makes sense to simulate a large number of unlinked sites \citep{Gutenkunst2009,Excoffier2013},
 which can be generated without any sort of genome assembly.
-However, this approach would not have the benefits of whole-chromosome simulations.
-While some of the same considerations hold, a discussion of the advantages and disadvantages of such simulations goes beyond the scope of this paper.
+However, this approach would not have the benefits of chromosome-scale simulations.
+While some of the same considerations hold when simulating unlinked short sequences, a detailed discussion about such simulations goes beyond the scope of this paper.
 Ultimately, the recommended mode of simulation for species with partial genome assembly depends on the intended use of the simulated genomes.
 
 \section*{Examples of added species}
@@ -766,7 +766,7 @@ and the model underwent the standard quality control process.
 The species entry may be refined in the future by adding more demographic models,
 updating or refining the recombination map,
 or updating the mutation rate estimates based on ones directly estimated for this species.
-Note that even if the mutation rate is ever updated,
+Note that even if the mutation rate is updated sometime in the future,
 the demographic model mentioned above should still be associated with the current
 mutation rate ($\mu=3.5 \times 10^{-9}$),
 since this was the rate used in its inference.
@@ -870,7 +870,7 @@ computational biology and software development.
 We are keen to use outreach, such as the workshops and hackathons described here, 
 as a way to grow the \stdpopsim catalog and library and
 democratize the development of population genomic simulations in general.
-We predict that the increased use of whole-genome simulations in non-model species will lead to an improvement in inference methods,
+We predict that the increased use of chromosome-scale simulations in non-model species will lead to an improvement in inference methods,
 which traditionally have been quite narrowly focused on well-studied model organisms.
 Thus, we hope that further expansion of \stdpopsim will improve the ease and reproducibility of research across a larger number of systems,
 while simultaneously expanding the community of software developers among population and evolutionary geneticists.
@@ -886,13 +886,14 @@ whose combined feedback motivated many of the updates made to \stdpopsim in the 
 \section*{Funding}
     \label{funding}
 
-%Ilan: I reordered this baed on author order, but we can reconsider, if needed
 M.~Elise Lauterbur was supported by an NSF Postdoctoral Research Fellowship \#2010884.
 Jean Cury was founded by DIM One Health 2017 (number RPH17094JJP) and Human Frontier Science Project, (number RGY0075/2019).
 David Peede is a trainee supported under the Brown University Predoctoral Training Program in Biological Data Science (NIH T32 GM128596).
 Franz Baumdicker was supported by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) under Germany’s Excellence Strategy – EXC 2064/1 – Project number 390727645, and EXC 2124 – Project number 390838134.
+Reed A. Cartwright was supported by NSF award DBI-1929850.
 Gregor Gorjanc was supported by the University of Edinburgh and BBSRC grant to The Roslin Institute (BBS/E/D/30002275).
 Ryan N. Gutenkunst was supported by NIH award R01GM127348.
+Jerome Kelleher was supported by the Robertson Foundation.
 Andrew D. Kern and Peter L. Ralph were supported by NIH award R01HG010774.
 
 \bibliography{references}
