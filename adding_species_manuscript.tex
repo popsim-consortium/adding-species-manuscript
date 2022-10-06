@@ -63,15 +63,16 @@
 \author[2,*]{Maria Izabel A. Cavassim}
 \author[3,*]{Ariella L. Gladstein}
 \author[4,*]{Graham Gower}
-\author[5,*]{Georgia Tsambos}
-\author[6,7]{Jeff Adrion}
-\author[6]{Saurabh Belsare}
+\author[5*]{Nathaniel S. Pope}
+\author[6,*]{Georgia Tsambos}
+\author[5,7]{Jeff Adrion}
+\author[5]{Saurabh Belsare}
 \author[8]{Arjun Biddanda}
-\author[6]{Victoria Caudill}
+\author[5]{Victoria Caudill}
 \author[9]{Jean Cury}
 \author[10]{Ignacio Echevarria}
 \author[11]{Benjamin C. Haller}
-\author[12,13]{Ahmed Hasan}
+\author[12,13]{Ahmed R. Hasan}
 \author[14,15]{Xin Huang}
 \author[16]{Leonardo Nicola Martin Iasi}
 \author[17]{Ekaterina Noskova}
@@ -80,12 +81,11 @@
 \author[20,21]{Alice Pearson}
 \author[22,23]{David Peede}
 \author[24]{Manolo F. Perez}
-\author[6]{Nathaniel S. Pope}
-\author[6]{Murillo F. Rodrigues}
-\author[6]{Chris C. R. Smith}
+\author[5]{Murillo F. Rodrigues}
+\author[5]{Chris C. R. Smith}
 \author[25]{Jeffrey P. Spence}
-\author[6]{Anastasia Teterina}
-\author[6]{Silas Tittes}
+\author[5]{Anastasia Teterina}
+\author[5]{Silas Tittes}
 \author[26]{Per Unneberg}
 \author[27]{Juan Manuel Vasquez}
 \author[28]{Ryan Waples}
@@ -96,21 +96,21 @@
 \author[33]{Gregor Gorjanc}
 \author[34]{Ryan N. Gutenkunst}
 \author[30]{Jerome Kelleher}
-\author[6]{Andrew D. Kern}
+\author[5]{Andrew D. Kern}
 \author[35]{Aaron P. Ragsdale}
-\author[6,36]{Peter L. Ralph}
+\author[5,36]{Peter L. Ralph}
 \author[37]{Daniel R. Schrider}
 \author[38,+]{Ilan Gronau}
 
 
 \affil[*]{\small{These authors contributed equally to the paper.}}
-\affil[*]{\small{corresponding authors: lauterbur@gmail.com ; ilan.gronau@runi.ac.il.}}
+\affil[+]{\small{Corresponding authors: lauterbur@gmail.com ; ilan.gronau@runi.ac.il.}}
 \affil[1]{\small{Department of Ecology and Evolutionary Biology, University of Arizona, Tucson AZ 85719, USA}}
 \affil[2]{\small{Department of Ecology and Evolutionary Biology, University of California, Los Angeles, Los Angeles CA, USA}}
 \affil[3]{\small{Embark Veterinary, Inc., Boston MA 02111, USA}}
 \affil[4]{\small{Section for Molecular Ecology and Evolution, Globe Institute, University of Copenhagen, Denmark}}
-\affil[5]{\small{School of Mathematics and Statistics, University of Melbourne, Australia}}
-\affil[6]{\small{Institute of Ecology and Evolution, University of Oregon, Eugene OR 97402, USA}}
+\affil[5]{\small{Institute of Ecology and Evolution, University of Oregon, Eugene OR 97402, USA}}
+\affil[6]{\small{School of Mathematics and Statistics, University of Melbourne, Australia}}
 \affil[7]{\small{AncestryDNA, San Francisco CA 94107, USA}}
 \affil[8]{\small{54Gene, Inc., Washington DC 20005, USA}}
 \affil[9]{\small{Université Paris-Saclay, CNRS, INRIA, Laboratoire Interdisciplinaire des Sciences du Numérique, UMR 9015 Orsay, France}}
@@ -260,7 +260,9 @@ We then provide guidelines for
 generating population genomic simulations, either for the purpose of using them in one specific study,
 or with the intent of making the simulations available for future work by adding the appropriate models to \stdpopsim.
 Among other considerations, we discuss when a chromosome-scale simulation is more useful than
-simulations based on either individual loci or generic (non-species specific) loci.
+simulations based on either individual loci or generic %(non-species specific)
+loci.
+% commented out 'non-species specific' bove, since Dan pointed out that a generic locus could be species-specific (e.g., using the demographic model of that species). The point here is not about being species-specific, but about simulating long stretches of DNA.
 We specify the required input data,
 mention common pitfalls in choosing appropriate parameters,
 and suggest courses of action for species that are missing estimates of some necessary inputs.
@@ -313,7 +315,7 @@ This quality control process quite often finds subtle bugs \citep[e.g., as in][]
 or highlights parts of the model that are ambiguously defined by the literature sources.
 This increases the reliability and reproducibility of the resulting simulations in any downstream analysis.
 
-Another important goal of \stdpopsim is to promote chromosome-scale simulations,
+Another important goal of \stdpopsim is to promote and facilitate chromosome-scale simulations,
 as opposed to the common practice of simulating many short segments \citep[see, e.g.,][]{harris2016genetic}.
 Simulation of long sequences, on the order of $10^7$ bases,
 has until recently been computationally prohibitive,
@@ -321,7 +323,7 @@ but this has changed with the development of modern simulation engines,
 such as \texttt{msprime} and \texttt{SLiM}.
 Generating chromosome-scale simulations has several key benefits.
 First, the organization of genes on chromosomes is a key feature of a species' genome that is ignored in many traditional population genomic simulations
- (see \cite{schrider2020background} for a notable exception).
+ (see \cite{schrider2020background} one exception).
 Second, modeling physical linkage allows simulations to capture
 important correlations between genetic variants along the same chromosomes.
 These correlations reduce variance relative to independent simulations of equivalent genetic material.
@@ -416,6 +418,7 @@ Modeling recombination in a bacterial or archaeal species in \stdpopsim is done 
 and specifying an average tract length of exchanged genetic material.
 For example, the model for \textit{Escherichia coli} has been updated in the \stdpopsim catalog to use non-crossover recombination at an average rate of $8.9\times 10^{-11}$ (per base per generation),
 with an average tract length of 542 bases \citep{Wielgoss2011,Didelot2012}.
+Note that this rate ($8.9\times 10^{-11}$) corresponds to the rate of initiation of a recombined tract.
 
 Recombination without crossover is also prevalent in sexually reproducing species,
 where it is termed \emph{gene conversion}.
@@ -426,9 +429,10 @@ one needs to specify the fraction of recombinations that occur due to gene conve
 For example, the model for \emph{Drosophila melanogaster} has been updated in the \stdpopsim catalog to have a fraction of gene conversions of 0.83 (in all chromosomes with recombination) and an average tract length of 518 bases \citep{Comeron2012}.
 We note, however, that since non-crossover recombination incurs a high computation load in simulation,
 it is turned off by default in \stdpopsim, and must be explicitly invoked by the simulation model.
+Note that unless this option is explicitly turned on in simulation, the effective fraction of gene conversions is 0, even if a positive fraction is specified for that species.
 
 
-Another important extension of \stdpopsim allows augmenting a genome assembly by genome annotations, such as coding regions, promoters, conserved elements, etc.
+Another important extension of \stdpopsim allows augmenting a genome assembly with genome annotations, such as coding regions, promoters, conserved elements, etc.
 These annotations can be used to simulate selection at a subset of sites (e.g., the annotated coding regions)
 using parametric distributions of fitness effects.
 Standardized, easily accessible simulations
@@ -556,7 +560,7 @@ and described in more detail in a future paper.
 	\textbf{Genome annotations}, specifying regions subject to selection (e.g., as GFF3/GTF file).
     For instance, annotations can contain information on the location of coding regions,
     the position of specific genes, or conserved non-coding regions.
-    Regions not covered by the annotation file are assumed to be neutrally evolving.
+    Regions not covered by the annotation file are assumed to be evolving free from the effects of direct natural selection.
 
 	\item
 	\textbf{Distributions of fitness effects} (DFEs) for each annotation.
@@ -603,8 +607,8 @@ and to proceed carefully when mixing sources.
 An additional tricky source of inconsistency is coordinate drift between 
 subsequent versions of genome assemblies.
 In \stdpopsim, we follow the UCSC Genome Browser
-and use liftover to convert the coordinates of genetic maps and genome annotations
-to the coordinates of the current genome assembly.
+and use liftOver to convert the coordinates of genetic maps and genome annotations
+to the coordinates of the current genome assembly \citep{Hinrichs2006ucsc}.
 
 
 \subsection*{Filling out the missing pieces}
@@ -895,6 +899,7 @@ Gregor Gorjanc was supported by the University of Edinburgh and BBSRC grant to T
 Ryan N. Gutenkunst was supported by NIH award R01GM127348.
 Jerome Kelleher was supported by the Robertson Foundation.
 Andrew D. Kern and Peter L. Ralph were supported by NIH award R01HG010774.
+Daniel R. Schrider was supported by NIH award R35GM138286
 
 \bibliography{references}
 \end{document}
