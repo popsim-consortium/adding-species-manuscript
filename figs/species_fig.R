@@ -6,13 +6,14 @@ library(tidytree)
 library(ggnewscale)
 library(viridisLite)
 library(ggtreeExtra)
+library(ggimage)
 
 tree <- read.tree("species.nwk")
 tree$tip.label <- gsub("_"," ",tree$tip.label)
 tree$tip.label[which(tree$tip.label=="Canis lupus")] <- "Canis familiaris"
 
 species <- tibble(species=tree$tip.label) %>%
-  mutate(plot_species = gsub("_", " ", species),
+  mutate(plot_species = gsub("_", " ", species),ggimage::phylopic_uid(tree$tip.label)[2],
     original=ifelse(plot_species %in% c("Homo sapiens", "Drosophila melanogaster", "Arabidopsis thaliana", 
                                         "Pongo abelii", "Canis familiaris", "Escherichia coli"), "original", 
                     ifelse(plot_species %in% c("Bos taurus","Anas platyrhynchos", "Aedes aegypti", "Chlamydomonas reinhardtii",
@@ -21,6 +22,13 @@ species <- tibble(species=tree$tip.label) %>%
                                           "Anolis carolinensis", "Gasterosteus aculeatus"), "hackathon", 
                            #"new"))) # different color for hackathon and after hackathon
                            "hackathon"))) # don't distinguish between hackathon and after
+
+#Drosophila sechellia is not in Phylopic, so I used D. melanogaster silhouette
+species[which(species$plot_species=="Drosophila sechellia"),3] <- "ea8fa530-d856-4423-a81d-a74342cd1875"
+#There is a bug when Heliconius silhouette is loaded, so I changed it to another Nyphalidae buttterfly.
+species[which(species$plot_species=="Heliconius melpomene"),3] <- "0c391d43-30a5-4077-bdcb-fbb80f5d13e6"
+species[which(species$plot_species=="Homo sapiens"),3] <- "e002646f-0bb6-4f04-a190-a6ff5658f116"
+species[which(species$plot_species=="Streptococcus agalactiae"),3] <- "e5bdf92d-8441-4136-b1a7-44bc79bf82a1"
 
 if (FALSE) { # plot just the phylogeny
     ggtree(tree, size=2) %<+% species +
@@ -65,13 +73,15 @@ species<-species %>%
          map=ifelse(map==0,NA,map))
 
 tree_plot <- ggtree(tree, size=2) %<+% species +
-  geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), 
-              lineheight=0.8, fontface='bold.italic', hjust=-.08)+
+  geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), offset=250,
+              lineheight=0.8, fontface='italic', hjust=-.015) +
+  geom_tiplab(aes(image=uid), geom="phylopic", size=0.035, offset=5) +
   ggplot2::xlim(0, 6000) +
 #  scale_color_manual(values=c("darkorange3","seagreen","darkblue"), guide="none") +
   scale_color_manual(values=c("darkorange3","darkblue"), guide="none") +
   new_scale_color()
 
+#species <- select(species,-3)
 species_long <-species %>% 
   pivot_longer(cols=c(demog,map,annotations,DFE)) %>%
   mutate(name=ifelse(name=="demog","demographic\nmodels",
@@ -231,4 +241,5 @@ tree_plot +
   theme(legend.position = "none") +
   ggplot2::ylim(-1.5,21.5)
 
-ggsave("./species_fig.pdf",height=9,width=9)
+ggsave("./species_fig.pdf",height=10,width=10)
+
