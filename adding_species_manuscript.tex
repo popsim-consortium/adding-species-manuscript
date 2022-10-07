@@ -660,9 +660,8 @@ Table \ref{tab:param-mod} provides suggestions for ways to deal with missing val
 The table also mentions possible consequences of misspecification of each parameter.
 
 
-There are additional considerations that apply to species with partial genome builds.
-We discussed above our choice in \stdpopsim to focus on species with chromosome-level assemblies.
-However, simulation is still potentially useful for species with partial genome builds.
+In some cases, one may wish to generate simulations for a species with a partial genome build.
+Despite the focus of \stdpopsim  on species with chromosome-level assemblies (see discussion above), simulation is still potentially useful for species with less complete assemblies, with some important considerations to keep in mind.
 Longer contigs or scaffolds in these builds can be simulated separately and independently.
 This approach allows us to model genetic linkage within each contig,
 but linkage between different contigs that map to the same chromosome will not be captured by the simulation.
