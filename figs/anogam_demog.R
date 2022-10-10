@@ -6,6 +6,7 @@ library(POPdemog)
 library(gridExtra)
 library(scales)
 library(cowplot)
+library(rphylopic)
 setwd("/home/lauterbur/Documents/Manuscripts/adding-species-manuscript/figs/")
 
 # make demography plot
@@ -38,20 +39,20 @@ ms_style<- paste("ms 1 1 -r 1 -t 1",pop_change)
 x<-c(0,0,0,0)
 y<-c(1.2,min(adj_times),max(adj_times),4.9) # adjust so added axis scale lines up properly
 
-pdf("anogam_demog.pdf")
-PlotMS(input.cmd=ms_style, type="ms", time.scale = "4Ne", col.pop="darkblue",  
-       #pops="Anopheles gambiae",
-       xlab="", ylab=paste("Time before present (generations)", sep = ""),
-       axes=FALSE)
-NRuler(.895,0, Nsize=c(0,1000000), size.scale="linear", N4=sizes[1], linear.scale=.2)
-par(new = TRUE)                             # Add new plot
-plot(x, y, type="n", pch = 1, col = "green",# c("white","darkblue"),              # Create second plot without axes
-     axes = FALSE, xlab = "", ylab = "")
-axis(side = 2, at = c(1.2,2.125,3.05,3.975,4.9), # line up with size changes
-     labels=c(1,10,100,1000,10000),
-     pos=-.7)
-text(-.375,.88,"Effective population size (Ne)")
-dev.off()
+# pdf("anogam_demog.pdf")
+# PlotMS(input.cmd=ms_style, type="ms", time.scale = "4Ne", col.pop="darkblue",  
+#        #pops="Anopheles gambiae",
+#        xlab="", ylab=paste("Time before present (generations)", sep = ""),
+#        axes=FALSE)
+# NRuler(.895,0, Nsize=c(0,1000000), size.scale="linear", N4=sizes[1], linear.scale=.2)
+# par(new = TRUE)                             # Add new plot
+# plot(x, y, type="n", pch = 1, col = "green",# c("white","darkblue"),              # Create second plot without axes
+#      axes = FALSE, xlab = "", ylab = "")
+# axis(side = 2, at = c(1.2,2.125,3.05,3.975,4.9), # line up with size changes
+#      labels=c(1,10,100,1000,10000),
+#      pos=-.7)
+# text(-.375,.88,"Effective population size (Ne)")
+# dev.off()
 
 
 # make table
@@ -65,9 +66,10 @@ table_data<-tibble(chrom=chrom,chrom_lengths=chrom_lengths,rho=rho,mu=mu) %>%
   mutate_at(c("rho","mu"), scientific) %>%
   mutate(chrom_lengths = number(chrom_lengths, big.mark = ","))
 
-names(table_data)<-c(chrom="Chromosome",chrom_lengths="Chromosome\nlengths",rho="Recombination\nrate",mu="Mutation\nrate")
+names(table_data)<-c(chrom="Chromosome",chrom_lengths="Chromosome\nlength",rho="Recombination\nrate",mu="Mutation\nrate")
 
 # combine
+anogam<-image_data("f538aa99-5c08-4f96-97d9-2e094ef5d84f",size="thumb")
 p1<-function() {
   PlotMS(input.cmd=ms_style, type="ms", time.scale = "4Ne", col.pop="darkblue",  
          #pops="Anopheles gambiae",
@@ -80,6 +82,7 @@ p1<-function() {
   axis(side = 2, at = c(1.2,2.125,3.05,3.975,4.9), # line up with size changes
        labels=c(1,10,100,1000,10000),
        pos=-.7)
+  add_phylopic_base(anogam[[1]], .3, 4.5, .4, 1)
 #  text(0.4,.95,"Effective population size (Ne)",cex=.7)
 }
 

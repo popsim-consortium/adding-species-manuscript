@@ -25,13 +25,13 @@ species <- tibble(species=tree$tip.label) %>%
 
 #Drosophila sechellia is not in Phylopic, so I used D. melanogaster silhouette
 species[which(species$plot_species=="Drosophila sechellia"),3] <- "ea8fa530-d856-4423-a81d-a74342cd1875"
-#There is a bug when Heliconius silhouette is loaded, so I changed it to another Nyphalidae buttterfly.
+# Manolo: There is a bug when Heliconius silhouette is loaded, so I changed it to another Nyphalidae buttterfly.
 species[which(species$plot_species=="Heliconius melpomene"),3] <- "0c391d43-30a5-4077-bdcb-fbb80f5d13e6"
 species[which(species$plot_species=="Homo sapiens"),3] <- "e002646f-0bb6-4f04-a190-a6ff5658f116"
 species[which(species$plot_species=="Streptococcus agalactiae"),3] <- "e5bdf92d-8441-4136-b1a7-44bc79bf82a1"
 
 if (FALSE) { # plot just the phylogeny
-    ggtree(tree, size=2) %<+% species +
+    ggtree(tree, size=1.5) %<+% species +
       geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), 
                   lineheight=0.8, fontface='bold.italic', hjust=-.08)+
       ggplot2::xlim(0, 6000) +
@@ -72,14 +72,7 @@ species<-species %>%
   mutate(demog=ifelse(demog==0,NA,demog),
          map=ifelse(map==0,NA,map))
 
-tree_plot <- ggtree(tree, size=2) %<+% species +
-  geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), offset=250,
-              lineheight=0.8, fontface='italic', hjust=-.015) +
-  geom_tiplab(aes(image=uid), geom="phylopic", size=0.035, offset=5) +
-  ggplot2::xlim(0, 6000) +
-#  scale_color_manual(values=c("darkorange3","seagreen","darkblue"), guide="none") +
-  scale_color_manual(values=c("darkorange3","darkblue"), guide="none") +
-  new_scale_color()
+
 
 #species <- select(species,-3)
 species_long <-species %>% 
@@ -220,6 +213,29 @@ species_long <-species %>%
 
 # increase size of column labels, angle, remove "NA" in legend - do this outside R because ggtree doesn't want to
 
+
+# thin line, left justified
+tree_plot <- ggtree(tree, size=.5) %<+% species +
+  geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), offset=300,
+              lineheight=0.8, fontface='italic', #hjust=-.015,
+              hjust=0) +
+  geom_tiplab(aes(image=uid), geom="phylopic", size=0.035, offset=5) +
+  ggplot2::xlim(0, 6000) +
+  #  scale_color_manual(values=c("darkorange3","seagreen","darkblue"), guide="none") +
+  scale_color_manual(values=c("darkorange3","darkblue"), guide="none") +
+  new_scale_color() +
+  geom_treescale(width=500, label = "            my", offset=-.37, offset.label=-0.09)
+tree_plot
+# thin line, right justified
+# tree_plot <- ggtree(tree, size=.5) %<+% species +
+#   geom_tiplab(aes(color=original, label=str_wrap(plot_species,15)), offset=950,
+#               lineheight=0.8, fontface='italic', #hjust=-.015,
+#               hjust=1) +
+#   geom_tiplab(aes(image=uid), geom="phylopic", size=0.035, offset=5) +
+#   ggplot2::xlim(0, 6000) +
+#   #  scale_color_manual(values=c("darkorange3","seagreen","darkblue"), guide="none") +
+#   scale_color_manual(values=c("darkorange3","darkblue"), guide="none") +
+#   new_scale_color() 
 tree_plot +
   geom_fruit(data=species_long %>% filter(name!="DFE", name!="annotations") %>% 
                mutate(name=droplevels(name)) %>%
@@ -228,7 +244,8 @@ tree_plot +
              geom=geom_point,
              aes(y=species,x=name,color=value),
              pwidth=.12,
-             offset=0.13,
+#             offset=0.13,
+             offset=0.135,
              axis.params=list(
                axis="x", # add axis text of the layer.
                text.angle=90, # the text angle of x-axis.
