@@ -187,19 +187,23 @@ making them available, transparent, and accessible to everyone.
 \section*{Introduction}
     \label{introduction}
 
-Dramatic reductions in sequencing costs are enabling the generation of
-unprecedented amounts of genomic data for a huge variety of species
-\citep{Ellegren2014}. Ongoing efforts to systematically sequence life on
+%REVISION: modified beginning of paragraph (rev 1 comment)
+Population genetics allows us to answer questions across scales from deep evolutionary time to ongoing ecological dynamics,
+and dramatic reductions in sequencing costs enable the generation of
+unprecedented amounts of genomic data that can be used to address these questions \citep{Ellegren2014}.
+Ongoing efforts to systematically sequence life on
 Earth by initiatives such as the Earth Biogenome \citep{Lewin2022} and its
 affiliated project networks, such as Vertebrate Genomes
 \citep{Rhie2021}, 10,000 Plants \citep{Cheng2018} and others \citep{darwin2022sequence},
 are providing the backbone for enormous increases in the amount of population-level genomic data available for model and non-model species.
-%REVISION: TBD - add more details and citations to this sentence
-These data are being used to answer questions across scales
-from deep evolutionary time to ongoing ecological dynamics.
-Methods that use these data for purposes such as inference of demographic history and natural selection
-are also flourishing \citep{Beichman2018}.
-While past methods development focused on humans and a few key model systems such as \emph{Drosophila},
+These data are being used, among other things,
+in inference of population history and demographic parameters \citep{Beichman2018},
+studying adaptive introgression \citep{Gower2021},
+distinguishing adaptation from drift \citep[e.g.][]{Leigh2021},
+and understanding the implications of deleterious variation in populations of conservation concern \citep[e.g.][]{Robinson2023}.
+%Methods that use these data for purposes such as inference of demographic history
+%and natural selection are also flourishing \citep{}.
+While many of the methods that address these questions were initially developed for a few key model systems such as humans and \emph{Drosophila},
 more recent efforts are generalizing these methods to include 
 important factors not initially accounted for,
 such as inbreeding or selfing \citep{Blischak2020},
@@ -414,7 +418,7 @@ which enables simulating sites with multiple mutations and possibly more than tw
 Another key feature added to \stdpopsim's simulation framework was the ability to model non-crossover recombination.
 %REVISION: clarified HGT, due to rev 3 comment
 In bacteria and archaea, recombination occurs through horizontal gene transfer, which can add new genetic material from other species (e.g., via the transfer of plasmids) or replace homologous sequences in the chromosome through homologous recombination \citep{Thomas2005,Didelot2010,Gophna2022}.
-Since this mechanism is fundamentally different from crossover recombination, such species cannot be realistically simulated with a recombination model that considers only crossovers,
+As a result, such species cannot be realistically simulated with a recombination model that considers only crossovers,
 as did the initial version of \stdpopsim.
 To address this, we made use of features of the \texttt{msprime} and \texttt{SLiM} simulation engines for modeling non-crossover homologous recombination \citep{Cury2022}.
 Modeling recombination in a bacterial or archaeal species in \stdpopsim is done by setting a flag in the species model to indicate that recombination should be modeled without crossovers,
@@ -655,7 +659,8 @@ of the complete genealogical ancestry of the species.
 %(albeit the genealogy of any set of sampled individuals includes many ancestors).
 Thus, demographic models inferred from larger sets of samples from diverse ancestry backgrounds
 may provide a more comprehensive depiction of genetic variation within a species,
-as long as a sufficiently realistic demographic model can be fit.
+as long as a sufficiently realistic demographic model can be fit
+(in particular, models that account for the structure of populations within a species).
 That said, the choice of samples used for inference will mostly influence
 recent changes in genetic variation.
 This is because the genealogy of even a single individual consists of numerous ancestors
@@ -673,7 +678,7 @@ For example, very recent demographic changes, such as recent admixture or bottle
 are difficult to infer from the site frequency spectrum,
 but are more easily inferred by examining shared long haplotypes
 (as demonstrated by the demographic model inferred for \emph{Bos taurus} by \cite{MacLeod2013}; see below).
-Several studies have compare different approaches to demography inference \citep[e.g.,][]{Harris2013,Beichman2017}, but unfortunately, there is currently no succinct handbook that describes the relative strengths and weaknesses of different methods.
+Several studies have compared different approaches to demographic inference \citep[e.g.,][]{Harris2013,Beichman2017}, but unfortunately, there is currently no succinct handbook that describes the relative strengths and weaknesses of different methods.
 Thus, assessing the potential limitations of a given demographic model currently requires 
 some familiarity with the method used for its inference.
 %Ilan: added this to address rev 3's comment about BGS.
