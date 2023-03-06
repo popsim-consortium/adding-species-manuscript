@@ -417,11 +417,15 @@ Among other features, this upgrade includes a discrete-site model of mutation,
 which enables simulating sites with multiple mutations and possibly more than two alleles.
 Another key feature added to \stdpopsim's simulation framework was the ability to model non-crossover recombination.
 %REVISION: clarified HGT, due to rev 3 comment
-In bacteria and archaea, recombination occurs through horizontal gene transfer, which can add new genetic material from other species (e.g., via the transfer of plasmids) or replace homologous sequences in the chromosome through homologous recombination \citep{Thomas2005,Didelot2010,Gophna2022}.
-As a result, such species cannot be realistically simulated with a recombination model that considers only crossovers,
-as did the initial version of \stdpopsim.
-To address this, we made use of features of the \texttt{msprime} and \texttt{SLiM} simulation engines for modeling non-crossover homologous recombination \citep{Cury2022}.
-Modeling recombination in a bacterial or archaeal species in \stdpopsim is done by setting a flag in the species model to indicate that recombination should be modeled without crossovers,
+In bacteria and archaea, genetic material can be exchanged by through horizontal gene transfer,
+which can add new genetic material (e.g., via the transfer of plasmids)
+or replace homologous sequences through homologous recombination \citep{Thomas2005,Didelot2010,Gophna2022}.
+However, the initial version of \stdpopsim used crossover recombination to stand in for these processes.
+Although we cannot currently simulate varying gene content (as would be required to simulate horizontal gene transfer),
+the \texttt{msprime} and \texttt{SLiM} simulation engines now allow gene conversion,
+which has the same effect as non-crossover homologous recombination.
+Following \citet{Cury2022}, we use this to include non-crossover homologous recombination in bacterial and archaeal species.
+This is done in \stdpopsim by setting a flag in the species model to indicate that recombination should be modeled without crossovers,
 and specifying an average tract length of exchanged genetic material.
 For example, the model for \textit{Escherichia coli} has been updated in the \stdpopsim catalog to use non-crossover recombination at an average rate of $8.9\times 10^{-11}$ recombination events per base per generation,
 with an average tract length of 542 bases \citep{Wielgoss2011,Didelot2012}.
