@@ -417,11 +417,12 @@ Among other features, this upgrade includes a discrete-site model of mutation,
 which enables simulating sites with multiple mutations and possibly more than two alleles.
 Another key feature added to \stdpopsim's simulation framework was the ability to model non-crossover recombination.
 %REVISION: clarified HGT, due to rev 3 comment
-In bacteria and archaea, genetic material can be exchanged by through horizontal gene transfer,
+In bacteria and archaea, genetic material can be exchanged through horizontal gene transfer,
 which can add new genetic material (e.g., via the transfer of plasmids)
 or replace homologous sequences through homologous recombination \citep{Thomas2005,Didelot2010,Gophna2022}.
 However, the initial version of \stdpopsim used crossover recombination to stand in for these processes.
-Although we cannot currently simulate varying gene content (as would be required to simulate horizontal gene transfer),
+Although we cannot currently simulate varying gene content
+(as would be required to simulate the addition of new genetic material by horizontal gene transfer)
 the \texttt{msprime} and \texttt{SLiM} simulation engines now allow gene conversion,
 which has the same effect as non-crossover homologous recombination.
 Following \citet{Cury2022}, we use this to include non-crossover homologous recombination in bacterial and archaeal species.
