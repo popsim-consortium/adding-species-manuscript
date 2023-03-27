@@ -78,9 +78,9 @@ species<-species %>%
 species_long <-species %>% 
   pivot_longer(cols=c(demog,map,annotations,DFE)) %>%
   mutate(name=ifelse(name=="demog","demographic\nmodels",
-                     ifelse(name=="map","genetic\nmaps",
+                     ifelse(name=="map","recombination\nmaps",
                             name)),
-         name=factor(name,levels=c("demographic\nmodels","genetic\nmaps","annotations","DFE")))
+         name=factor(name,levels=c("demographic\nmodels","recombination\nmaps","annotations","DFE")))
 
 # the below are testing versions with various combinations of colors, values, positions
 # tree_plot +
