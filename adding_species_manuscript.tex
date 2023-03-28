@@ -422,7 +422,7 @@ which can add new genetic material (e.g., via the transfer of plasmids)
 or replace homologous sequences through homologous recombination \citep{Thomas2005,Didelot2010,Gophna2022}.
 However, the initial version of \stdpopsim used crossover recombination to stand in for these processes.
 Although we cannot currently simulate varying gene content
-(as would be required to simulate the addition of new genetic material by horizontal gene transfer)
+(as would be required to simulate the addition of new genetic material by horizontal gene transfer),
 the \texttt{msprime} and \texttt{SLiM} simulation engines now allow gene conversion,
 which has the same effect as non-crossover homologous recombination.
 Following \citet{Cury2022}, we use this to include non-crossover homologous recombination in bacterial and archaeal species.
@@ -803,7 +803,7 @@ In each example, we highlight in bold the model parameters set for each species.
 	(B) A graphical depiction of the demographic model,
 	which consists of a single population whose size changes throughout the past 11,260 generations in 67 time intervals (note the log scale). The width at each point depicts the effective population size ($N_e$), with the horizontal bar at the bottom indicating the scale for $N_e=10^6$.
 	%REVISION: mentioned the docs
-	This figure is adapted from the data on the \stdpopsim catalog documentation page (see {\bf Data availability}) and plotted with POPdemog {Zhou2018}.
+	This figure is adapted from the data on the \stdpopsim catalog documentation page (see {\bf Data availability}) and plotted with POPdemog \citep{Zhou2018}.
 		\label{fig:anogam} }
 \end{figure}
 
